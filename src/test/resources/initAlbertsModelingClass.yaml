@@ -1,0 +1,46 @@
+
+- SEGroup: .Map
+  type: Unit
+  head: Albert
+  classes: modelingWT1819
+  students: Alice
+
+- modelingWT1819: .Map
+  type: SEClass
+  topic: modeling
+  assignments: midTerm final1 final2
+
+- Alice: .Map
+  type: SEStudent
+  studentId: m4242
+  achievements: a1
+
+- midTerm: .Map
+  type: Assignment
+  points: 12
+
+- final1: .Map
+  type: Assignment
+  points: 23
+
+- final2: .Map
+  type: Assignment
+  points: 42
+
+- a1: .Map
+  type: Achievement
+  grade: t.b.d.
+  solutions: s1 s2
+
+- s1: .Map
+  type: Solution
+  assignment: midTerm
+  gitUrl: gitlab.com/alice42/mod/f170a
+  points: 10
+
+- s2: .Map
+  type: Solution
+  assignment: final1
+  gitUrl: gitlab.com/alice42/mod/f170a
+  points: 21
+

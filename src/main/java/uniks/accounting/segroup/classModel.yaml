@@ -1,0 +1,245 @@
+- c1: 	ClassModel
+  classes: 	sEGroup2 	sEStudent3 	sEClass4 	achievement5 	solution6 	assignment7 	
+  defaultPropertyStyle: 	POJO
+  defaultRoleType: 	"java.util.ArrayList<%s>"
+  mainJavaDir: 	"src/main/java"
+  packageName: 	uniks.accounting.segroup
+  packageSrcFolder: 	"src/main/java/uniks/accounting/segroup"
+
+- sEGroup2: 	Clazz
+  attributes: 	head8 	
+  model: 	c1
+  modified: 	false
+  name: 	SEGroup
+  propertyStyle: 	POJO
+  roles: 	classes9 	students10 	
+
+- sEStudent3: 	Clazz
+  attributes: 	studentId11 	
+  model: 	c1
+  modified: 	false
+  name: 	SEStudent
+  propertyStyle: 	POJO
+  roles: 	group12 	achievements13 	
+
+- sEClass4: 	Clazz
+  attributes: 	topic14 	
+  model: 	c1
+  modified: 	false
+  name: 	SEClass
+  propertyStyle: 	POJO
+  roles: 	group15 	assignments16 	participations17 	
+
+- achievement5: 	Clazz
+  attributes: 	grade18 	
+  model: 	c1
+  modified: 	false
+  name: 	Achievement
+  propertyStyle: 	POJO
+  roles: 	seClass19 	student20 	solutions21 	
+
+- solution6: 	Clazz
+  attributes: 	gitUrl22 	points23 	
+  model: 	c1
+  modified: 	false
+  name: 	Solution
+  propertyStyle: 	POJO
+  roles: 	achievement24 	assignment25 	
+
+- assignment7: 	Clazz
+  attributes: 	points26 	
+  model: 	c1
+  modified: 	false
+  name: 	Assignment
+  propertyStyle: 	POJO
+  roles: 	seClass27 	solutions28 	
+
+- head8: 	Attribute
+  clazz: 	sEGroup2
+  modified: 	false
+  name: 	head
+  propertyStyle: 	POJO
+  type: 	String
+
+- classes9: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	sEGroup2
+  modified: 	false
+  name: 	classes
+  other: 	group15
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- students10: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	sEGroup2
+  modified: 	false
+  name: 	students
+  other: 	group12
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- studentId11: 	Attribute
+  clazz: 	sEStudent3
+  modified: 	false
+  name: 	studentId
+  propertyStyle: 	POJO
+  type: 	String
+
+- group12: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	sEStudent3
+  modified: 	false
+  name: 	group
+  other: 	students10
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- achievements13: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	sEStudent3
+  modified: 	false
+  name: 	achievements
+  other: 	student20
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- topic14: 	Attribute
+  clazz: 	sEClass4
+  modified: 	false
+  name: 	topic
+  propertyStyle: 	POJO
+  type: 	String
+
+- group15: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	sEClass4
+  modified: 	false
+  name: 	group
+  other: 	classes9
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- assignments16: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	sEClass4
+  modified: 	false
+  name: 	assignments
+  other: 	seClass27
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- participations17: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	sEClass4
+  modified: 	false
+  name: 	participations
+  other: 	seClass19
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- grade18: 	Attribute
+  clazz: 	achievement5
+  modified: 	false
+  name: 	grade
+  propertyStyle: 	POJO
+  type: 	String
+
+- seClass19: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	achievement5
+  modified: 	false
+  name: 	seClass
+  other: 	participations17
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- student20: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	achievement5
+  modified: 	false
+  name: 	student
+  other: 	achievements13
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- solutions21: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	achievement5
+  modified: 	false
+  name: 	solutions
+  other: 	achievement24
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- gitUrl22: 	Attribute
+  clazz: 	solution6
+  modified: 	false
+  name: 	gitUrl
+  propertyStyle: 	POJO
+  type: 	String
+
+- points23: 	Attribute
+  clazz: 	solution6
+  modified: 	false
+  name: 	points
+  propertyStyle: 	POJO
+  type: 	double
+
+- achievement24: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	solution6
+  modified: 	false
+  name: 	achievement
+  other: 	solutions21
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- assignment25: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	solution6
+  modified: 	false
+  name: 	assignment
+  other: 	solutions28
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- points26: 	Attribute
+  clazz: 	assignment7
+  modified: 	false
+  name: 	points
+  propertyStyle: 	POJO
+  type: 	double
+
+- seClass27: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	assignment7
+  modified: 	false
+  name: 	seClass
+  other: 	assignments16
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- solutions28: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	assignment7
+  modified: 	false
+  name: 	solutions
+  other: 	assignment25
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+

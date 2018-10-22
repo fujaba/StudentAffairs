@@ -58,8 +58,11 @@ public class TestStudentOffice
       uniStudent.buildAssociation(studyProgram, "majorSubject", ONE, "students", MANY);
       uniStudent.buildAssociation(enrollment, "enrollments", MANY, "student", ONE);
 
-      String fileName = FulibTools.classDiagrams().dumpPng(mb.getClassModel());
+      String fileName = FulibTools.classDiagrams().dumpSVG(mb.getClassModel(), "tmp/StudentOfficeModel.svg");
       System.out.println(fileName);
+
+      Fulib.generator().generate(mb.getClassModel());
+      Fulib.tablesGenerator().generate(mb.getClassModel());
    }
 
 
@@ -93,15 +96,18 @@ public class TestStudentOffice
             .buildAttribute("points", DOUBLE);
 
       seGroup.buildAssociation(seClass, "classes", MANY, "group", ONE);
-      seGroup.buildAssociation(seStudent, "sutdents", MANY, "group", ONE);
+      seGroup.buildAssociation(seStudent, "students", MANY, "group", ONE);
       seClass.buildAssociation(assignment, "assignments", MANY, "seClass", ONE);
       seClass.buildAssociation(achievement, "participations", MANY, "seClass", ONE);
       seStudent.buildAssociation(achievement, "achievements", MANY, "student", ONE);
       achievement.buildAssociation(solution, "solutions", MANY, "achievement", ONE);
       solution.buildAssociation(assignment, "assignment", ONE, "solutions", MANY);
 
-      String fileName = FulibTools.classDiagrams().dumpPng(mb.getClassModel());
+      String fileName = FulibTools.classDiagrams().dumpSVG(mb.getClassModel(), "tmp/SEGroupModel.svg");
       System.out.println(fileName);
+
+      Fulib.generator().generate(mb.getClassModel());
+      Fulib.tablesGenerator().generate(mb.getClassModel());
    }
 
 
@@ -120,7 +126,7 @@ public class TestStudentOffice
 
       YamlObject seGroup = (YamlObject) root;
 
-      return FulibTools.objectDiagrams().dumpPng("tmp/" + yamlName + ".png", root);
+      return FulibTools.objectDiagrams().dumpSVG("tmp/" + yamlName + ".svg", root);
    }
 
 

@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
-public class SEGroupTable 
+public class SEGroupTable  
 {
 
    public SEGroupTable(SEGroup... start)

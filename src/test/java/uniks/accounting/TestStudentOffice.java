@@ -86,13 +86,15 @@ public class TestStudentOffice
       ClassBuilder seStudent = mb.buildClass("SEStudent")
             .buildAttribute("studentId", STRING);
       ClassBuilder seClass = mb.buildClass("SEClass")
-            .buildAttribute("topic", STRING);
+            .buildAttribute("topic", STRING)
+            .buildAttribute("term", STRING);
       ClassBuilder achievement = mb.buildClass("Achievement")
             .buildAttribute("grade", STRING);
       ClassBuilder solution = mb.buildClass("Solution")
             .buildAttribute("gitUrl", STRING)
             .buildAttribute("points", DOUBLE);
       ClassBuilder assignment = mb.buildClass("Assignment")
+            .buildAttribute("task", STRING)
             .buildAttribute("points", DOUBLE);
 
       seGroup.buildAssociation(seClass, "classes", MANY, "group", ONE);

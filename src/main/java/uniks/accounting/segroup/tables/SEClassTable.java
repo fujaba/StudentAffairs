@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
-public class SEClassTable 
+public class SEClassTable  
 {
 
    public SEClassTable(SEClass... start)
@@ -370,5 +370,27 @@ public class SEClassTable
       return buf.toString();
    }
 
+
+   public StringTable expandTerm(String... rowName)
+   {
+      StringTable result = new StringTable();
+      result.setColumnMap(this.columnMap);
+      result.setTable(this.table);
+      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
+      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
+      result.setColumnName(newColumnName);
+      columnMap.put(newColumnName, newColumnNumber);
+
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SEClass start = (SEClass) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getTerm());
+         this.table.add(newRow);
+      }
+      return result;
+   }
 
 }

@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
-public class AchievementTable 
+public class AchievementTable  
 {
 
    public AchievementTable(Achievement... start)

@@ -264,4 +264,16 @@ public class SEGroup
 
       return null;
    }
+
+   public SEClass getClasses(String topic, String term)
+   {
+      for (SEClass c : this.getClasses())
+      {
+         if (c.getTopic().equals(topic) && c.getTerm().equals(term))
+         {
+            return c;
+         }
+      }
+      return null;
+   }
 }

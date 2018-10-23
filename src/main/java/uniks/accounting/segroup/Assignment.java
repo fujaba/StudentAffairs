@@ -199,4 +199,42 @@ public class Assignment
 
 
 
+
+
+
+
+
+
+   public static final String PROPERTY_task = "task";
+
+   private String task;
+
+   public String getTask()
+   {
+      return task;
+   }
+
+   public Assignment setTask(String value)
+   {
+      if (value == null ? this.task != null : ! value.equals(this.task))
+      {
+         String oldValue = this.task;
+         this.task = value;
+         firePropertyChange("task", oldValue, value);
+      }
+      return this;
+   }
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+
+      result.append(" ").append(this.getTask());
+
+
+      return result.substring(1);
+   }
+
 }

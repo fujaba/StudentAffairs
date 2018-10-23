@@ -13,6 +13,7 @@ public class TestEventSourceing
 
    public static final String CS = "CS";
    public static final String ALBERT = "Albert";
+   public static final String MODELING = "modeling";
 
    @Test
    public void testBuildViaEvents()
@@ -24,7 +25,7 @@ public class TestEventSourceing
       StudentOffice fb16 = ob.buildStudentOffice("FB16");
       StudyProgram cs = ob.buildStudyProgram(CS);
       Course math = ob.buildCourse(cs, "math");
-      Course modeling = ob.buildCourse(cs, "modeling");
+      Course modeling = ob.buildCourse(cs, MODELING);
       Lecturer albert = ob.buildLecturer(ALBERT);
       Examination exam = ob.buildExamination(modeling, albert, "2019-03-19");
       UniStudent alice = ob.buildStudent("Alice", "m4242");
@@ -43,8 +44,9 @@ public class TestEventSourceing
       Assert.assertThat(clone.getStudentOffice().getStudents().size(), equalTo(1));
 
       SEGroupBuilder gb = new SEGroupBuilder();
-
       SEGroup seGroup = gb.buildSEGroup(ALBERT);
+      gb.buildSEClass(MODELING, "2018-10");
+
       gb.build(log);
 
       FulibTools.objectDiagrams().dumpSVG("tmp/SEGroup.svg", seGroup);

@@ -23,36 +23,36 @@
   roles: 	group12 	achievements13 	
 
 - sEClass4: 	Clazz
-  attributes: 	topic14 	
+  attributes: 	topic14 	term15 	
   model: 	c1
   modified: 	false
   name: 	SEClass
   propertyStyle: 	POJO
-  roles: 	group15 	assignments16 	participations17 	
+  roles: 	group16 	assignments17 	participations18 	
 
 - achievement5: 	Clazz
-  attributes: 	grade18 	
+  attributes: 	grade19 	
   model: 	c1
   modified: 	false
   name: 	Achievement
   propertyStyle: 	POJO
-  roles: 	seClass19 	student20 	solutions21 	
+  roles: 	seClass20 	student21 	solutions22 	
 
 - solution6: 	Clazz
-  attributes: 	gitUrl22 	points23 	
+  attributes: 	gitUrl23 	points24 	
   model: 	c1
   modified: 	false
   name: 	Solution
   propertyStyle: 	POJO
-  roles: 	achievement24 	assignment25 	
+  roles: 	achievement25 	assignment26 	
 
 - assignment7: 	Clazz
-  attributes: 	points26 	
+  attributes: 	task27 	points28 	
   model: 	c1
   modified: 	false
   name: 	Assignment
   propertyStyle: 	POJO
-  roles: 	seClass27 	solutions28 	
+  roles: 	seClass29 	solutions30 	
 
 - head8: 	Attribute
   clazz: 	sEGroup2
@@ -67,7 +67,7 @@
   clazz: 	sEGroup2
   modified: 	false
   name: 	classes
-  other: 	group15
+  other: 	group16
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -104,7 +104,7 @@
   clazz: 	sEStudent3
   modified: 	false
   name: 	achievements
-  other: 	student20
+  other: 	student21
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -115,7 +115,14 @@
   propertyStyle: 	POJO
   type: 	String
 
-- group15: 	AssocRole
+- term15: 	Attribute
+  clazz: 	sEClass4
+  modified: 	false
+  name: 	term
+  propertyStyle: 	POJO
+  type: 	String
+
+- group16: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	sEClass4
@@ -125,44 +132,44 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- assignments16: 	AssocRole
+- assignments17: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	sEClass4
   modified: 	false
   name: 	assignments
-  other: 	seClass27
+  other: 	seClass29
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- participations17: 	AssocRole
+- participations18: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	sEClass4
   modified: 	false
   name: 	participations
-  other: 	seClass19
+  other: 	seClass20
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- grade18: 	Attribute
+- grade19: 	Attribute
   clazz: 	achievement5
   modified: 	false
   name: 	grade
   propertyStyle: 	POJO
   type: 	String
 
-- seClass19: 	AssocRole
+- seClass20: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	achievement5
   modified: 	false
   name: 	seClass
-  other: 	participations17
+  other: 	participations18
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- student20: 	AssocRole
+- student21: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	achievement5
@@ -172,74 +179,81 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- solutions21: 	AssocRole
+- solutions22: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	achievement5
   modified: 	false
   name: 	solutions
-  other: 	achievement24
+  other: 	achievement25
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- gitUrl22: 	Attribute
+- gitUrl23: 	Attribute
   clazz: 	solution6
   modified: 	false
   name: 	gitUrl
   propertyStyle: 	POJO
   type: 	String
 
-- points23: 	Attribute
+- points24: 	Attribute
   clazz: 	solution6
   modified: 	false
   name: 	points
   propertyStyle: 	POJO
   type: 	double
 
-- achievement24: 	AssocRole
+- achievement25: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	solution6
   modified: 	false
   name: 	achievement
-  other: 	solutions21
+  other: 	solutions22
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- assignment25: 	AssocRole
+- assignment26: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	solution6
   modified: 	false
   name: 	assignment
-  other: 	solutions28
+  other: 	solutions30
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- points26: 	Attribute
+- task27: 	Attribute
+  clazz: 	assignment7
+  modified: 	false
+  name: 	task
+  propertyStyle: 	POJO
+  type: 	String
+
+- points28: 	Attribute
   clazz: 	assignment7
   modified: 	false
   name: 	points
   propertyStyle: 	POJO
   type: 	double
 
-- seClass27: 	AssocRole
+- seClass29: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	assignment7
   modified: 	false
   name: 	seClass
-  other: 	assignments16
+  other: 	assignments17
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- solutions28: 	AssocRole
+- solutions30: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	assignment7
   modified: 	false
   name: 	solutions
-  other: 	assignment25
+  other: 	assignment26
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 

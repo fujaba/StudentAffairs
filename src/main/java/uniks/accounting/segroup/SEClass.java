@@ -265,6 +265,7 @@ public class SEClass
       StringBuilder result = new StringBuilder();
 
       result.append(" ").append(this.getTopic());
+      result.append(" ").append(this.getTerm());
 
 
       return result.substring(1);
@@ -283,4 +284,36 @@ public class SEClass
    }
 
 
+   public static final String PROPERTY_term = "term";
+
+   private String term;
+
+   public String getTerm()
+   {
+      return term;
+   }
+
+   public SEClass setTerm(String value)
+   {
+      if (value == null ? this.term != null : ! value.equals(this.term))
+      {
+         String oldValue = this.term;
+         this.term = value;
+         firePropertyChange("term", oldValue, value);
+      }
+      return this;
+   }
+
+
+   public Assignment getAssignments(String task)
+   {
+      for (Assignment a : this.getAssignments())
+      {
+         if (a.getTask().equals(task))
+         {
+            return a;
+         }
+      }
+      return null;
+   }
 }

@@ -41,7 +41,8 @@ public class TestStudentOffice
             .buildAttribute("title", STRING);
       ClassBuilder examination = mb.buildClass("Examination")
             .buildAttribute("date", STRING);
-      ClassBuilder enrollment = mb.buildClass("Enrollment");
+      ClassBuilder enrollment = mb.buildClass("Enrollment")
+            .buildAttribute("grade", mb.STRING);
       ClassBuilder lecturer = mb.buildClass("Lecturer")
             .buildAttribute("name", STRING);
       ClassBuilder uniStudent = mb.buildClass("UniStudent")
@@ -89,7 +90,8 @@ public class TestStudentOffice
             .buildAttribute("topic", STRING)
             .buildAttribute("term", STRING);
       ClassBuilder achievement = mb.buildClass("Achievement")
-            .buildAttribute("grade", STRING);
+            .buildAttribute("grade", STRING)
+            .buildAttribute("officeStatus", mb.STRING);
       ClassBuilder solution = mb.buildClass("Solution")
             .buildAttribute("gitUrl", STRING)
             .buildAttribute("points", DOUBLE);

@@ -267,13 +267,29 @@ public class SEGroup
 
    public SEClass getClasses(String topic, String term)
    {
+      SEClass firstFit = null;
       for (SEClass c : this.getClasses())
       {
          if (c.getTopic().equals(topic) && c.getTerm().equals(term))
          {
             return c;
          }
+
+         if (term.lastIndexOf('-') >= 5
+               && c.getTopic().equals(topic)
+               && c.getTerm().compareTo(term) < 0 )
+         {
+            if (firstFit == null)
+            {
+               firstFit = c;
+            }
+            else if (firstFit.getTerm().compareTo(c.getTerm()) < 0)
+            {
+               firstFit = c;
+            }
+         }
       }
-      return null;
+
+      return firstFit;
    }
 }

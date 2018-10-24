@@ -204,5 +204,12 @@ public class SEStudent
    }
 
 
-
+   public Achievement getAchievements(SEClass seClass)
+   {
+      for (Achievement a : this.getAchievements())
+      {
+         if (a.getSeClass() == seClass) return a;
+      }
+      return null;
+   }
 }

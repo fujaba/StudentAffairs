@@ -30,6 +30,7 @@
 - a1: .Map
   type: Achievement
   grade: t.b.d.
+  seClass: modelingWT1819
   solutions: s1 s2
 
 - s1: .Map

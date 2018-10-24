@@ -1,15 +1,12 @@
 package uniks.accounting;
 
 import org.fulib.yaml.Yamler;
-import uniks.accounting.segroup.Assignment;
-import uniks.accounting.segroup.SEClass;
-import uniks.accounting.segroup.SEGroup;
-import uniks.accounting.segroup.SEStudent;
-import uniks.accounting.studentOffice.UniStudent;
+import uniks.accounting.segroup.*;
 
-import javax.swing.text.View;
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 public class SEGroupBuilder
 {
@@ -25,6 +22,17 @@ public class SEGroupBuilder
    public static final String TASK = "task";
    public static final String POINTS = "points";
    public static final String BUILD_ASSIGNMENT = "buildAssignment";
+   public static final String ENROLLED = "enrolled";
+   public static final String BUILD_ACHIEVEMENT = "buildAchievement";
+   public static final String ENROLL = "enroll";
+   public static final String COURSE_NAME = "courseName";
+   public static final String LECTURER_NAME = "lecturerName";
+   public static final String DATE = "date";
+   public static final String BUILD_SOLUTION = "buildSolution";
+   public static final String GIT_URL = "gitUrl";
+   public static final String GRADE_SOLUTION = "gradeSolution";
+   public static final String GRADE = "grade";
+   public static final String GRADE_EXAMINATION = "gradeExamination";
 
 
    private SEGroup seGroup;
@@ -35,9 +43,9 @@ public class SEGroupBuilder
       return seGroup;
    }
 
-   public StringBuffer getEventSource()
+   public String getEventSource()
    {
-      return eventSource;
+      return eventSource.toString();
    }
 
    public void build(String yaml)
@@ -59,8 +67,171 @@ public class SEGroupBuilder
          {
             buildSEClass(map.get(TOPIC), map.get(TERM));
          }
+         else if (BUILD_ASSIGNMENT.equals(map.get(OPCODE)))
+         {
+            SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
+            double points = Double.parseDouble(map.get(POINTS));
+            buildAssignment(seClass, map.get(TASK), points);
+         }
+         else if (BUILD_ACHIEVEMENT.equals(map.get(OPCODE)))
+         {
+            SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
+            SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
+            buildAchievement(student, seClass);
+         }
+         else if (ENROLL.equals(map.get(OPCODE)))
+         {
+            SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
+            SEClass seClass = seGroup.getClasses(map.get(COURSE_NAME), map.get(DATE));
+            Achievement achievement = buildAchievement(student, seClass);
+            enroll(achievement);
+         }
+         else if (BUILD_SOLUTION.equals(map.get(OPCODE)))
+         {
+            SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
+            SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
+            Achievement achievement = buildAchievement(student, seClass);
+            Assignment assignment = seClass.getAssignments(map.get(TASK));
+            buildSolution(achievement, assignment, map.get(GIT_URL));
+         }
+         else if (GRADE_SOLUTION.equals(map.get(OPCODE)))
+         {
+            SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
+            SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
+            Achievement achievement = buildAchievement(student, seClass);
+            Assignment assignment = seClass.getAssignments(map.get(TASK));
+            Solution solution = achievement.getSolutions(assignment);
+            gradeSolution(solution, Double.parseDouble(map.get(POINTS)));
+         }
+         else if (GRADE_EXAMINATION.equals(map.get(OPCODE)))
+         {
+            SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
+            SEClass seClass = seGroup.getClasses(map.get(COURSE_NAME), map.get(DATE));
+            Achievement achievement = buildAchievement(student, seClass);
+            gradeExamination(achievement);
+         }
       }
    }
+
+
+   public void gradeExamination(Achievement achievement)
+   {
+      double sumOfAssignments = 0.0;
+      for (Assignment a : achievement.getSeClass().getAssignments())
+      {
+         sumOfAssignments += a.getPoints();
+      }
+
+      double sumOfSolutions = 0.0;
+      for (Solution s : achievement.getSolutions())
+      {
+         sumOfSolutions += s.getPoints();
+      }
+
+      int missed = (int) (sumOfAssignments - sumOfSolutions);
+      char grade = (char) ('A' + (missed / 10));
+
+      if (grade > 'F') grade = 'F';
+
+      achievement.setGrade("" + grade);
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + OPCODE + ": ").append(GRADE_EXAMINATION).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
+            .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
+            .append("  " + DATE + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n")
+            .append("  " + LECTURER_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getGroup().getHead())).append("\n")
+            .append("  " + GRADE + ": ").append(grade).append("\n\n");
+
+      eventSource.append(buf);
+   }
+
+
+   public void gradeSolution(Solution solution, double points)
+   {
+      solution.setPoints(points);
+
+      Achievement achievement = solution.getAchievement();
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + OPCODE + ": ").append(GRADE_SOLUTION).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
+            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
+            .append("  " + TERM + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n")
+            .append("  " + TASK + ": ").append(Yamler.encapsulate(solution.getAssignment().getTask())).append("\n")
+            .append("  " + POINTS + ": ").append(String.format(Locale.ENGLISH, "%.1f", points)).append("\n\n");
+
+      eventSource.append(buf);
+   }
+
+
+   public Solution buildSolution(Achievement achievement, Assignment assignment, String gitUrl)
+   {
+      Solution solution = achievement.getSolutions(assignment);
+
+      if (solution != null && solution.getGitUrl().equals(gitUrl)) return  solution;
+
+      if (solution == null)
+      {
+         solution = new Solution()
+               .setAchievement(achievement)
+               .setAssignment(assignment);
+      }
+
+      solution.setGitUrl(gitUrl);
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + OPCODE + ": ").append(BUILD_SOLUTION).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
+            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
+            .append("  " + TERM + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n")
+            .append("  " + TASK + ": ").append(Yamler.encapsulate(assignment.getTask())).append("\n")
+            .append("  " + GIT_URL + ": ").append(Yamler.encapsulate(gitUrl)).append("\n\n");
+
+      eventSource.append(buf);
+
+      return solution;
+   }
+
+
+   public Achievement enroll(Achievement achievement)
+   {
+      achievement.setOfficeStatus(ENROLLED);
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + OPCODE + ": ").append(ENROLL).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
+            .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
+            .append("  " + LECTURER_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getGroup().getHead())).append("\n")
+            .append("  " + DATE + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n\n");
+
+      eventSource.append(buf);
+
+      return achievement;
+   }
+
+
+   public Achievement buildAchievement(SEStudent student, SEClass seClass)
+   {
+      Achievement achievement = student.getAchievements(seClass);
+
+      if (achievement != null) return achievement;
+
+      achievement = new Achievement()
+            .setStudent(student)
+            .setSeClass(seClass);
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + OPCODE + ": ").append(BUILD_ACHIEVEMENT).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
+            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(seClass.getTopic())).append("\n")
+            .append("  " + TERM + ": ").append(Yamler.encapsulate(seClass.getTerm())).append("\n\n");
+
+      eventSource.append(buf);
+
+      return achievement;
+   }
+
 
    public Assignment buildAssignment(SEClass seClass, String task, double points)
    {
@@ -82,7 +253,7 @@ public class SEGroupBuilder
             .append("  " + TOPIC + ": ").append(Yamler.encapsulate(seClass.getTopic())).append("\n")
             .append("  " + TERM + ": ").append(Yamler.encapsulate(seClass.getTerm())).append("\n")
             .append("  " + TASK + ": ").append(Yamler.encapsulate(task)).append("\n")
-            .append("  " + POINTS + ": ").append(Yamler.encapsulate(String.format("%.1f", points))).append("\n\n");
+            .append("  " + POINTS + ": ").append(String.format(Locale.ENGLISH, "%.1f", points)).append("\n\n");
 
       eventSource.append(buf);
 

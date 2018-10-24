@@ -39,27 +39,28 @@
   roles: 	topic21 	lecturer22 	enrollments23 	
 
 - enrollment6: 	Clazz
+  attributes: 	grade24 	
   model: 	c1
   modified: 	false
   name: 	Enrollment
   propertyStyle: 	POJO
-  roles: 	exam24 	student25 	
+  roles: 	exam25 	student26 	
 
 - lecturer7: 	Clazz
-  attributes: 	name26 	
+  attributes: 	name27 	
   model: 	c1
   modified: 	false
   name: 	Lecturer
   propertyStyle: 	POJO
-  roles: 	department27 	examinations28 	
+  roles: 	department28 	examinations29 	
 
 - uniStudent8: 	Clazz
-  attributes: 	name29 	studentId30 	
+  attributes: 	name30 	studentId31 	
   model: 	c1
   modified: 	false
   name: 	UniStudent
   propertyStyle: 	POJO
-  roles: 	department31 	majorSubject32 	enrollments33 	
+  roles: 	department32 	majorSubject33 	enrollments34 	
 
 - department9: 	Attribute
   clazz: 	studentOffice2
@@ -84,7 +85,7 @@
   clazz: 	studentOffice2
   modified: 	false
   name: 	students
-  other: 	department31
+  other: 	department32
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -94,7 +95,7 @@
   clazz: 	studentOffice2
   modified: 	false
   name: 	lecturers
-  other: 	department27
+  other: 	department28
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -131,7 +132,7 @@
   clazz: 	studyProgram3
   modified: 	false
   name: 	students
-  other: 	majorSubject32
+  other: 	majorSubject33
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -185,7 +186,7 @@
   clazz: 	examination5
   modified: 	false
   name: 	lecturer
-  other: 	examinations28
+  other: 	examinations29
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -195,11 +196,18 @@
   clazz: 	examination5
   modified: 	false
   name: 	enrollments
-  other: 	exam24
+  other: 	exam25
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- exam24: 	AssocRole
+- grade24: 	Attribute
+  clazz: 	enrollment6
+  modified: 	false
+  name: 	grade
+  propertyStyle: 	POJO
+  type: 	String
+
+- exam25: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	enrollment6
@@ -209,24 +217,24 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- student25: 	AssocRole
+- student26: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	enrollment6
   modified: 	false
   name: 	student
-  other: 	enrollments33
+  other: 	enrollments34
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- name26: 	Attribute
+- name27: 	Attribute
   clazz: 	lecturer7
   modified: 	false
   name: 	name
   propertyStyle: 	POJO
   type: 	String
 
-- department27: 	AssocRole
+- department28: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	lecturer7
@@ -236,7 +244,7 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- examinations28: 	AssocRole
+- examinations29: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	lecturer7
@@ -246,21 +254,21 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- name29: 	Attribute
+- name30: 	Attribute
   clazz: 	uniStudent8
   modified: 	false
   name: 	name
   propertyStyle: 	POJO
   type: 	String
 
-- studentId30: 	Attribute
+- studentId31: 	Attribute
   clazz: 	uniStudent8
   modified: 	false
   name: 	studentId
   propertyStyle: 	POJO
   type: 	String
 
-- department31: 	AssocRole
+- department32: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	uniStudent8
@@ -270,7 +278,7 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- majorSubject32: 	AssocRole
+- majorSubject33: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	uniStudent8
@@ -280,13 +288,13 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- enrollments33: 	AssocRole
+- enrollments34: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	uniStudent8
   modified: 	false
   name: 	enrollments
-  other: 	student25
+  other: 	student26
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 

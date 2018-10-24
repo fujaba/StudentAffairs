@@ -1,6 +1,9 @@
 package uniks.accounting;
 
 import org.fulib.yaml.Yamler;
+import uniks.accounting.segroup.Achievement;
+import uniks.accounting.segroup.SEClass;
+import uniks.accounting.segroup.SEStudent;
 import uniks.accounting.studentOffice.*;
 import uniks.accounting.studentOffice.tables.*;
 
@@ -29,6 +32,8 @@ public class StudentOfficeBuilder
    public static final String COURSE_NAME = "courseName";
    public static final String LECTURER_NAME = "lecturerName";
    public static final String CHOOSE_MAJOR_SUBJECT = "chooseMajorSubject";
+   public static final String GRADE_EXAMINATION = "gradeExamination";
+   public static final String GRADE = "grade";
 
    private StudentOffice studentOffice;
 
@@ -98,9 +103,39 @@ public class StudentOfficeBuilder
 
             enroll(student, exam);
          }
+         else if (GRADE_EXAMINATION.equals(map.get(OPCODE)))
+         {
+            UniStudent student = studentOffice.getStudents(map.get(STUDENT_ID));
+            CourseTable courseTable = new StudentOfficeTable(studentOffice).expandPrograms().expandCourses()
+                  .filter(c -> c.getTitle().equals(map.get(COURSE_NAME)));
+            Course course = courseTable.get(0);
+            Lecturer lecturer = studentOffice.getLecturers(map.get(LECTURER_NAME));
+            Examination exam = buildExamination(course, lecturer, map.get(DATE));
+            Enrollment enrollment = student.getEnrollments(exam);
+            gradeExamination(enrollment, map.get(GRADE));
+         }
       }
    }
 
+
+   public void gradeExamination(Enrollment enrollment, String grade)
+   {
+      enrollment.setGrade(grade);
+
+      UniStudent student = enrollment.getStudent();
+      Examination exam = enrollment.getExam();
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + OPCODE + ": ").append(GRADE_EXAMINATION).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
+            .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(exam.getTopic().getTitle())).append("\n")
+            .append("  " + DATE + ": ").append(Yamler.encapsulate(exam.getDate())).append("\n")
+            .append("  " + LECTURER_NAME + ": ").append(Yamler.encapsulate(exam.getLecturer().getName())).append("\n")
+            .append("  " + GRADE + ": ").append(grade).append("\n\n");
+
+      eventSource.append(buf);
+
+   }
 
    public Enrollment enroll(UniStudent student, Examination exam)
    {
@@ -245,6 +280,7 @@ public class StudentOfficeBuilder
    public Examination buildExamination(Course course, Lecturer lecturer, String date)
    {
       Examination exam = null;
+      Examination firstFitExam = null;
       for (Examination x : course.getExams())
       {
          if (x.getLecturer() == lecturer && x.getDate().equals(date))
@@ -252,7 +288,26 @@ public class StudentOfficeBuilder
             exam = x;
             break;
          }
+
+         if ( date.lastIndexOf('-') <= 5
+               && x.getLecturer() == lecturer
+               && x.getDate().compareTo(date) >= 0)
+         {
+            if (firstFitExam == null)
+            {
+               firstFitExam = x;
+            }
+            else
+            {
+               if (firstFitExam.getDate().compareTo(x.getDate()) > 0)
+               {
+                  firstFitExam = x;
+               }
+            }
+         }
       }
+
+      if (firstFitExam != null) return firstFitExam;
 
       if (exam == null)
       {

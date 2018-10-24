@@ -212,17 +212,6 @@ public class Achievement
       return true;
    }
 
-   @Override
-   public String toString()
-   {
-      StringBuilder result = new StringBuilder();
-
-      result.append(" ").append(this.getGrade());
-
-
-      return result.substring(1);
-   }
-
    public void removeYou()
    {
       this.setSeClass(null);
@@ -234,4 +223,49 @@ public class Achievement
    }
 
 
+   public static final String PROPERTY_officeStatus = "officeStatus";
+
+   private String officeStatus;
+
+   public String getOfficeStatus()
+   {
+      return officeStatus;
+   }
+
+   public Achievement setOfficeStatus(String value)
+   {
+      if (value == null ? this.officeStatus != null : ! value.equals(this.officeStatus))
+      {
+         String oldValue = this.officeStatus;
+         this.officeStatus = value;
+         firePropertyChange("officeStatus", oldValue, value);
+      }
+      return this;
+   }
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+
+      result.append(" ").append(this.getGrade());
+      result.append(" ").append(this.getOfficeStatus());
+
+
+      return result.substring(1);
+   }
+
+   public Solution getSolutions(Assignment assignment)
+   {
+      for (Solution s : this.getSolutions())
+      {
+         if (s.getAssignment() == assignment)
+         {
+            return s;
+         }
+      }
+
+      return null;
+   }
 }

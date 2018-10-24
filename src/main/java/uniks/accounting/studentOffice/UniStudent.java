@@ -256,4 +256,16 @@ public class UniStudent
    }
 
 
+   public Enrollment getEnrollments(Examination exam)
+   {
+      for (Enrollment e : this.getEnrollments())
+      {
+         if (e.getExam() == exam)
+         {
+            return e;
+         }
+      }
+
+      return null;
+   }
 }

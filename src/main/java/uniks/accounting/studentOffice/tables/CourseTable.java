@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
-public class CourseTable 
+public class CourseTable  
 {
 
    public CourseTable(Course... start)

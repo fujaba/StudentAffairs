@@ -129,4 +129,46 @@ public class Enrollment
 
 
 
+
+
+
+
+
+
+
+
+
+
+   public static final String PROPERTY_grade = "grade";
+
+   private String grade;
+
+   public String getGrade()
+   {
+      return grade;
+   }
+
+   public Enrollment setGrade(String value)
+   {
+      if (value == null ? this.grade != null : ! value.equals(this.grade))
+      {
+         String oldValue = this.grade;
+         this.grade = value;
+         firePropertyChange("grade", oldValue, value);
+      }
+      return this;
+   }
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+
+      result.append(" ").append(this.getGrade());
+
+
+      return result.substring(1);
+   }
+
 }

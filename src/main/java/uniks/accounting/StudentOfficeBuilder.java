@@ -1,5 +1,6 @@
 package uniks.accounting;
 
+import org.fulib.yaml.YamlObject;
 import org.fulib.yaml.Yamler;
 import uniks.accounting.segroup.Achievement;
 import uniks.accounting.segroup.SEClass;
@@ -42,11 +43,16 @@ public class StudentOfficeBuilder
       return studentOffice;
    }
 
-   private StringBuffer eventSource = new StringBuffer();
+   private EventSource eventSource = new EventSource();
 
-   public String getEventSource()
+   public EventSource getEventSource()
    {
-      return eventSource.toString();
+      return eventSource;
+   }
+
+   public String getEventLog()
+   {
+      return eventSource.encodeYaml();
    }
 
    public void build(String yaml)
@@ -178,12 +184,13 @@ public class StudentOfficeBuilder
 
       stud.setName(name);
 
-      StringBuilder buf = new StringBuilder()
-            .append("- " + OPCODE + ": ").append(BUILD_STUDENT).append("\n")
-            .append("  " + STUDENT_ID + ": ").append(studentId).append("\n")
-            .append("  " + NAME + ": ").append(Yamler.encapsulate(name)).append("\n\n");
+      LinkedHashMap<String,String> map = new LinkedHashMap<>();
+      map.put(OPCODE, BUILD_STUDENT);
+      map.put(STUDENT_ID, studentId);
+      map.put(NAME,name);
+      map.put(EventSource.EVENT_KEY, BUILD_STUDENT + "/" + studentId);
 
-      eventSource.append(buf);
+      eventSource.append(map);
 
       return stud;
    }
@@ -206,11 +213,12 @@ public class StudentOfficeBuilder
       {
          studentOffice = new StudentOffice();
 
-         StringBuilder buf = new StringBuilder()
-               .append("- " + OPCODE + ": ").append(BUILD_STUDENT_OFFICE).append("\n")
-               .append("  " + NAME + ": ").append(Yamler.encapsulate(name)).append("\n\n");
+         LinkedHashMap<String,String> map = new LinkedHashMap<>();
+         map.put(OPCODE, BUILD_STUDENT_OFFICE);
+         map.put(NAME, name);
+         map.put(EventSource.EVENT_KEY, BUILD_STUDENT_OFFICE);
 
-         eventSource.append(buf);
+         eventSource.append(map);
       }
 
       studentOffice.setDepartment(name);

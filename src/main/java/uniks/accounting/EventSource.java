@@ -89,7 +89,7 @@ public class EventSource
       return encodeYaml(numEventMap);
    }
 
-   public String encodeYaml(SortedMap<Integer, LinkedHashMap<String, String>> eventMap)
+   public static String encodeYaml(SortedMap<Integer, LinkedHashMap<String, String>> eventMap)
    {
       StringBuffer buf = new StringBuffer();
 

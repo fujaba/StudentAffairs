@@ -93,7 +93,9 @@ public class TestEventSourceing
 
       FulibTools.objectDiagrams().dumpSVG("tmp/SEGroup.svg", seGroup);
 
-      String seLog = gb.getEventSource();
+      EventSource groupEventSource = gb.getEventSource();
+      SortedMap<Integer, LinkedHashMap<String, String>> groupEvents = groupEventSource.pull(0);
+      String seLog = EventSource.encodeYaml(groupEvents);
 
       SEGroupBuilder seClone = new SEGroupBuilder();
       seClone.build(seLog);

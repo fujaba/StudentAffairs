@@ -3,7 +3,6 @@ package uniks.accounting;
 import org.fulib.yaml.Yamler;
 import uniks.accounting.segroup.*;
 
-import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -36,16 +35,16 @@ public class SEGroupBuilder
 
 
    private SEGroup seGroup;
-   private StringBuffer eventSource = new StringBuffer();
+   private EventSource eventSource = new EventSource();
 
    public SEGroup getSeGroup()
    {
       return seGroup;
    }
 
-   public String getEventSource()
+   public EventSource getEventSource()
    {
-      return eventSource.toString();
+      return eventSource;
    }
 
    public void build(String yaml)

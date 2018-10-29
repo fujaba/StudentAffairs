@@ -3,7 +3,9 @@ package uniks.accounting;
 import org.fulib.yaml.Yamler;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class EventSource
 {
@@ -16,6 +18,11 @@ public class EventSource
    private TreeMap<Integer, LinkedHashMap<String, String>> numEventMap = new TreeMap<>();
 
    private int eventNumber = 0;
+
+   public int getEventNumber()
+   {
+      return eventNumber;
+   }
 
    public SortedMap<Integer, LinkedHashMap<String, String>> pull(int lastKnownNumber)
    {
@@ -68,6 +75,12 @@ public class EventSource
       keyNumMap.put(key, eventNumber);
       numEventMap.put(eventNumber, event);
 
+      for (Consumer<LinkedHashMap<String, String>> listener : eventListeners)
+      {
+         listener.accept(event);
+      }
+
+
       return this;
    }
 
@@ -97,17 +110,34 @@ public class EventSource
       {
          LinkedHashMap<String, String> event = entry.getValue();
 
-         String prefix = "- ";
-         for (Map.Entry<String, String> keyValuePair : event.entrySet())
-         {
-            buf.append(prefix).append(keyValuePair.getKey()).append(": ")
-                  .append(Yamler.encapsulate(keyValuePair.getValue())).append("\n");
-            prefix = "  ";
-         }
-         buf.append("\n");
+         String oneObj = encodeYaml(event);
+
+         buf.append(oneObj);
       }
 
       return buf.toString();
    }
 
+   public static String encodeYaml(LinkedHashMap<String, String> event)
+   {
+      StringBuffer buf = new StringBuffer();
+
+      String prefix = "- ";
+      for (Map.Entry<String, String> keyValuePair : event.entrySet())
+      {
+         buf.append(prefix).append(keyValuePair.getKey()).append(": ")
+               .append(Yamler.encapsulate(keyValuePair.getValue())).append("\n");
+         prefix = "  ";
+      }
+      buf.append("\n");
+
+      return buf.toString();
+   }
+
+   private ArrayList<Consumer<LinkedHashMap<String,String>>> eventListeners = new ArrayList<>();
+
+   public void addEventListener(Consumer<LinkedHashMap<String,String>> listener)
+   {
+      eventListeners.add(listener);
+   }
 }

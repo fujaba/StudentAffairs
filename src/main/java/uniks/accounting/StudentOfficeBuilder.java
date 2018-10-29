@@ -72,6 +72,7 @@ public class StudentOfficeBuilder
          }
          else if (BUILD_COURSE.equals(map.get(OPCODE)))
          {
+            if (studentOffice == null) continue;
             StudyProgram program = studentOffice.getPrograms(map.get(PROGRAM_NAME));
             buildCourse(program, map.get(NAME));
          }
@@ -229,6 +230,8 @@ public class StudentOfficeBuilder
 
    public StudyProgram buildStudyProgram(String name)
    {
+      if (studentOffice == null) return null;
+
       StudyProgram studyProgram = studentOffice.getPrograms(name);
 
       if (studyProgram == null)

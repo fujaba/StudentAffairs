@@ -1,0 +1,28 @@
+- opcode: buildSEGroup
+  head: Albert
+  .eventNumber: 1
+
+- opcode: buildStudent
+  studentId: m4242
+  name: Alica
+  .eventNumber: 2
+
+- opcode: buildSEClass
+  topic: modeling
+  term: "2018-10"
+  .eventNumber: 3
+
+- opcode: buildAssignment
+  topic: modeling
+  term: "2018-10"
+  task: mid_term
+  points: 23.0
+  .eventNumber: 4
+
+- opcode: buildAssignment
+  topic: modeling
+  term: "2018-10"
+  task: finals
+  points: 42.0
+  .eventNumber: 5
+

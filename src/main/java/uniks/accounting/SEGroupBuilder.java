@@ -132,6 +132,8 @@ public class SEGroupBuilder
 
       if (grade > 'F') grade = 'F';
 
+      if (("" + grade).equals(achievement.getGrade())) return;
+
       achievement.setGrade("" + grade);
 
       StringBuilder buf = new StringBuilder()

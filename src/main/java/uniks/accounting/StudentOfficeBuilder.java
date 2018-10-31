@@ -24,11 +24,11 @@ public class StudentOfficeBuilder
    public static final String STUDENT_ID = "studentId";
    public static final String MAJOR_SUBJECT = "majorSubject";
    public static final String BUILD_STUDENT = "buildStudent";
-   public static final String ENROLL = "enroll";
+   public static final String STUDENT_ENROLLED = "studentEnrolled";
    public static final String COURSE_NAME = "courseName";
    public static final String LECTURER_NAME = "lecturerName";
    public static final String CHOOSE_MAJOR_SUBJECT = "chooseMajorSubject";
-   public static final String GRADE_EXAMINATION = "gradeExamination";
+   public static final String EXAMINATION_GRADED = "examinationGraded";
    public static final String GRADE = "grade";
 
    private StudentOffice studentOffice;
@@ -94,7 +94,7 @@ public class StudentOfficeBuilder
             StudyProgram program = studentOffice.getPrograms(map.get(MAJOR_SUBJECT));
             chooseMajorSubject(student, program);
          }
-         else if (ENROLL.equals(map.get(EVENT_TYPE)))
+         else if (STUDENT_ENROLLED.equals(map.get(EVENT_TYPE)))
          {
             UniStudent student = studentOffice.getStudents(map.get(STUDENT_ID));
             CourseTable courseTable = new StudentOfficeTable(studentOffice).expandPrograms().expandCourses()
@@ -105,7 +105,7 @@ public class StudentOfficeBuilder
 
             enroll(student, exam);
          }
-         else if (GRADE_EXAMINATION.equals(map.get(EVENT_TYPE)))
+         else if (EXAMINATION_GRADED.equals(map.get(EVENT_TYPE)))
          {
             UniStudent student = studentOffice.getStudents(map.get(STUDENT_ID));
             CourseTable courseTable = new StudentOfficeTable(studentOffice).expandPrograms().expandCourses()
@@ -128,7 +128,7 @@ public class StudentOfficeBuilder
       Examination exam = enrollment.getExam();
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(GRADE_EXAMINATION).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(EXAMINATION_GRADED).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
             .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(exam.getTopic().getTitle())).append("\n")
             .append("  " + DATE + ": ").append(Yamler.encapsulate(exam.getDate())).append("\n")
@@ -154,7 +154,7 @@ public class StudentOfficeBuilder
             .setExam(exam);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(ENROLL).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(STUDENT_ENROLLED).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
             .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(exam.getTopic().getTitle())).append("\n")
             .append("  " + LECTURER_NAME + ": ").append(Yamler.encapsulate(exam.getLecturer().getName())).append("\n")

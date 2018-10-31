@@ -4,7 +4,7 @@
   term: "2018-10"
   task: mid_term
   gitUrl: "gitlab.com/alice/modeling"
-  .eventNumber: 9
+  .eventNumber: 8
 
 - eventType: gradeSolution
   studentId: m4242
@@ -12,7 +12,7 @@
   term: "2018-10"
   task: mid_term
   points: 20.0
-  .eventNumber: 10
+  .eventNumber: 9
 
 - eventType: buildSolution
   studentId: m4242
@@ -20,7 +20,7 @@
   term: "2018-10"
   task: finals
   gitUrl: "gitlab.com/alice/modeling"
-  .eventNumber: 11
+  .eventNumber: 10
 
 - eventType: gradeSolution
   studentId: m4242
@@ -28,13 +28,13 @@
   term: "2018-10"
   task: finals
   points: 40.0
-  .eventNumber: 12
+  .eventNumber: 11
 
-- eventType: gradeExamination
+- eventType: examinationGraded
   studentId: m4242
   courseName: modeling
   date: "2018-10"
   lecturerName: Albert
   grade: A
-  .eventNumber: 13
+  .eventNumber: 12
 

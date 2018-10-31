@@ -44,7 +44,7 @@
   majorSubject: CS
   .eventNumber: 10
 
-- eventType: enroll
+- eventType: studentEnrolled
   studentId: m4242
   courseName: modeling
   lecturerName: Albert

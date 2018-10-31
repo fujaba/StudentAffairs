@@ -12,7 +12,7 @@ public class SEGroupBuilder
    public static final String EVENT_TYPE = "eventType";
    public static final String HEAD = "head";
    public static final String BUILD_SE_GROUP = "buildSEGroup";
-   public static final String BUILD_STUDENT = "buildStudent";
+   public static final String STUDENT_CREATED = "studentCreated";
    public static final String STUDENT_ID = "studentId";
    public static final String NAME = "name";
    public static final String BUILD_SE_CLASS = "buildSEClass";
@@ -23,7 +23,7 @@ public class SEGroupBuilder
    public static final String BUILD_ASSIGNMENT = "buildAssignment";
    public static final String ENROLLED = "enrolled";
    public static final String BUILD_ACHIEVEMENT = "buildAchievement";
-   public static final String ENROLL = "enroll";
+   public static final String STUDENT_ENROLLED = "studentEnrolled";
    public static final String COURSE_NAME = "courseName";
    public static final String LECTURER_NAME = "lecturerName";
    public static final String DATE = "date";
@@ -31,7 +31,7 @@ public class SEGroupBuilder
    public static final String GIT_URL = "gitUrl";
    public static final String GRADE_SOLUTION = "gradeSolution";
    public static final String GRADE = "grade";
-   public static final String GRADE_EXAMINATION = "gradeExamination";
+   public static final String EXAMINATION_GRADED = "examinationGraded";
 
 
    private SEGroup seGroup;
@@ -58,7 +58,7 @@ public class SEGroupBuilder
          {
             buildSEGroup(map.get(HEAD));
          }
-         else if (BUILD_STUDENT.equals(map.get(EVENT_TYPE)))
+         else if (STUDENT_CREATED.equals(map.get(EVENT_TYPE)))
          {
             buildStudent(map.get(NAME), map.get(STUDENT_ID));
          }
@@ -78,7 +78,7 @@ public class SEGroupBuilder
             SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
             buildAchievement(student, seClass);
          }
-         else if (ENROLL.equals(map.get(EVENT_TYPE)))
+         else if (STUDENT_ENROLLED.equals(map.get(EVENT_TYPE)))
          {
             SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
             SEClass seClass = seGroup.getClasses(map.get(COURSE_NAME), map.get(DATE));
@@ -102,7 +102,7 @@ public class SEGroupBuilder
             Solution solution = achievement.getSolutions(assignment);
             gradeSolution(solution, Double.parseDouble(map.get(POINTS)));
          }
-         else if (GRADE_EXAMINATION.equals(map.get(EVENT_TYPE)))
+         else if (EXAMINATION_GRADED.equals(map.get(EVENT_TYPE)))
          {
             SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
             SEClass seClass = seGroup.getClasses(map.get(COURSE_NAME), map.get(DATE));
@@ -137,7 +137,7 @@ public class SEGroupBuilder
       achievement.setGrade("" + grade);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(GRADE_EXAMINATION).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(EXAMINATION_GRADED).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
             .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
             .append("  " + DATE + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n")
@@ -200,7 +200,7 @@ public class SEGroupBuilder
       achievement.setOfficeStatus(ENROLLED);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(ENROLL).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(STUDENT_ENROLLED).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
             .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
             .append("  " + LECTURER_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getGroup().getHead())).append("\n")
@@ -294,7 +294,7 @@ public class SEGroupBuilder
             .setGroup(seGroup);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(BUILD_STUDENT).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(STUDENT_CREATED).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(studentId)).append("\n")
             .append("  " + NAME + ": ").append(Yamler.encapsulate(name)).append("\n\n");
 

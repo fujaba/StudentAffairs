@@ -2,7 +2,7 @@
   head: Albert
   .eventNumber: 1
 
-- eventType: buildStudent
+- eventType: studentCreated
   studentId: m4242
   name: Alica
   .eventNumber: 2

@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
 public class TestEventSourceing
@@ -97,7 +98,7 @@ public class TestEventSourceing
       SortedMap<Integer, LinkedHashMap<String, String>> gbEventList = gb.getEventSource().pull(0);
       storeEvents(CONFIG_SE_GROUP_EVENTS_YAML, EventSource.encodeYaml(gbEventList));
 
-      SortedMap<Integer, LinkedHashMap<String, String>> sharedEvents = officeEventSource.pull(0, StudentOfficeBuilder.BUILD_STUDENT, StudentOfficeBuilder.ENROLL);
+      SortedMap<Integer, LinkedHashMap<String, String>> sharedEvents = officeEventSource.pull(0, StudentOfficeBuilder.BUILD_STUDENT, StudentOfficeBuilder.STUDENT_ENROLLED);
       gb.sync(EventSource.encodeYaml(sharedEvents));
 
       int lastGroupEvent = gb.getEventSource().getEventNumber();
@@ -126,7 +127,7 @@ public class TestEventSourceing
       FulibTools.objectDiagrams().dumpSVG("tmp/SEGroupClone.svg", seClone.getSeGroup());
 
       // pull just grading
-      groupEvents = groupEventSource.pull(0, SEGroupBuilder.GRADE_EXAMINATION);
+      groupEvents = groupEventSource.pull(0, SEGroupBuilder.EXAMINATION_GRADED);
       seLog = EventSource.encodeYaml(groupEvents);
       ob.sync(seLog);
 
@@ -242,7 +243,7 @@ public class TestEventSourceing
       LinkedHashMap<String, String> pullCommand = new LinkedHashMap<>();
       pullCommand.put(StudentOfficeBuilder.EVENT_TYPE, StudentOfficeService.PULL);
       pullCommand.put(StudentOfficeService.LAST_KNOWN_NUMBER, "0");
-      pullCommand.put(StudentOfficeService.RELEVANT_EVENT_TYPES, StudentOfficeBuilder.BUILD_STUDENT + " " +  StudentOfficeBuilder.ENROLL);
+      pullCommand.put(StudentOfficeService.RELEVANT_EVENT_TYPES, StudentOfficeBuilder.BUILD_STUDENT + " " +  StudentOfficeBuilder.STUDENT_ENROLLED);
       pullCommand.put(StudentOfficeService.ANSWER_TOPIC, SEGroupService.UNIKS_FB_16_SE_GROUP);
       mqttClient.publish(StudentOfficeService.UNIKS_FB_16_STUDENT_OFFICE, EventSource.encodeYaml(pullCommand).getBytes(), 2, false);
 
@@ -254,7 +255,7 @@ public class TestEventSourceing
       pullCommand = new LinkedHashMap<>();
       pullCommand.put(StudentOfficeBuilder.EVENT_TYPE, SEGroupService.PULL);
       pullCommand.put(SEGroupService.LAST_KNOWN_NUMBER, "0");
-      pullCommand.put(SEGroupService.RELEVANT_EVENT_TYPES, SEGroupBuilder.GRADE_EXAMINATION);
+      pullCommand.put(SEGroupService.RELEVANT_EVENT_TYPES, SEGroupBuilder.EXAMINATION_GRADED);
       pullCommand.put(SEGroupService.ANSWER_TOPIC, StudentOfficeService.UNIKS_FB_16_STUDENT_OFFICE);
       mqttClient.publish(SEGroupService.UNIKS_FB_16_SE_GROUP, EventSource.encodeYaml(pullCommand).getBytes(), 2, false);
 
@@ -269,6 +270,7 @@ public class TestEventSourceing
 
       String gradesToOffice = inbox.take();
 
+      assertThat(gradesToOffice.indexOf("grade: A"), not(equalTo(-1)) );
       System.out.println();
    }
 

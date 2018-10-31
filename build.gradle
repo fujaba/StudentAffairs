@@ -26,4 +26,6 @@ dependencies {
     // compile group: 'io.moquette', name: 'moquette-broker', version: '0.11'
     compile 'io.moquette:moquette-broker:0.+'
 
+    compile 'com.sparkjava:spark-core:2.2'
+
 }

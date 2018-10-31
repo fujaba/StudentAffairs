@@ -5,10 +5,14 @@ import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.fulib.FulibTools;
 import org.junit.Test;
+import spark.utils.IOUtils;
 import uniks.accounting.segroup.*;
 import uniks.accounting.studentOffice.*;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
@@ -98,7 +102,7 @@ public class TestEventSourceing
       SortedMap<Integer, LinkedHashMap<String, String>> gbEventList = gb.getEventSource().pull(0);
       storeEvents(CONFIG_SE_GROUP_EVENTS_YAML, EventSource.encodeYaml(gbEventList));
 
-      SortedMap<Integer, LinkedHashMap<String, String>> sharedEvents = officeEventSource.pull(0, StudentOfficeBuilder.BUILD_STUDENT, StudentOfficeBuilder.STUDENT_ENROLLED);
+      SortedMap<Integer, LinkedHashMap<String, String>> sharedEvents = officeEventSource.pull(0, StudentOfficeBuilder.STUDENT_CREATED, StudentOfficeBuilder.STUDENT_ENROLLED);
       gb.sync(EventSource.encodeYaml(sharedEvents));
 
       int lastGroupEvent = gb.getEventSource().getEventNumber();
@@ -243,7 +247,7 @@ public class TestEventSourceing
       LinkedHashMap<String, String> pullCommand = new LinkedHashMap<>();
       pullCommand.put(StudentOfficeBuilder.EVENT_TYPE, StudentOfficeService.PULL);
       pullCommand.put(StudentOfficeService.LAST_KNOWN_NUMBER, "0");
-      pullCommand.put(StudentOfficeService.RELEVANT_EVENT_TYPES, StudentOfficeBuilder.BUILD_STUDENT + " " +  StudentOfficeBuilder.STUDENT_ENROLLED);
+      pullCommand.put(StudentOfficeService.RELEVANT_EVENT_TYPES, StudentOfficeBuilder.STUDENT_CREATED + " " +  StudentOfficeBuilder.STUDENT_ENROLLED);
       pullCommand.put(StudentOfficeService.ANSWER_TOPIC, SEGroupService.UNIKS_FB_16_SE_GROUP);
       mqttClient.publish(StudentOfficeService.UNIKS_FB_16_STUDENT_OFFICE, EventSource.encodeYaml(pullCommand).getBytes(), 2, false);
 
@@ -273,6 +277,56 @@ public class TestEventSourceing
       assertThat(gradesToOffice.indexOf("grade: A"), not(equalTo(-1)) );
       System.out.println();
    }
+
+
+
+   @Test
+   public void testBuildRestServer() throws MqttException, InterruptedException, IOException
+   {
+      // start studentOfficeRestServer
+      StudentOfficeRestServer.main(new String[0]);
+
+      // start segroup (locally)
+      byte[] bytes = Files.readAllBytes(Paths.get(CONFIG_SE_GROUP_EVENTS_YAML));
+      String yaml = new String(bytes);
+      SEGroupBuilder gb = new SEGroupBuilder();
+      gb.sync(yaml);
+
+      URL url = new URL("http://localhost:4567/pull?lastKnownNumber=0&caller=seGroup");
+      HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+      conn.setRequestMethod("GET");
+      bytes = IOUtils.toByteArray(conn.getInputStream());
+      yaml = new String(bytes);
+
+      gb.sync(yaml);
+
+      bytes = Files.readAllBytes(Paths.get(CONFIG_SEGROUP_GRADING_YAML));
+      yaml = new String(bytes);
+
+      gb.sync(yaml);
+
+      // push to office
+      SortedMap<Integer, LinkedHashMap<String, String>> map = gb.getEventSource().pull(0, SEGroupBuilder.EXAMINATION_GRADED);
+      yaml = EventSource.encodeYaml(map);
+
+      StringBuilder postData = new StringBuilder();
+      postData.append("caller=seGroup&yaml=").append(URLEncoder.encode(yaml, "UTF-8"));
+      bytes = postData.toString().getBytes("UTF-8");
+
+      URL postURL = new URL("http://localhost:4567/push");
+      conn = (HttpURLConnection)postURL.openConnection();
+      conn.setRequestMethod("POST");
+      conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+      conn.setRequestProperty("Content-Length", String.valueOf(bytes.length));
+      conn.setDoOutput(true);
+      conn.getOutputStream().write(bytes);
+
+      String result = new String(IOUtils.toByteArray(conn.getInputStream()));
+
+      System.out.println(result);
+   }
+
+
 
    private final MqttCallback mqttCallback = new MqttCallback()
    {
@@ -318,7 +372,7 @@ public class TestEventSourceing
    {
       LinkedHashMap<String, String> map = entry.getValue();
       String eventType = map.get(StudentOfficeBuilder.EVENT_TYPE);
-      if (eventType != null && eventType.equals(StudentOfficeBuilder.BUILD_STUDENT))
+      if (eventType != null && eventType.equals(StudentOfficeBuilder.STUDENT_CREATED))
       {
          return true;
       }

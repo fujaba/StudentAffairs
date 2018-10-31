@@ -27,16 +27,16 @@
   date: "2019-03-19"
   .eventNumber: 6
 
-- eventType: buildStudent
+- eventType: studentCreated
   studentId: m2323
   name: Bob
-  .eventKey: "buildStudent/m2323"
+  .eventKey: "studentCreated/m2323"
   .eventNumber: 8
 
-- eventType: buildStudent
+- eventType: studentCreated
   studentId: m4242
   name: Alice
-  .eventKey: "buildStudent/m4242"
+  .eventKey: "studentCreated/m4242"
   .eventNumber: 9
 
 - eventType: chooseMajorSubject

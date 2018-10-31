@@ -23,7 +23,7 @@ public class StudentOfficeBuilder
    public static final String BUILD_LECTURER = "buildLecturer";
    public static final String STUDENT_ID = "studentId";
    public static final String MAJOR_SUBJECT = "majorSubject";
-   public static final String BUILD_STUDENT = "buildStudent";
+   public static final String STUDENT_CREATED = "studentCreated";
    public static final String STUDENT_ENROLLED = "studentEnrolled";
    public static final String COURSE_NAME = "courseName";
    public static final String LECTURER_NAME = "lecturerName";
@@ -83,7 +83,7 @@ public class StudentOfficeBuilder
             Lecturer lecturer = studentOffice.getLecturers(map.get(LECTURER));
             buildExamination(course, lecturer, map.get(DATE));
          }
-         else if (BUILD_STUDENT.equals(map.get(EVENT_TYPE)))
+         else if (STUDENT_CREATED.equals(map.get(EVENT_TYPE)))
          {
             StudyProgram program = studentOffice.getPrograms(map.get(MAJOR_SUBJECT));
             buildStudent(map.get(NAME), map.get(STUDENT_ID));
@@ -181,10 +181,10 @@ public class StudentOfficeBuilder
       stud.setName(name);
 
       LinkedHashMap<String,String> map = new LinkedHashMap<>();
-      map.put(EVENT_TYPE, BUILD_STUDENT);
+      map.put(EVENT_TYPE, STUDENT_CREATED);
       map.put(STUDENT_ID, studentId);
       map.put(NAME,name);
-      map.put(EventSource.EVENT_KEY, BUILD_STUDENT + "/" + studentId);
+      map.put(EventSource.EVENT_KEY, STUDENT_CREATED + "/" + studentId);
 
       eventSource.append(map);
 

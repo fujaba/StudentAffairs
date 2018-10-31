@@ -15,10 +15,12 @@ import java.util.logging.Logger;
 public class StudentOfficeService implements Runnable
 {
 
-   public static final String OPCODE = "opcode";
+   public static final String EVENT_TYPE = "eventType";
    public static final String UNIKS_FB_16_STUDENT_OFFICE = "/uniks/fb16/studentOffice";
    public static final String ANSWER_TOPIC = "answerTopic";
    public static final String LAST_KNOWN_NUMBER = "lastKnownNumber";
+   public static final String RELEVANT_EVENT_TYPES = "relevantEventTypes";
+   public static final String PULL = "pull";
 
 
    private final MqttCallback mqttCallback = new MqttCallback()
@@ -106,8 +108,8 @@ public class StudentOfficeService implements Runnable
       for (Map.Entry<String,String> reportTopic : eventReportTopics.entrySet())
       {
          String topic = reportTopic.getKey();
-         String opCodes = reportTopic.getValue();
-         if (opCodes.equals("*") || opCodes.indexOf(e.get(OPCODE)) >= 0)
+         String eventTypes = reportTopic.getValue();
+         if (eventTypes.equals("*") || eventTypes.indexOf(e.get(EVENT_TYPE)) >= 0)
          {
             try
             {
@@ -132,19 +134,19 @@ public class StudentOfficeService implements Runnable
 
       for (LinkedHashMap<String, String> map : list)
       {
-         if ("pull".equals(map.get(OPCODE)))
+         if (PULL.equals(map.get(EVENT_TYPE)))
          {
             String answerTopic = map.get(ANSWER_TOPIC);
             eventReportTopics.put(answerTopic, "*");
             int lastKnownNumber = Integer.parseInt(map.get(LAST_KNOWN_NUMBER));
-            String[] relevantOpcodes = new String[0];
-            String opCodes = map.get("relevantOpCodes");
-            if (opCodes != null)
+            String[] relevantEventTypes = new String[0];
+            String eventTypes = map.get(RELEVANT_EVENT_TYPES);
+            if (eventTypes != null)
             {
-               relevantOpcodes = opCodes.split(" ");
-               eventReportTopics.put(answerTopic, " " + opCodes + " ");
+               relevantEventTypes = eventTypes.split(" ");
+               eventReportTopics.put(answerTopic, " " + eventTypes + " ");
             }
-            SortedMap<Integer, LinkedHashMap<String, String>> eventMaps = ob.getEventSource().pull(lastKnownNumber, relevantOpcodes);
+            SortedMap<Integer, LinkedHashMap<String, String>> eventMaps = ob.getEventSource().pull(lastKnownNumber, relevantEventTypes);
             String yamlList = EventSource.encodeYaml(eventMaps);
             try
             {
@@ -157,7 +159,7 @@ public class StudentOfficeService implements Runnable
          }
          else
          {
-            ob.build(EventSource.encodeYaml(map));
+            ob.sync(EventSource.encodeYaml(map));
          }
       }
 

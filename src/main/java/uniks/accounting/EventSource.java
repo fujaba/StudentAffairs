@@ -5,13 +5,12 @@ import org.fulib.yaml.Yamler;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class EventSource
 {
    public static final String EVENT_KEY = ".eventKey";
    public static final String EVENT_NUMBER = ".eventNumber";
-   public static final String OPCODE = "opcode";
+   public static final String EVENT_TYPE = "eventType";
    private Yamler yamler = new Yamler();
 
    private LinkedHashMap<String,Integer> keyNumMap = new LinkedHashMap<>();
@@ -30,15 +29,15 @@ public class EventSource
       return tailMap;
    }
 
-   public SortedMap<Integer, LinkedHashMap<String, String>> pull(int lastKnownNumber, String... relevantOpCodes)
+   public SortedMap<Integer, LinkedHashMap<String, String>> pull(int lastKnownNumber, String... relevantEventTypes)
    {
-      return pull(lastKnownNumber, e -> filterRelevantOpCodes(e, Arrays.asList(relevantOpCodes)));
+      return pull(lastKnownNumber, e -> filterRelevantEventTypes(e, Arrays.asList(relevantEventTypes)));
    }
 
-   private Boolean filterRelevantOpCodes(Map.Entry<Integer, LinkedHashMap<String, String>> e, List<String> relevantOpCodes)
+   private Boolean filterRelevantEventTypes(Map.Entry<Integer, LinkedHashMap<String, String>> e, List<String> relevantEventTypes)
    {
       LinkedHashMap<String, String> map = e.getValue();
-      return relevantOpCodes.contains(map.get(OPCODE));
+      return relevantEventTypes.contains(map.get(EVENT_TYPE));
    }
 
    public SortedMap<Integer, LinkedHashMap<String, String>> pull(int lastKnownNumber, Function<Map.Entry<Integer, LinkedHashMap<String, String>>,Boolean> filterOp)

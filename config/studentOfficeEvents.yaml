@@ -1,50 +1,50 @@
-- opcode: buildStudentOffice
+- eventType: buildStudentOffice
   name: FB16
   .eventKey: buildStudentOffice
   .eventNumber: 1
 
-- opcode: buildStudyProgram
+- eventType: buildStudyProgram
   name: CS
   .eventNumber: 2
 
-- opcode: buildCourse
+- eventType: buildCourse
   programName: CS
   name: math
   .eventNumber: 3
 
-- opcode: buildCourse
+- eventType: buildCourse
   programName: CS
   name: modeling
   .eventNumber: 4
 
-- opcode: buildLecturer
+- eventType: buildLecturer
   name: Albert
   .eventNumber: 5
 
-- opcode: buildExamination
+- eventType: buildExamination
   course: modeling
   lecturer: Albert
   date: "2019-03-19"
   .eventNumber: 6
 
-- opcode: buildStudent
+- eventType: buildStudent
   studentId: m2323
   name: Bob
   .eventKey: "buildStudent/m2323"
   .eventNumber: 8
 
-- opcode: buildStudent
+- eventType: buildStudent
   studentId: m4242
   name: Alice
   .eventKey: "buildStudent/m4242"
   .eventNumber: 9
 
-- opcode: chooseMajorSubject
+- eventType: chooseMajorSubject
   studentId: m4242
   majorSubject: CS
   .eventNumber: 10
 
-- opcode: enroll
+- eventType: enroll
   studentId: m4242
   courseName: modeling
   lecturerName: Albert

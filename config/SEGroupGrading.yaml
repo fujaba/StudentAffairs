@@ -1,4 +1,4 @@
-- opcode: buildSolution
+- eventType: buildSolution
   studentId: m4242
   topic: modeling
   term: "2018-10"
@@ -6,7 +6,7 @@
   gitUrl: "gitlab.com/alice/modeling"
   .eventNumber: 9
 
-- opcode: gradeSolution
+- eventType: gradeSolution
   studentId: m4242
   topic: modeling
   term: "2018-10"
@@ -14,7 +14,7 @@
   points: 20.0
   .eventNumber: 10
 
-- opcode: buildSolution
+- eventType: buildSolution
   studentId: m4242
   topic: modeling
   term: "2018-10"
@@ -22,7 +22,7 @@
   gitUrl: "gitlab.com/alice/modeling"
   .eventNumber: 11
 
-- opcode: gradeSolution
+- eventType: gradeSolution
   studentId: m4242
   topic: modeling
   term: "2018-10"
@@ -30,7 +30,7 @@
   points: 40.0
   .eventNumber: 12
 
-- opcode: gradeExamination
+- eventType: gradeExamination
   studentId: m4242
   courseName: modeling
   date: "2018-10"

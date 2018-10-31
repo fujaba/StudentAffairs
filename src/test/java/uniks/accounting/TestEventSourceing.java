@@ -4,7 +4,6 @@ import io.moquette.server.Server;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.fulib.FulibTools;
-import org.junit.Assert;
 import org.junit.Test;
 import uniks.accounting.segroup.*;
 import uniks.accounting.studentOffice.*;
@@ -99,7 +98,7 @@ public class TestEventSourceing
       storeEvents(CONFIG_SE_GROUP_EVENTS_YAML, EventSource.encodeYaml(gbEventList));
 
       SortedMap<Integer, LinkedHashMap<String, String>> sharedEvents = officeEventSource.pull(0, StudentOfficeBuilder.BUILD_STUDENT, StudentOfficeBuilder.ENROLL);
-      gb.build(officeEventSource.encodeYaml(sharedEvents));
+      gb.sync(EventSource.encodeYaml(sharedEvents));
 
       int lastGroupEvent = gb.getEventSource().getEventNumber();
 
@@ -123,13 +122,13 @@ public class TestEventSourceing
       storeEvents(CONFIG_SEGROUP_GRADING_YAML, EventSource.encodeYaml(groupEvents));
 
       SEGroupBuilder seClone = new SEGroupBuilder();
-      seClone.build(seLog);
+      seClone.sync(seLog);
       FulibTools.objectDiagrams().dumpSVG("tmp/SEGroupClone.svg", seClone.getSeGroup());
 
       // pull just grading
       groupEvents = groupEventSource.pull(0, SEGroupBuilder.GRADE_EXAMINATION);
       seLog = EventSource.encodeYaml(groupEvents);
-      ob.build(seLog);
+      ob.sync(seLog);
 
       assertThat(fb16.getStudents(M_4242).getName(), equalTo("Alice"));
       assertThat(fb16.getStudents(M_4242).getEnrollments().get(0).getGrade(), equalTo("A"));
@@ -141,11 +140,11 @@ public class TestEventSourceing
       lastPullNumber = pullMap.lastKey();
 
       StudentOfficeBuilder clone = new StudentOfficeBuilder();
-      clone.build(log);
+      clone.sync(log);
 
       FulibTools.objectDiagrams().dumpSVG("tmp/OfficeClone.svg", clone.getStudentOffice());
 
-      clone.build(officeEventSource.encodeYaml(pullMap));
+      clone.sync(officeEventSource.encodeYaml(pullMap));
 
       FulibTools.objectDiagrams().dumpSVG("tmp/OfficeCloneGroupMerge.svg", clone.getStudentOffice());
 
@@ -241,10 +240,10 @@ public class TestEventSourceing
 
       // subscribe at student office
       LinkedHashMap<String, String> pullCommand = new LinkedHashMap<>();
-      pullCommand.put(StudentOfficeBuilder.OPCODE, "pull");
-      pullCommand.put("lastKnownNumber", "0");
-      pullCommand.put("relevantOpCodes", StudentOfficeBuilder.BUILD_STUDENT + " " +  StudentOfficeBuilder.ENROLL);
-      pullCommand.put("answerTopic", SEGroupService.UNIKS_FB_16_SE_GROUP);
+      pullCommand.put(StudentOfficeBuilder.EVENT_TYPE, StudentOfficeService.PULL);
+      pullCommand.put(StudentOfficeService.LAST_KNOWN_NUMBER, "0");
+      pullCommand.put(StudentOfficeService.RELEVANT_EVENT_TYPES, StudentOfficeBuilder.BUILD_STUDENT + " " +  StudentOfficeBuilder.ENROLL);
+      pullCommand.put(StudentOfficeService.ANSWER_TOPIC, SEGroupService.UNIKS_FB_16_SE_GROUP);
       mqttClient.publish(StudentOfficeService.UNIKS_FB_16_STUDENT_OFFICE, EventSource.encodeYaml(pullCommand).getBytes(), 2, false);
 
       String pullFromOfficeToGroup = inbox.take();
@@ -253,10 +252,10 @@ public class TestEventSourceing
 
       // subscribe at group
       pullCommand = new LinkedHashMap<>();
-      pullCommand.put(StudentOfficeBuilder.OPCODE, "pull");
-      pullCommand.put("lastKnownNumber", "0");
-      pullCommand.put("relevantOpCodes", SEGroupBuilder.GRADE_EXAMINATION);
-      pullCommand.put("answerTopic", StudentOfficeService.UNIKS_FB_16_STUDENT_OFFICE);
+      pullCommand.put(StudentOfficeBuilder.EVENT_TYPE, SEGroupService.PULL);
+      pullCommand.put(SEGroupService.LAST_KNOWN_NUMBER, "0");
+      pullCommand.put(SEGroupService.RELEVANT_EVENT_TYPES, SEGroupBuilder.GRADE_EXAMINATION);
+      pullCommand.put(SEGroupService.ANSWER_TOPIC, StudentOfficeService.UNIKS_FB_16_STUDENT_OFFICE);
       mqttClient.publish(SEGroupService.UNIKS_FB_16_SE_GROUP, EventSource.encodeYaml(pullCommand).getBytes(), 2, false);
 
       String pullFromGroupToOffice = inbox.take();
@@ -316,8 +315,8 @@ public class TestEventSourceing
    private Boolean filterBuildStudent(Map.Entry<Integer, LinkedHashMap<String, String>> entry)
    {
       LinkedHashMap<String, String> map = entry.getValue();
-      String opCode = map.get(StudentOfficeBuilder.OPCODE);
-      if (opCode != null && opCode.equals(StudentOfficeBuilder.BUILD_STUDENT))
+      String eventType = map.get(StudentOfficeBuilder.EVENT_TYPE);
+      if (eventType != null && eventType.equals(StudentOfficeBuilder.BUILD_STUDENT))
       {
          return true;
       }

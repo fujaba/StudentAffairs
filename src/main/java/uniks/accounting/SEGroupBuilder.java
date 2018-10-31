@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class SEGroupBuilder
 {
-   public static final String OPCODE = "opcode";
+   public static final String EVENT_TYPE = "eventType";
    public static final String HEAD = "head";
    public static final String BUILD_SE_GROUP = "buildSEGroup";
    public static final String BUILD_STUDENT = "buildStudent";
@@ -47,45 +47,45 @@ public class SEGroupBuilder
       return eventSource;
    }
 
-   public void build(String yaml)
+   public void sync(String yaml)
    {
       Yamler yamler = new Yamler();
       ArrayList<LinkedHashMap<String, String>> list = yamler.decodeList(yaml);
 
       for (LinkedHashMap<String, String> map : list)
       {
-         if (BUILD_SE_GROUP.equals(map.get(OPCODE)))
+         if (BUILD_SE_GROUP.equals(map.get(EVENT_TYPE)))
          {
             buildSEGroup(map.get(HEAD));
          }
-         else if (BUILD_STUDENT.equals(map.get(OPCODE)))
+         else if (BUILD_STUDENT.equals(map.get(EVENT_TYPE)))
          {
             buildStudent(map.get(NAME), map.get(STUDENT_ID));
          }
-         else if (BUILD_SE_CLASS.equals(map.get(OPCODE)))
+         else if (BUILD_SE_CLASS.equals(map.get(EVENT_TYPE)))
          {
             buildSEClass(map.get(TOPIC), map.get(TERM));
          }
-         else if (BUILD_ASSIGNMENT.equals(map.get(OPCODE)))
+         else if (BUILD_ASSIGNMENT.equals(map.get(EVENT_TYPE)))
          {
             SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
             double points = Double.parseDouble(map.get(POINTS));
             buildAssignment(seClass, map.get(TASK), points);
          }
-         else if (BUILD_ACHIEVEMENT.equals(map.get(OPCODE)))
+         else if (BUILD_ACHIEVEMENT.equals(map.get(EVENT_TYPE)))
          {
             SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
             SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
             buildAchievement(student, seClass);
          }
-         else if (ENROLL.equals(map.get(OPCODE)))
+         else if (ENROLL.equals(map.get(EVENT_TYPE)))
          {
             SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
             SEClass seClass = seGroup.getClasses(map.get(COURSE_NAME), map.get(DATE));
             Achievement achievement = buildAchievement(student, seClass);
             enroll(achievement);
          }
-         else if (BUILD_SOLUTION.equals(map.get(OPCODE)))
+         else if (BUILD_SOLUTION.equals(map.get(EVENT_TYPE)))
          {
             SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
             SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
@@ -93,7 +93,7 @@ public class SEGroupBuilder
             Assignment assignment = seClass.getAssignments(map.get(TASK));
             buildSolution(achievement, assignment, map.get(GIT_URL));
          }
-         else if (GRADE_SOLUTION.equals(map.get(OPCODE)))
+         else if (GRADE_SOLUTION.equals(map.get(EVENT_TYPE)))
          {
             SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
             SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
@@ -102,7 +102,7 @@ public class SEGroupBuilder
             Solution solution = achievement.getSolutions(assignment);
             gradeSolution(solution, Double.parseDouble(map.get(POINTS)));
          }
-         else if (GRADE_EXAMINATION.equals(map.get(OPCODE)))
+         else if (GRADE_EXAMINATION.equals(map.get(EVENT_TYPE)))
          {
             SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
             SEClass seClass = seGroup.getClasses(map.get(COURSE_NAME), map.get(DATE));
@@ -137,7 +137,7 @@ public class SEGroupBuilder
       achievement.setGrade("" + grade);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + OPCODE + ": ").append(GRADE_EXAMINATION).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(GRADE_EXAMINATION).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
             .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
             .append("  " + DATE + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n")
@@ -155,7 +155,7 @@ public class SEGroupBuilder
       Achievement achievement = solution.getAchievement();
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + OPCODE + ": ").append(GRADE_SOLUTION).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(GRADE_SOLUTION).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
             .append("  " + TOPIC + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
             .append("  " + TERM + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n")
@@ -182,7 +182,7 @@ public class SEGroupBuilder
       solution.setGitUrl(gitUrl);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + OPCODE + ": ").append(BUILD_SOLUTION).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(BUILD_SOLUTION).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
             .append("  " + TOPIC + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
             .append("  " + TERM + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n")
@@ -200,7 +200,7 @@ public class SEGroupBuilder
       achievement.setOfficeStatus(ENROLLED);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + OPCODE + ": ").append(ENROLL).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(ENROLL).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
             .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
             .append("  " + LECTURER_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getGroup().getHead())).append("\n")
@@ -223,7 +223,7 @@ public class SEGroupBuilder
             .setSeClass(seClass);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + OPCODE + ": ").append(BUILD_ACHIEVEMENT).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(BUILD_ACHIEVEMENT).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
             .append("  " + TOPIC + ": ").append(Yamler.encapsulate(seClass.getTopic())).append("\n")
             .append("  " + TERM + ": ").append(Yamler.encapsulate(seClass.getTerm())).append("\n\n");
@@ -250,7 +250,7 @@ public class SEGroupBuilder
       assignment.setPoints(points);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + OPCODE + ": ").append(BUILD_ASSIGNMENT).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(BUILD_ASSIGNMENT).append("\n")
             .append("  " + TOPIC + ": ").append(Yamler.encapsulate(seClass.getTopic())).append("\n")
             .append("  " + TERM + ": ").append(Yamler.encapsulate(seClass.getTerm())).append("\n")
             .append("  " + TASK + ": ").append(Yamler.encapsulate(task)).append("\n")
@@ -273,7 +273,7 @@ public class SEGroupBuilder
             .setGroup(seGroup);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + OPCODE + ": ").append(BUILD_SE_CLASS).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(BUILD_SE_CLASS).append("\n")
             .append("  " + TOPIC + ": ").append(Yamler.encapsulate(topic)).append("\n")
             .append("  " + TERM + ": ").append(Yamler.encapsulate(term)).append("\n\n");
 
@@ -294,7 +294,7 @@ public class SEGroupBuilder
             .setGroup(seGroup);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + OPCODE + ": ").append(BUILD_STUDENT).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(BUILD_STUDENT).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(studentId)).append("\n")
             .append("  " + NAME + ": ").append(Yamler.encapsulate(name)).append("\n\n");
 
@@ -316,7 +316,7 @@ public class SEGroupBuilder
       seGroup.setHead(head);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + OPCODE + ": ").append(BUILD_SE_GROUP).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(BUILD_SE_GROUP).append("\n")
             .append("  " + HEAD + ": ").append(Yamler.encapsulate(head)).append("\n\n");
 
       eventSource.append(buf);

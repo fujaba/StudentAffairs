@@ -1,25 +1,25 @@
-- opcode: buildSEGroup
+- eventType: buildSEGroup
   head: Albert
   .eventNumber: 1
 
-- opcode: buildStudent
+- eventType: buildStudent
   studentId: m4242
   name: Alica
   .eventNumber: 2
 
-- opcode: buildSEClass
+- eventType: buildSEClass
   topic: modeling
   term: "2018-10"
   .eventNumber: 3
 
-- opcode: buildAssignment
+- eventType: buildAssignment
   topic: modeling
   term: "2018-10"
   task: mid_term
   points: 23.0
   .eventNumber: 4
 
-- opcode: buildAssignment
+- eventType: buildAssignment
   topic: modeling
   term: "2018-10"
   task: finals

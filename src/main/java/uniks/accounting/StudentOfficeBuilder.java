@@ -232,8 +232,8 @@ public class StudentOfficeBuilder
       if (studyProgram == null)
       {
          studyProgram = new StudyProgram()
-               .setDepartment(studentOffice)
-               .setSubject(name);
+               .setSubject(name)
+               .setDepartment(studentOffice);
 
          StringBuilder buf = new StringBuilder()
                .append("- " + EVENT_TYPE + ": ").append(BUILD_STUDY_PROGRAM).append("\n")

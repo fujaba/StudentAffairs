@@ -4,22 +4,21 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import uniks.accounting.view.studentOffice.subView.OfficeTreeItem;
 
-public class StudentOfficeView extends VBox {
+public class MainView extends VBox {
     
     private TextField departmentName;
     private Button createOffice;
+    private Button update;
     
     private TreeView<String> officeOverview;
     
-    private TextField programName;
-    private Button addStudyProgram;
-    
-    public StudentOfficeView() {
+    public MainView() {
         this.setAlignment(Pos.TOP_CENTER);
         this.setSpacing(20.0);
         this.setPadding(new Insets(15.0));
@@ -27,31 +26,27 @@ public class StudentOfficeView extends VBox {
         this.departmentName = new TextField();
         this.createOffice = new Button("Create Office");
         this.createOffice.setDefaultButton(true);
+        HBox.setHgrow(this.departmentName, Priority.ALWAYS);
         
         HBox b = new HBox(5.0);
         b.setAlignment(Pos.CENTER);
         b.getChildren().addAll(this.departmentName, this.createOffice);
 
+        this.update = new Button("Modify");
+        
         this.getChildren().addAll(b);
     }
     
-    public void addRootTreeItem(TreeItem<String> rootItem) {
+    public void addRootTreeItem(OfficeTreeItem rootItem) {
         this.officeOverview = new TreeView<>(rootItem);
-        this.getChildren().add(this.officeOverview);
-        this.addDepartmentControls();
+        this.createOffice.disableProperty().bind(this.officeOverview.rootProperty().isNotNull());
+        this.departmentName.disableProperty().bind(this.officeOverview.rootProperty().isNotNull());
+        
+        this.update.disableProperty().bind(this.officeOverview.getSelectionModel().selectedItemProperty().isNull());
+        
+        this.getChildren().addAll(this.officeOverview, update);
     }
     
-    private void addDepartmentControls() {
-        this.programName = new TextField();
-        this.addStudyProgram = new Button("Add Program");
-        
-        HBox b = new HBox(5.0);
-        b.setAlignment(Pos.CENTER);
-        b.getChildren().addAll(programName, addStudyProgram);
-        
-        this.getChildren().add(b);
-    }
-
     public TextField getDepartmentName() {
         return departmentName;
     }
@@ -64,11 +59,7 @@ public class StudentOfficeView extends VBox {
         return officeOverview;
     }
 
-    public TextField getProgramName() {
-        return programName;
-    }
-
-    public Button getAddStudyProgram() {
-        return addStudyProgram;
+    public Button getUpdate() {
+        return update;
     }
 }

@@ -171,4 +171,8 @@ public class Enrollment
       return result.substring(1);
    }
 
+   public static final String PROPERTY_exam = "exam";
+
+   public static final String PROPERTY_student = "student";
+
 }

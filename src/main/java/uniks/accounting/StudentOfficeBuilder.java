@@ -175,10 +175,9 @@ public class StudentOfficeBuilder
       {
          stud = new UniStudent()
                .setStudentId(studentId)
+               .setName(name)
                .setDepartment(studentOffice);
       }
-
-      stud.setName(name);
 
       LinkedHashMap<String,String> map = new LinkedHashMap<>();
       map.put(EVENT_TYPE, STUDENT_CREATED);
@@ -319,8 +318,8 @@ public class StudentOfficeBuilder
       {
          exam = new Examination()
                .setLecturer(lecturer)
-               .setTopic(course)
-               .setDate(date);
+               .setDate(date)
+               .setTopic(course);
 
          StringBuilder buf = new StringBuilder()
                .append("- " + EVENT_TYPE + ": ").append(BUILD_EXAMINATION).append("\n")

@@ -292,4 +292,8 @@ public class SEGroup
 
       return firstFit;
    }
+   public static final String PROPERTY_classes = "classes";
+
+   public static final String PROPERTY_students = "students";
+
 }

@@ -268,4 +268,10 @@ public class UniStudent
 
       return null;
    }
+   public static final String PROPERTY_department = "department";
+
+   public static final String PROPERTY_majorSubject = "majorSubject";
+
+   public static final String PROPERTY_enrollments = "enrollments";
+
 }

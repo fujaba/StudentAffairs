@@ -212,4 +212,8 @@ public class SEStudent
       }
       return null;
    }
+   public static final String PROPERTY_group = "group";
+
+   public static final String PROPERTY_achievements = "achievements";
+
 }

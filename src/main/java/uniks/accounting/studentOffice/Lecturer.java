@@ -204,4 +204,8 @@ public class Lecturer
    }
 
 
+   public static final String PROPERTY_department = "department";
+
+   public static final String PROPERTY_examinations = "examinations";
+
 }

@@ -176,4 +176,8 @@ public class Solution
    }
 
 
+   public static final String PROPERTY_achievement = "achievement";
+
+   public static final String PROPERTY_assignment = "assignment";
+
 }

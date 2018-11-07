@@ -316,4 +316,10 @@ public class SEClass
       }
       return null;
    }
+   public static final String PROPERTY_group = "group";
+
+   public static final String PROPERTY_assignments = "assignments";
+
+   public static final String PROPERTY_participations = "participations";
+
 }

@@ -366,4 +366,10 @@ public class StudentOffice
       }
       return null;
    }
+   public static final String PROPERTY_programs = "programs";
+
+   public static final String PROPERTY_students = "students";
+
+   public static final String PROPERTY_lecturers = "lecturers";
+
 }

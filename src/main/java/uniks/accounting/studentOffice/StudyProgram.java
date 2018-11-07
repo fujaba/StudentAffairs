@@ -295,4 +295,10 @@ public class StudyProgram
 
       return null;
    }
+   public static final String PROPERTY_department = "department";
+
+   public static final String PROPERTY_courses = "courses";
+
+   public static final String PROPERTY_students = "students";
+
 }

@@ -237,4 +237,8 @@ public class Assignment
       return result.substring(1);
    }
 
+   public static final String PROPERTY_seClass = "seClass";
+
+   public static final String PROPERTY_solutions = "solutions";
+
 }

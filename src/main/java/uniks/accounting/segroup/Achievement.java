@@ -268,4 +268,10 @@ public class Achievement
 
       return null;
    }
+   public static final String PROPERTY_seClass = "seClass";
+
+   public static final String PROPERTY_student = "student";
+
+   public static final String PROPERTY_solutions = "solutions";
+
 }

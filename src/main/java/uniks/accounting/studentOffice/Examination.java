@@ -234,4 +234,10 @@ public class Examination
    }
 
 
+   public static final String PROPERTY_topic = "topic";
+
+   public static final String PROPERTY_lecturer = "lecturer";
+
+   public static final String PROPERTY_enrollments = "enrollments";
+
 }

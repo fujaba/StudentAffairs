@@ -2,10 +2,13 @@ package uniks.accounting.view.studentOffice;
 
 import javafx.event.ActionEvent;
 import uniks.accounting.StudentOfficeService;
+import uniks.accounting.studentOffice.Course;
+import uniks.accounting.studentOffice.Examination;
 import uniks.accounting.studentOffice.StudentOffice;
+import uniks.accounting.studentOffice.StudyProgram;
 import uniks.accounting.view.studentOffice.subController.StudentOfficeController;
-import uniks.accounting.view.studentOffice.subView.ModifyStudentOffice;
-import uniks.accounting.view.studentOffice.subView.OfficeTreeItem;
+import uniks.accounting.view.studentOffice.subController.SubController;
+import uniks.accounting.view.studentOffice.subView.*;
 
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.modelView;
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.ob;
@@ -14,8 +17,6 @@ public class MainController {
     
     private MainView view;
     private StudentOfficeService officeService;
-    
-    private StudentOfficeController officeCon;
     
     public MainController(MainView view) {
         this.view = view;
@@ -32,8 +33,8 @@ public class MainController {
             StudentOffice office = ob.buildStudentOffice(departmentName);
             OfficeTreeItem rootItem = new OfficeTreeItem("Department - " + departmentName);
 
-            this.officeCon = new StudentOfficeController(rootItem, office);
-            this.officeCon.init();
+            StudentOfficeController officeCon = new StudentOfficeController(rootItem, office);
+            officeCon.init();
             
             modelView.put(rootItem.getId(), officeCon);
 
@@ -43,11 +44,23 @@ public class MainController {
     
     private void onUpdate(ActionEvent evt) {
         OfficeTreeItem selectedItem = (OfficeTreeItem) this.view.getOfficeOverview().getSelectionModel().getSelectedItem();
-        Object modelItem = modelView.get(selectedItem.getId()).getModel();
-     
-        if (modelItem instanceof StudentOffice) {
-            StudentOffice office = (StudentOffice) modelItem;
-            new ModifyStudentOffice(office).showAndWait();
+        SubController con = modelView.get(selectedItem.getId());
+        if (con != null) {
+            Object modelItem = con.getModel();
+
+            if (modelItem instanceof StudentOffice) {
+                StudentOffice office = (StudentOffice) modelItem;
+                new ModifyStudentOffice(office).showAndWait();
+            } else if (modelItem instanceof StudyProgram) {
+                StudyProgram program = (StudyProgram) modelItem;
+                new ModifyStudyProgram(program).showAndWait();
+            } else if (modelItem instanceof Course) {
+                Course course = (Course) modelItem;
+                new ModifyCourse(course).showAndWait();
+            } else if (modelItem instanceof Examination) {
+                Examination exam = (Examination) modelItem;
+                new ModifyExamination(exam).showAndWait();
+            }
         }
     }
 }

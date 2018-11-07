@@ -252,4 +252,8 @@ public class Course
    }
 
 
+   public static final String PROPERTY_programs = "programs";
+
+   public static final String PROPERTY_exams = "exams";
+
 }

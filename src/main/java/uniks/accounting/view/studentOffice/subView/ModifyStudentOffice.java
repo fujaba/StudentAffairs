@@ -8,6 +8,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import uniks.accounting.studentOffice.StudentOffice;
 
+import java.util.Random;
+
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.ob;
 
 public class ModifyStudentOffice extends Dialog<Void> {
@@ -30,6 +32,16 @@ public class ModifyStudentOffice extends Dialog<Void> {
         nameBox.getChildren().addAll(nameLabel, name);
         
         HBox addListsBox = new HBox(5.0);
+
+        VBox studBox = new VBox(5.0);
+        Label studLabel = new Label("Added students");
+        ListView<String> stud = new ListView<>();
+        HBox studContrBox = new HBox(5.0);
+        TextField newStudName = new TextField();
+        Button addStud = new Button("Add");
+        studContrBox.getChildren().addAll(newStudName, addStud);
+        studBox.getChildren().addAll(studLabel, stud, studContrBox);
+        HBox.setHgrow(newStudName, Priority.ALWAYS);
         
         VBox lectBox = new VBox(5.0);
         Label lectLabel = new Label("Added lecturers");
@@ -51,23 +63,38 @@ public class ModifyStudentOffice extends Dialog<Void> {
         progBox.getChildren().addAll(progLabel, prog, progContrBox);
         HBox.setHgrow(newProgName, Priority.ALWAYS);
         
-        addListsBox.getChildren().addAll(lectBox, progBox);
+        addListsBox.getChildren().addAll(studBox, lectBox, progBox);
         b.getChildren().addAll(nameBox, addListsBox);
         pane.setContent(b);
         this.setDialogPane(pane);
         
+        addStud.setOnAction(evt -> {
+            if (newStudName.getText() != null && !newStudName.getText().isEmpty()) {
+                stud.getItems().add(newStudName.getText());
+                newStudName.setText("");
+            }
+        });
+        
         addLec.setOnAction(evt -> {
-            lect.getItems().add(newLecName.getText());
-            newLecName.setText("");
+            if (newLecName.getText() != null && !newLecName.getText().isEmpty()) {
+                lect.getItems().add(newLecName.getText());
+                newLecName.setText("");
+            }
         });
 
         addProg.setOnAction(evt -> {
-            prog.getItems().add(newProgName.getText());
-            newProgName.setText("");
+            if (newProgName.getText() != null && !newProgName.getText().isEmpty()) {
+                prog.getItems().add(newProgName.getText());
+                newProgName.setText("");
+            }
         });
         
         ((Button)this.getDialogPane().lookupButton(ButtonType.OK)).setOnAction(evt -> {
             office.setDepartment(name.getText());
+            
+            for (String s : stud.getItems()) {
+                ob.buildStudent(s, 100000 + (int)(new Random().nextFloat() * 899900) + "");
+            }
             
             for (String s : lect.getItems()) {
                 ob.buildLecturer(s);

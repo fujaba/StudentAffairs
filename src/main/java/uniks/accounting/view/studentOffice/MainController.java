@@ -1,6 +1,8 @@
 package uniks.accounting.view.studentOffice;
 
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import uniks.accounting.StudentOfficeService;
 import uniks.accounting.studentOffice.Course;
 import uniks.accounting.studentOffice.Examination;
@@ -39,6 +41,19 @@ public class MainController {
             modelView.put(rootItem.getId(), officeCon);
 
             this.view.addRootTreeItem(rootItem);
+
+            this.view.getOfficeOverview().setOnMousePressed(this::onOfficeOverviewDoubleClick);
+            this.view.getCreateOffice().disableProperty().bind(this.view.getOfficeOverview().rootProperty().isNotNull());
+            this.view.getDepartmentName().disableProperty().bind(this.view.getOfficeOverview().rootProperty().isNotNull());
+
+            this.view.getUpdate().disableProperty().bind(this.view.getOfficeOverview().getSelectionModel().selectedItemProperty().isNull());
+            this.view.getUpdate().prefWidthProperty().bind(this.view.widthProperty());
+        }
+    }
+    
+    private void onOfficeOverviewDoubleClick(MouseEvent evt) {
+        if (evt.getButton() == MouseButton.PRIMARY && evt.getClickCount() == 2) {
+            this.onUpdate(null);
         }
     }
     

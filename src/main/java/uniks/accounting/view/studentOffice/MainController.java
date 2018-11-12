@@ -28,10 +28,16 @@ public class MainController {
         this.view.getCreateOffice().setOnAction(this::onCreateOffice);
         this.view.getUpdate().setOnAction(this::onUpdate);
     }
+
+    private void onOfficeOverviewDoubleClick(MouseEvent evt) {
+        if (evt.getButton() == MouseButton.PRIMARY && evt.getClickCount() == 2) {
+            this.onUpdate(null);
+        }
+    }
     
     private void onCreateOffice(ActionEvent evt) {
         String departmentName = this.view.getDepartmentName().getText();
-        if (departmentName != null && departmentName.length() > 0) {
+        if (departmentName != null && !departmentName.isEmpty()) {
             StudentOffice office = ob.buildStudentOffice(departmentName);
             OfficeTreeItem rootItem = new OfficeTreeItem("Department - " + departmentName);
 
@@ -48,12 +54,6 @@ public class MainController {
 
             this.view.getUpdate().disableProperty().bind(this.view.getOfficeOverview().getSelectionModel().selectedItemProperty().isNull());
             this.view.getUpdate().prefWidthProperty().bind(this.view.widthProperty());
-        }
-    }
-    
-    private void onOfficeOverviewDoubleClick(MouseEvent evt) {
-        if (evt.getButton() == MouseButton.PRIMARY && evt.getClickCount() == 2) {
-            this.onUpdate(null);
         }
     }
     

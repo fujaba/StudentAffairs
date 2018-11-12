@@ -8,6 +8,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import uniks.accounting.studentOffice.StudentOffice;
 
+import java.math.BigInteger;
 import java.util.Random;
 
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.ob;
@@ -93,7 +94,7 @@ public class ModifyStudentOffice extends Dialog<Void> {
             office.setDepartment(name.getText());
             
             for (String s : stud.getItems()) {
-                ob.buildStudent(s, 100000 + (int)(new Random().nextFloat() * 899900) + "");
+                ob.buildStudent(s, new BigInteger(s.getBytes()).toString());
             }
             
             for (String s : lect.getItems()) {

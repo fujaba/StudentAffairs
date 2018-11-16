@@ -39,11 +39,7 @@ public class MainView extends VBox {
     
     public void addRootTreeItem(OfficeTreeItem rootItem) {
         this.officeOverview = new TreeView<>(rootItem);
-        this.createOffice.disableProperty().bind(this.officeOverview.rootProperty().isNotNull());
-        this.departmentName.disableProperty().bind(this.officeOverview.rootProperty().isNotNull());
-        
-        this.update.disableProperty().bind(this.officeOverview.getSelectionModel().selectedItemProperty().isNull());
-        
+        VBox.setVgrow(this.officeOverview, Priority.ALWAYS);
         this.getChildren().addAll(this.officeOverview, update);
     }
     

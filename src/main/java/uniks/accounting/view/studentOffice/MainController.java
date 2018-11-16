@@ -1,6 +1,8 @@
 package uniks.accounting.view.studentOffice;
 
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import uniks.accounting.StudentOfficeService;
 import uniks.accounting.studentOffice.Course;
 import uniks.accounting.studentOffice.Examination;
@@ -26,10 +28,16 @@ public class MainController {
         this.view.getCreateOffice().setOnAction(this::onCreateOffice);
         this.view.getUpdate().setOnAction(this::onUpdate);
     }
+
+    private void onOfficeOverviewDoubleClick(MouseEvent evt) {
+        if (evt.getButton() == MouseButton.PRIMARY && evt.getClickCount() == 2) {
+            this.onUpdate(null);
+        }
+    }
     
     private void onCreateOffice(ActionEvent evt) {
         String departmentName = this.view.getDepartmentName().getText();
-        if (departmentName != null && departmentName.length() > 0) {
+        if (departmentName != null && !departmentName.isEmpty()) {
             StudentOffice office = ob.getOrCreateStudentOffice(departmentName);
             OfficeTreeItem rootItem = new OfficeTreeItem("Department - " + departmentName);
 
@@ -39,6 +47,13 @@ public class MainController {
             modelView.put(rootItem.getId(), officeCon);
 
             this.view.addRootTreeItem(rootItem);
+
+            this.view.getOfficeOverview().setOnMousePressed(this::onOfficeOverviewDoubleClick);
+            this.view.getCreateOffice().disableProperty().bind(this.view.getOfficeOverview().rootProperty().isNotNull());
+            this.view.getDepartmentName().disableProperty().bind(this.view.getOfficeOverview().rootProperty().isNotNull());
+
+            this.view.getUpdate().disableProperty().bind(this.view.getOfficeOverview().getSelectionModel().selectedItemProperty().isNull());
+            this.view.getUpdate().prefWidthProperty().bind(this.view.widthProperty());
         }
     }
     

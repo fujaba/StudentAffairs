@@ -32,9 +32,9 @@ public class StudentOfficeController implements SubController {
         this.view.getChildren().add(this.programs);
         this.view.setExpanded(true);
         
-        modelView.put(officeStudents.getId(), this);
-        modelView.put(officeLecturer.getId(), this);
-        modelView.put(programs.getId(), this);
+        modelView.put(this.officeStudents.getId(), this);
+        modelView.put(this.officeLecturer.getId(), this);
+        modelView.put(this.programs.getId(), this);
         
         this.addModelListener();
     }

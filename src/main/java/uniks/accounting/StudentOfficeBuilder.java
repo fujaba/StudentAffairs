@@ -11,16 +11,16 @@ public class StudentOfficeBuilder
 {
 
    public static final String EVENT_TYPE = "eventType";
-   public static final String BUILD_STUDENT_OFFICE = "buildStudentOffice";
-   public static final String BUILD_STUDY_PROGRAM = "buildStudyProgram";
-   public static final String BUILD_COURSE = "buildCourse";
+   public static final String STUDENT_OFFICE_CREATED = "studentOfficeCreated";
+   public static final String STUDY_PROGRAM_CREATED = "studyProgramCreated";
+   public static final String COURSE_CREATED = "courseCreated";
    public static final String PROGRAM_NAME = "programName";
    public static final String NAME = "name";
-   public static final String BUILD_EXAMINATION = "buildExamination";
+   public static final String EXAMINATION_CREATED = "examinationCreated";
    public static final String COURSE = "course";
    public static final String LECTURER = "lecturer";
    public static final String DATE = "date";
-   public static final String BUILD_LECTURER = "buildLecturer";
+   public static final String LECTURER_CREATED = "lecturerCreated";
    public static final String STUDENT_ID = "studentId";
    public static final String MAJOR_SUBJECT = "majorSubject";
    public static final String STUDENT_CREATED = "studentCreated";
@@ -32,6 +32,7 @@ public class StudentOfficeBuilder
    public static final String GRADE = "grade";
 
    private StudentOffice studentOffice;
+   private String officeName = "";
 
    public StudentOffice getStudentOffice()
    {
@@ -50,73 +51,85 @@ public class StudentOfficeBuilder
       return eventSource.encodeYaml();
    }
 
-   public void sync(String yaml)
+   public void applyEvents(String yaml)
    {
       Yamler yamler = new Yamler();
       ArrayList<LinkedHashMap<String, String>> list = yamler.decodeList(yaml);
 
       for (LinkedHashMap<String, String> map : list)
       {
-         if (BUILD_STUDENT_OFFICE.equals(map.get(EVENT_TYPE)))
+         if (STUDENT_OFFICE_CREATED.equals(map.get(EVENT_TYPE)))
          {
-            buildStudentOffice(map.get(NAME));
+            officeName = map.get(NAME);
+            studentOffice = getOrCreateStudentOffice(officeName);
          }
-         else if (BUILD_STUDY_PROGRAM.equals(map.get(EVENT_TYPE)))
+         else if (STUDY_PROGRAM_CREATED.equals(map.get(EVENT_TYPE)))
          {
-            buildStudyProgram(map.get(NAME));
+            getOrCreateStudyProgram(map.get(NAME));
          }
-         else if (BUILD_COURSE.equals(map.get(EVENT_TYPE)))
+         else if (COURSE_CREATED.equals(map.get(EVENT_TYPE)))
          {
-            if (studentOffice == null) continue;
-            StudyProgram program = studentOffice.getPrograms(map.get(PROGRAM_NAME));
-            buildCourse(program, map.get(NAME));
+            getOrCreateStudentOffice(null);
+
+            StudyProgram program = getOrCreateStudyProgram(map.get(PROGRAM_NAME));
+
+            getOrCreateCourse(program, map.get(NAME));
          }
-         else if (BUILD_LECTURER.equals(map.get(EVENT_TYPE)))
+         else if (LECTURER_CREATED.equals(map.get(EVENT_TYPE)))
          {
             buildLecturer(map.get(NAME));
          }
-         else if (BUILD_EXAMINATION.equals(map.get(EVENT_TYPE)))
+         else if (EXAMINATION_CREATED.equals(map.get(EVENT_TYPE)))
          {
-            CourseTable courseTable = new StudentOfficeTable(studentOffice).expandPrograms().expandCourses()
-                  .filter(c -> c.getTitle().equals(map.get(COURSE)));
-            Course course = courseTable.get(0);
-            Lecturer lecturer = studentOffice.getLecturers(map.get(LECTURER));
-            buildExamination(course, lecturer, map.get(DATE));
+            Course course = getOrCreateCourse(map.get(COURSE));
+            Lecturer lecturer = getOrCreateLecturer(map, LECTURER);
+            getOrCreateExamination(course, lecturer, map.get(DATE));
          }
          else if (STUDENT_CREATED.equals(map.get(EVENT_TYPE)))
          {
-            StudyProgram program = studentOffice.getPrograms(map.get(MAJOR_SUBJECT));
-            buildStudent(map.get(NAME), map.get(STUDENT_ID));
+            getOrCreateStudent(map.get(NAME), map.get(STUDENT_ID));
          }
          else if (CHOOSE_MAJOR_SUBJECT.equals(map.get(EVENT_TYPE)))
          {
-            UniStudent student = studentOffice.getStudents(map.get(STUDENT_ID));
+            UniStudent student = getOrCreateStudent(map.get(STUDENT_ID));
             StudyProgram program = studentOffice.getPrograms(map.get(MAJOR_SUBJECT));
             chooseMajorSubject(student, program);
          }
          else if (STUDENT_ENROLLED.equals(map.get(EVENT_TYPE)))
          {
-            UniStudent student = studentOffice.getStudents(map.get(STUDENT_ID));
-            CourseTable courseTable = new StudentOfficeTable(studentOffice).expandPrograms().expandCourses()
-                  .filter(c -> c.getTitle().equals(map.get(COURSE_NAME)));
-            Course course = courseTable.get(0);
-            Lecturer lecturer = studentOffice.getLecturers(map.get(LECTURER_NAME));
-            Examination exam = buildExamination(course, lecturer, map.get(DATE));
-
+            UniStudent student = getOrCreateStudent(map.get(STUDENT_ID));
+            Course course = getOrCreateCourse(map.get(COURSE_NAME));
+            Lecturer lecturer = getOrCreateLecturer(map, LECTURER_NAME);
+            Examination exam = getOrCreateExamination(course, lecturer, map.get(DATE));
             enroll(student, exam);
          }
          else if (EXAMINATION_GRADED.equals(map.get(EVENT_TYPE)))
          {
-            UniStudent student = studentOffice.getStudents(map.get(STUDENT_ID));
-            CourseTable courseTable = new StudentOfficeTable(studentOffice).expandPrograms().expandCourses()
-                  .filter(c -> c.getTitle().equals(map.get(COURSE_NAME)));
-            Course course = courseTable.get(0);
-            Lecturer lecturer = studentOffice.getLecturers(map.get(LECTURER_NAME));
-            Examination exam = buildExamination(course, lecturer, map.get(DATE));
-            Enrollment enrollment = student.getEnrollments(exam);
+            UniStudent student = getOrCreateStudent(map.get(STUDENT_ID));
+            Course course = getOrCreateCourse(map.get(COURSE_NAME));
+            Lecturer lecturer = getOrCreateLecturer(map, LECTURER_NAME);
+            Examination exam = getOrCreateExamination(course, lecturer, map.get(DATE));
+            Enrollment enrollment = enroll(student, exam);
             gradeExamination(enrollment, map.get(GRADE));
          }
       }
+   }
+
+   private Lecturer getOrCreateLecturer(LinkedHashMap<String, String> map, String lecturerName)
+   {
+      return studentOffice.getLecturers(map.get(lecturerName));
+   }
+
+   private UniStudent getOrCreateStudent(String s)
+   {
+      return studentOffice.getStudents(s);
+   }
+
+   private Course getOrCreateCourse(String  courseName)
+   {
+      CourseTable courseTable = new StudentOfficeTable(studentOffice).expandPrograms().expandCourses()
+            .filter(c -> c.getTitle().equals(courseName));
+      return courseTable.get(0);
    }
 
 
@@ -165,7 +178,7 @@ public class StudentOfficeBuilder
       return enrollment;
    }
 
-   public UniStudent buildStudent(String name, String studentId)
+   public UniStudent getOrCreateStudent(String name, String studentId)
    {
       UniStudent stud = studentOffice.getStudents(studentId);
 
@@ -175,9 +188,10 @@ public class StudentOfficeBuilder
       {
          stud = new UniStudent()
                .setStudentId(studentId)
-               .setName(name)
                .setDepartment(studentOffice);
       }
+
+      stud.setName(name);
 
       LinkedHashMap<String,String> map = new LinkedHashMap<>();
       map.put(EVENT_TYPE, STUDENT_CREATED);
@@ -202,16 +216,16 @@ public class StudentOfficeBuilder
       eventSource.append(buf);
    }
 
-   public StudentOffice buildStudentOffice(String name)
+   public StudentOffice getOrCreateStudentOffice(String name)
    {
       if (studentOffice == null)
       {
          studentOffice = new StudentOffice();
 
          LinkedHashMap<String,String> map = new LinkedHashMap<>();
-         map.put(EVENT_TYPE, BUILD_STUDENT_OFFICE);
+         map.put(EVENT_TYPE, STUDENT_OFFICE_CREATED);
          map.put(NAME, name);
-         map.put(EventSource.EVENT_KEY, BUILD_STUDENT_OFFICE);
+         map.put(EventSource.EVENT_KEY, STUDENT_OFFICE_CREATED);
 
          eventSource.append(map);
       }
@@ -222,9 +236,9 @@ public class StudentOfficeBuilder
    }
 
 
-   public StudyProgram buildStudyProgram(String name)
+   public StudyProgram getOrCreateStudyProgram(String name)
    {
-      if (studentOffice == null) return null;
+      getOrCreateStudentOffice(officeName);
 
       StudyProgram studyProgram = studentOffice.getPrograms(name);
 
@@ -235,8 +249,8 @@ public class StudentOfficeBuilder
                .setDepartment(studentOffice);
 
          StringBuilder buf = new StringBuilder()
-               .append("- " + EVENT_TYPE + ": ").append(BUILD_STUDY_PROGRAM).append("\n")
-               .append("  " + NAME + ": ").append(Yamler.encapsulate(name)).append("\n\n");
+               .append("- " + EVENT_TYPE + ": ").append(STUDY_PROGRAM_CREATED).append("\n")
+               .append("  " + NAME + ": ").append(Yamler.encapsulate(""+name)).append("\n\n");
          eventSource.append(buf);
       }
 
@@ -244,7 +258,7 @@ public class StudentOfficeBuilder
    }
 
 
-   public Course buildCourse(StudyProgram studyProgram, String name)
+   public Course getOrCreateCourse(StudyProgram studyProgram, String name)
    {
       Course course = studyProgram.getCourses(name);
 
@@ -255,7 +269,7 @@ public class StudentOfficeBuilder
                .withPrograms(studyProgram);
 
          StringBuilder buf = new StringBuilder()
-               .append("- " + EVENT_TYPE + ": ").append(BUILD_COURSE).append("\n")
+               .append("- " + EVENT_TYPE + ": ").append(COURSE_CREATED).append("\n")
                .append("  " + PROGRAM_NAME + ": ").append(Yamler.encapsulate(studyProgram.getSubject())).append("\n")
                .append("  " + NAME + ": ").append(Yamler.encapsulate(name)).append("\n\n");
          eventSource.append(buf);
@@ -266,6 +280,8 @@ public class StudentOfficeBuilder
 
    public Lecturer buildLecturer(String name)
    {
+      getOrCreateStudentOffice(officeName);
+
       Lecturer result = studentOffice.getLecturers(name);
 
       if (result != null) return result;
@@ -275,14 +291,14 @@ public class StudentOfficeBuilder
             .setDepartment(studentOffice);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(BUILD_LECTURER).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(LECTURER_CREATED).append("\n")
             .append("  " + NAME + ": ").append(Yamler.encapsulate(name)).append("\n\n");
       eventSource.append(buf);
 
       return result;
    }
 
-   public Examination buildExamination(Course course, Lecturer lecturer, String date)
+   public Examination getOrCreateExamination(Course course, Lecturer lecturer, String date)
    {
       Examination exam = null;
       Examination firstFitExam = null;
@@ -322,7 +338,7 @@ public class StudentOfficeBuilder
                .setTopic(course);
 
          StringBuilder buf = new StringBuilder()
-               .append("- " + EVENT_TYPE + ": ").append(BUILD_EXAMINATION).append("\n")
+               .append("- " + EVENT_TYPE + ": ").append(EXAMINATION_CREATED).append("\n")
                .append("  " + COURSE + ": ").append(course.getTitle()).append("\n")
                .append("  " + LECTURER + ": ").append(lecturer.getName()).append("\n")
                .append("  " + DATE + ": ").append(Yamler.encapsulate(date)).append("\n\n");

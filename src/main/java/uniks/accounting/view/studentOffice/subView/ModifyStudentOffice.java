@@ -93,7 +93,7 @@ public class ModifyStudentOffice extends Dialog<Void> {
             office.setDepartment(name.getText());
             
             for (String s : stud.getItems()) {
-                ob.buildStudent(s, 100000 + (int)(new Random().nextFloat() * 899900) + "");
+                ob.getOrCreateStudent(s, 100000 + (int)(new Random().nextFloat() * 899900) + "");
             }
             
             for (String s : lect.getItems()) {
@@ -101,7 +101,7 @@ public class ModifyStudentOffice extends Dialog<Void> {
             }
             
             for (String s : prog.getItems()) {
-                ob.buildStudyProgram(s);
+                ob.getOrCreateStudyProgram(s);
             }
         });
     }

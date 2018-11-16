@@ -159,7 +159,7 @@ public class StudentOfficeService implements Runnable
          }
          else
          {
-            ob.sync(EventSource.encodeYaml(map));
+            ob.applyEvents(EventSource.encodeYaml(map));
          }
       }
 

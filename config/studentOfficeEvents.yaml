@@ -1,27 +1,27 @@
-- eventType: buildStudentOffice
+- eventType: studentOfficeCreated
   name: FB16
-  .eventKey: buildStudentOffice
+  .eventKey: studentOfficeCreated
   .eventNumber: 1
 
-- eventType: buildStudyProgram
+- eventType: studyProgramCreated
   name: CS
   .eventNumber: 2
 
-- eventType: buildCourse
+- eventType: courseCreated
   programName: CS
   name: math
   .eventNumber: 3
 
-- eventType: buildCourse
+- eventType: courseCreated
   programName: CS
   name: modeling
   .eventNumber: 4
 
-- eventType: buildLecturer
+- eventType: lecturerCreated
   name: Albert
   .eventNumber: 5
 
-- eventType: buildExamination
+- eventType: examinationCreated
   course: modeling
   lecturer: Albert
   date: "2019-03-19"

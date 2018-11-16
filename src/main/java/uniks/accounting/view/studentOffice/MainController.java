@@ -30,7 +30,7 @@ public class MainController {
     private void onCreateOffice(ActionEvent evt) {
         String departmentName = this.view.getDepartmentName().getText();
         if (departmentName != null && departmentName.length() > 0) {
-            StudentOffice office = ob.buildStudentOffice(departmentName);
+            StudentOffice office = ob.getOrCreateStudentOffice(departmentName);
             OfficeTreeItem rootItem = new OfficeTreeItem("Department - " + departmentName);
 
             StudentOfficeController officeCon = new StudentOfficeController(rootItem, office);

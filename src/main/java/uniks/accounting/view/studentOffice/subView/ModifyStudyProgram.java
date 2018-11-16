@@ -97,7 +97,7 @@ public class ModifyStudyProgram extends Dialog<Void> {
             program.setSubject(name.getText());
 
             for (String s : course.getItems()) {
-                ob.buildCourse(program, s);
+                ob.getOrCreateCourse(program, s);
             }
             
             for (UniStudent s : programStud.getItems()) {

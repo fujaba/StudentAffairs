@@ -44,13 +44,13 @@ public class TestEventSourceing
    public void testBuildExam()
    {
       StudentOfficeBuilder ob = new StudentOfficeBuilder();
-      StudentOffice fb16 = ob.buildStudentOffice("fb16");
+      StudentOffice fb16 = ob.getOrCreateStudentOffice("fb16");
       Lecturer albert = ob.buildLecturer("Albert");
-      StudyProgram cs = ob.buildStudyProgram("CS");
-      Course math = ob.buildCourse(cs, "math");
-      Examination exam04 = ob.buildExamination(math, albert, "2019-04-12");
-      Examination exam03 = ob.buildExamination(math, albert, "2019-03-12");
-      Examination firstFit = ob.buildExamination(math, albert, "2018-10");
+      StudyProgram cs = ob.getOrCreateStudyProgram("CS");
+      Course math = ob.getOrCreateCourse(cs, "math");
+      Examination exam04 = ob.getOrCreateExamination(math, albert, "2019-04-12");
+      Examination exam03 = ob.getOrCreateExamination(math, albert, "2019-03-12");
+      Examination firstFit = ob.getOrCreateExamination(math, albert, "2018-10");
 
       assertThat(exam03 == firstFit, equalTo(true));
    }
@@ -64,17 +64,19 @@ public class TestEventSourceing
       StudentOfficeBuilder ob = new StudentOfficeBuilder();
       // ob.getEventSource().addEventListener(e -> storeEvents(e));
 
-      StudentOffice fb16 = ob.buildStudentOffice("FB16");
-      StudyProgram cs = ob.buildStudyProgram(CS);
-      Course math = ob.buildCourse(cs, "math");
-      Course modeling = ob.buildCourse(cs, MODELING);
+      StudentOffice fb16 = ob.getOrCreateStudentOffice("FB16");
+      StudyProgram cs = ob.getOrCreateStudyProgram(CS);
+      Course math = ob.getOrCreateCourse(cs, "math");
+      Course modeling = ob.getOrCreateCourse(cs, MODELING);
       Lecturer albert = ob.buildLecturer(ALBERT);
-      Examination exam = ob.buildExamination(modeling, albert, "2019-03-19");
-      ob.buildStudent("N.N.", M_4242);
-      UniStudent bob = ob.buildStudent("Bob", M_2323);
-      UniStudent alice = ob.buildStudent("Alice", M_4242);
+      Examination exam = ob.getOrCreateExamination(modeling, albert, "2019-03-19");
+      ob.getOrCreateStudent("N.N.", M_4242);
+      UniStudent bob = ob.getOrCreateStudent("Bob", M_2323);
+      UniStudent alice = ob.getOrCreateStudent("Alice", M_4242);
       ob.chooseMajorSubject(alice, cs);
       ob.enroll(alice, exam);
+
+      FulibTools.objectDiagrams().dumpSVG("images/StudentOfficeObjectsEnrolled.svg", ob.getStudentOffice());
 
       EventSource officeEventSource = ob.getEventSource();
       SortedMap<Integer, LinkedHashMap<String, String>> pullMap = officeEventSource.pull(0);
@@ -94,8 +96,8 @@ public class TestEventSourceing
 
       SEGroupBuilder gb = new SEGroupBuilder();
       SEGroup seGroup = gb.buildSEGroup(ALBERT);
-      gb.buildStudent("Alica", M_4242);
-      SEClass modelingClass = gb.buildSEClass(MODELING, "2018-10");
+      gb.getOrCreateStudent("Alica", M_4242);
+      SEClass modelingClass = gb.getOrCreateSEClass(MODELING, "2018-10");
       Assignment midTerm = gb.buildAssignment(modelingClass, MID_TERM, 23.0);
       Assignment finals = gb.buildAssignment(modelingClass, "finals", 42.0);
 
@@ -103,7 +105,7 @@ public class TestEventSourceing
       storeEvents(CONFIG_SE_GROUP_EVENTS_YAML, EventSource.encodeYaml(gbEventList));
 
       SortedMap<Integer, LinkedHashMap<String, String>> sharedEvents = officeEventSource.pull(0, StudentOfficeBuilder.STUDENT_CREATED, StudentOfficeBuilder.STUDENT_ENROLLED);
-      gb.sync(EventSource.encodeYaml(sharedEvents));
+      gb.applyEvents(EventSource.encodeYaml(sharedEvents));
 
       int lastGroupEvent = gb.getEventSource().getEventNumber();
 
@@ -115,8 +117,7 @@ public class TestEventSourceing
       gb.gradeSolution(finalsAlice, 40.0);
       gb.gradeExamination(aliceModelingAchievement);
 
-
-      FulibTools.objectDiagrams().dumpSVG("tmp/SEGroup.svg", seGroup);
+      FulibTools.objectDiagrams().dumpSVG("images/SEGroup.svg", seGroup);
 
       EventSource groupEventSource = gb.getEventSource();
       SortedMap<Integer, LinkedHashMap<String, String>> groupEvents = groupEventSource.pull(0);
@@ -127,13 +128,13 @@ public class TestEventSourceing
       storeEvents(CONFIG_SEGROUP_GRADING_YAML, EventSource.encodeYaml(groupEvents));
 
       SEGroupBuilder seClone = new SEGroupBuilder();
-      seClone.sync(seLog);
+      seClone.applyEvents(seLog);
       FulibTools.objectDiagrams().dumpSVG("tmp/SEGroupClone.svg", seClone.getSeGroup());
 
       // pull just grading
       groupEvents = groupEventSource.pull(0, SEGroupBuilder.EXAMINATION_GRADED);
       seLog = EventSource.encodeYaml(groupEvents);
-      ob.sync(seLog);
+      ob.applyEvents(seLog);
 
       assertThat(fb16.getStudents(M_4242).getName(), equalTo("Alice"));
       assertThat(fb16.getStudents(M_4242).getEnrollments().get(0).getGrade(), equalTo("A"));
@@ -145,11 +146,11 @@ public class TestEventSourceing
       lastPullNumber = pullMap.lastKey();
 
       StudentOfficeBuilder clone = new StudentOfficeBuilder();
-      clone.sync(log);
+      clone.applyEvents(log);
 
       FulibTools.objectDiagrams().dumpSVG("tmp/OfficeClone.svg", clone.getStudentOffice());
 
-      clone.sync(officeEventSource.encodeYaml(pullMap));
+      clone.applyEvents(officeEventSource.encodeYaml(pullMap));
 
       FulibTools.objectDiagrams().dumpSVG("tmp/OfficeCloneGroupMerge.svg", clone.getStudentOffice());
 
@@ -290,20 +291,20 @@ public class TestEventSourceing
       byte[] bytes = Files.readAllBytes(Paths.get(CONFIG_SE_GROUP_EVENTS_YAML));
       String yaml = new String(bytes);
       SEGroupBuilder gb = new SEGroupBuilder();
-      gb.sync(yaml);
+      gb.applyEvents(yaml);
 
-      URL url = new URL("http://localhost:4567/pull?lastKnownNumber=0&caller=seGroup");
+      URL url = new URL("http://localhost:4567/get?lastKnownNumber=0&caller=seGroup");
       HttpURLConnection conn = (HttpURLConnection)url.openConnection();
       conn.setRequestMethod("GET");
       bytes = IOUtils.toByteArray(conn.getInputStream());
       yaml = new String(bytes);
 
-      gb.sync(yaml);
+      gb.applyEvents(yaml);
 
       bytes = Files.readAllBytes(Paths.get(CONFIG_SEGROUP_GRADING_YAML));
       yaml = new String(bytes);
 
-      gb.sync(yaml);
+      gb.applyEvents(yaml);
 
       // push to office
       SortedMap<Integer, LinkedHashMap<String, String>> map = gb.getEventSource().pull(0, SEGroupBuilder.EXAMINATION_GRADED);
@@ -313,7 +314,7 @@ public class TestEventSourceing
       postData.append("caller=seGroup&yaml=").append(URLEncoder.encode(yaml, "UTF-8"));
       bytes = postData.toString().getBytes("UTF-8");
 
-      URL postURL = new URL("http://localhost:4567/push");
+      URL postURL = new URL("http://localhost:4567/put");
       conn = (HttpURLConnection)postURL.openConnection();
       conn.setRequestMethod("POST");
       conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

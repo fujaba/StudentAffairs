@@ -26,20 +26,20 @@ public class StudentOfficeRestServer {
    {
       server = new StudentOfficeRestServer();
       // threadPool(1);
-      get("/pull", (req, res) -> server.pull(req, res));
-      post("/push", (req, res) -> server.push(req, res));
+      get("/get", (req, res) -> server.getSharedEvents(req, res));
+      post("/put", (req, res) -> server.putSharedEvents(req, res));
 
       server.run();
    }
 
-   public int push(Request req, Response res)
+   public int putSharedEvents(Request req, Response res)
    {
       QueryParamsMap params = req.queryMap();
       String caller = params.get("caller").value();
 
       String yaml = params.get("yaml").value();
 
-      ob.sync(yaml);
+      ob.applyEvents(yaml);
 
       System.out.println(yaml);
       return 0;
@@ -61,13 +61,13 @@ public class StudentOfficeRestServer {
       String yaml = new String(bytes);
 
       ob = new StudentOfficeBuilder();
-      ob.sync(yaml);
+      ob.applyEvents(yaml);
 
 
 
    }
 
-   private String pull(Request req, Response res)
+   private String getSharedEvents(Request req, Response res)
    {
       QueryParamsMap params = req.queryMap();
       String lastKnownNumberString = params.get("lastKnownNumber").value();
@@ -76,7 +76,7 @@ public class StudentOfficeRestServer {
 
       EventSource eventSource = ob.getEventSource();
       SortedMap<Integer, LinkedHashMap<String, String>> map = eventSource.pull(lastKnownNumber,
-            StudentOfficeBuilder.STUDENT_CREATED + " " + StudentOfficeBuilder.STUDENT_ENROLLED);
+            StudentOfficeBuilder.STUDENT_CREATED, StudentOfficeBuilder.STUDENT_ENROLLED);
       String yaml = EventSource.encodeYaml(map);
 
       return  yaml;

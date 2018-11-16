@@ -162,7 +162,7 @@ public class SEGroupService implements Runnable
          }
          else
          {
-            gb.sync(EventSource.encodeYaml(map));
+            gb.applyEvents(EventSource.encodeYaml(map));
          }
       }
 

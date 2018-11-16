@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>290</x>
+      <y>230</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+Student's
+Office
+GUI</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>290</x>
+      <y>370</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+Student's
+Office
+Microservice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>300</x>
+      <y>510</y>
+      <w>100</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>
+Student's
+Office
+Event
+Source
+halign=center
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*1/5,0,360,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/10,0,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/10,width,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>300</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>440</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>300</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>510</x>
+      <y>230</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+SE
+Group
+GUI</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>510</x>
+      <y>370</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+SE
+Group
+Microservice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>440</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>520</x>
+      <y>510</y>
+      <w>100</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>
+SE
+Group
+Event
+Source
+halign=center
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*1/5,0,360,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/10,0,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/10,width,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>390</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>getEvents
+lt=-&gt;
+putEvents</panel_attributes>
+    <additional_attributes>110.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+</diagram>

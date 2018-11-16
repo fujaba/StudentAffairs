@@ -47,7 +47,7 @@ public class SEGroupBuilder
       return eventSource;
    }
 
-   public void sync(String yaml)
+   public void applyEvents(String yaml)
    {
       Yamler yamler = new Yamler();
       ArrayList<LinkedHashMap<String, String>> list = yamler.decodeList(yaml);
@@ -60,11 +60,11 @@ public class SEGroupBuilder
          }
          else if (STUDENT_CREATED.equals(map.get(EVENT_TYPE)))
          {
-            buildStudent(map.get(NAME), map.get(STUDENT_ID));
+            getOrCreateStudent(map.get(NAME), map.get(STUDENT_ID));
          }
          else if (BUILD_SE_CLASS.equals(map.get(EVENT_TYPE)))
          {
-            buildSEClass(map.get(TOPIC), map.get(TERM));
+            getOrCreateSEClass(map.get(TOPIC), map.get(TERM));
          }
          else if (BUILD_ASSIGNMENT.equals(map.get(EVENT_TYPE)))
          {
@@ -74,42 +74,47 @@ public class SEGroupBuilder
          }
          else if (BUILD_ACHIEVEMENT.equals(map.get(EVENT_TYPE)))
          {
-            SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
+            SEStudent student = getOrCreateStudent(map.get(STUDENT_ID));
             SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
-            buildAchievement(student, seClass);
+            getOrCreateAchievement(student, seClass);
          }
          else if (STUDENT_ENROLLED.equals(map.get(EVENT_TYPE)))
          {
-            SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
-            SEClass seClass = seGroup.getClasses(map.get(COURSE_NAME), map.get(DATE));
-            Achievement achievement = buildAchievement(student, seClass);
+            SEStudent student = getOrCreateStudent(map.get(STUDENT_ID));
+            SEClass seClass = getOrCreateSEClass(map.get(COURSE_NAME), map.get(DATE));
+            Achievement achievement = getOrCreateAchievement(student, seClass);
             enroll(achievement);
          }
          else if (BUILD_SOLUTION.equals(map.get(EVENT_TYPE)))
          {
-            SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
-            SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
-            Achievement achievement = buildAchievement(student, seClass);
+            SEStudent student = getOrCreateStudent(map.get(STUDENT_ID));
+            SEClass seClass = getOrCreateSEClass(map.get(TOPIC), map.get(TERM));
+            Achievement achievement = getOrCreateAchievement(student, seClass);
             Assignment assignment = seClass.getAssignments(map.get(TASK));
             buildSolution(achievement, assignment, map.get(GIT_URL));
          }
          else if (GRADE_SOLUTION.equals(map.get(EVENT_TYPE)))
          {
-            SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
-            SEClass seClass = seGroup.getClasses(map.get(TOPIC), map.get(TERM));
-            Achievement achievement = buildAchievement(student, seClass);
+            SEStudent student = getOrCreateStudent(map.get(STUDENT_ID));
+            SEClass seClass = getOrCreateSEClass(map.get(TOPIC), map.get(TERM));
+            Achievement achievement = getOrCreateAchievement(student, seClass);
             Assignment assignment = seClass.getAssignments(map.get(TASK));
             Solution solution = achievement.getSolutions(assignment);
             gradeSolution(solution, Double.parseDouble(map.get(POINTS)));
          }
          else if (EXAMINATION_GRADED.equals(map.get(EVENT_TYPE)))
          {
-            SEStudent student = seGroup.getStudents(map.get(STUDENT_ID));
-            SEClass seClass = seGroup.getClasses(map.get(COURSE_NAME), map.get(DATE));
-            Achievement achievement = buildAchievement(student, seClass);
+            SEStudent student = getOrCreateStudent(map.get(STUDENT_ID));
+            SEClass seClass = getOrCreateSEClass(map.get(COURSE_NAME), map.get(DATE));
+            Achievement achievement = getOrCreateAchievement(student, seClass);
             gradeExamination(achievement);
          }
       }
+   }
+
+   private SEStudent getOrCreateStudent(String s)
+   {
+      return seGroup.getStudents(s);
    }
 
 
@@ -212,7 +217,7 @@ public class SEGroupBuilder
    }
 
 
-   public Achievement buildAchievement(SEStudent student, SEClass seClass)
+   public Achievement getOrCreateAchievement(SEStudent student, SEClass seClass)
    {
       Achievement achievement = student.getAchievements(seClass);
 
@@ -261,7 +266,7 @@ public class SEGroupBuilder
       return assignment;
    }
 
-   public SEClass buildSEClass(String topic, String term)
+   public SEClass getOrCreateSEClass(String topic, String term)
    {
       SEClass seClass = seGroup.getClasses(topic, term);
 
@@ -283,7 +288,7 @@ public class SEGroupBuilder
    }
 
 
-   public SEStudent buildStudent(String name, String studentId)
+   public SEStudent getOrCreateStudent(String name, String studentId)
    {
       SEStudent student = seGroup.getStudents(studentId);
 

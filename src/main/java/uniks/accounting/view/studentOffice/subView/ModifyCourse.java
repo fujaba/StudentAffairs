@@ -67,7 +67,7 @@ public class ModifyCourse extends Dialog<Void> {
             for (String s : exam.getItems()) {
                 String lecturer = s.split(" - ")[0];
                 String date = s.split(" - ")[1];
-                ob.buildExamination(course, ob.getStudentOffice().getLecturers(lecturer), date);
+                ob.getOrCreateExamination(course, ob.getStudentOffice().getLecturers(lecturer), date);
             }
         });
     }

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.ob;
 
-public class ModifyExamination  extends Dialog<Void> {
+public class ModifyExamination extends Dialog<Void> {
     
     public ModifyExamination(Examination exam) {
         this.setTitle("Modify examination");

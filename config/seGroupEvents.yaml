@@ -1,4 +1,4 @@
-- eventType: buildSEGroup
+  - eventType: buildSEGroup
   head: Albert
   .eventNumber: 1
 

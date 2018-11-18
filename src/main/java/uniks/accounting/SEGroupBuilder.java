@@ -249,10 +249,9 @@ public class SEGroupBuilder
       {
          assignment = new Assignment()
                .setTask(task)
+               .setPoints(points)
                .setSeClass(seClass);
       }
-
-      assignment.setPoints(points);
 
       StringBuilder buf = new StringBuilder()
             .append("- " + EVENT_TYPE + ": ").append(BUILD_ASSIGNMENT).append("\n")

@@ -1,5 +1,6 @@
 package uniks.accounting.view.segroup.subController;
 
+import com.hazelcast.partition.strategy.StringAndPartitionAwarePartitioningStrategy;
 import uniks.accounting.segroup.Achievement;
 import uniks.accounting.segroup.Assignment;
 import uniks.accounting.segroup.SEClass;
@@ -76,9 +77,38 @@ public class SEClassController implements SubController {
                 if (achiev.getGrade() != null) {
                     achievText += " - " + achiev.getGrade();
                 }
-
                 OfficeTreeItem newAchievement = new OfficeTreeItem(achievText);
                 this.achievements.getChildren().add(newAchievement);
+                
+                achiev.addPropertyChangeListener(Achievement.PROPERTY_grade, event -> {
+                   if (event.getNewValue() != null) {
+                       String text = achiev.getSeClass().getParticipations().size() + ". ";
+                       if (achiev.getStudent() != null) {
+                           text += achiev.getStudent().getStudentId();
+                       }
+
+                       if (achiev.getOfficeStatus() != null) {
+                           text += ", " + achiev.getOfficeStatus();
+                       }
+                       text += " - " + event.getNewValue();
+                       newAchievement.setValue(text);
+                   }
+                });
+                
+                achiev.addPropertyChangeListener(Achievement.PROPERTY_officeStatus, event -> {
+                    if (event.getNewValue() != null) {
+                        String text = achiev.getSeClass().getParticipations().size() + ". ";
+                        if (achiev.getStudent() != null) {
+                            text += achiev.getStudent().getStudentId();
+                        }
+                        text += ", " + event.getNewValue();
+
+                        if (achiev.getGrade() != null) {
+                            text += " - " + achiev.getGrade();
+                        }
+                        newAchievement.setValue(text);
+                    }
+                });
             }
         });
     }

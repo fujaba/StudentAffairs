@@ -46,6 +46,12 @@ public class AssignmentController implements SubController {
             if (evt.getNewValue() != null && evt.getOldValue() == null) {
                 Solution solution = (Solution) evt.getNewValue();
                 OfficeTreeItem newSolution = new OfficeTreeItem(solution.getGitUrl() + " - " + solution.getPoints());
+                
+                SolutionController con = new SolutionController(newSolution, solution);
+                con.init();
+                
+                modelView.put(newSolution.getId(), con);
+                
                 this.solutions.getChildren().add(newSolution);
             }
         });

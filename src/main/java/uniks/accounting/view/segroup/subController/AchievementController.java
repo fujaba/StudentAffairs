@@ -1,6 +1,7 @@
 package uniks.accounting.view.segroup.subController;
 
 import uniks.accounting.segroup.Achievement;
+import uniks.accounting.segroup.Solution;
 import uniks.accounting.view.segroup.subView.OfficeTreeItem;
 
 import static uniks.accounting.view.segroup.SEGroupApplication.modelView;
@@ -32,8 +33,8 @@ public class AchievementController implements SubController {
         this.achievement.addPropertyChangeListener(Achievement.PROPERTY_grade, evt -> {
            if (evt.getNewValue() != null) {
                String achievText = this.achievement.getSeClass().getParticipations().size() + ". ";
-               if (this.achievement.getStudent() != null) {
-                   achievText += this.achievement.getStudent().getStudentId();
+               if (this.achievement.getSeClass() != null) {
+                   achievText += this.achievement.getSeClass().getTopic();
                }
 
                if (this.achievement.getOfficeStatus() != null) {
@@ -47,8 +48,8 @@ public class AchievementController implements SubController {
         this.achievement.addPropertyChangeListener(Achievement.PROPERTY_officeStatus, evt -> {
             if (evt.getNewValue() != null) {
                 String achievText = this.achievement.getSeClass().getParticipations().size() + ". ";
-                if (this.achievement.getStudent() != null) {
-                    achievText += this.achievement.getStudent().getStudentId();
+                if (this.achievement.getSeClass() != null) {
+                    achievText += this.achievement.getSeClass().getTopic();
                 }
                 achievText += ", " + evt.getNewValue();
 
@@ -60,7 +61,17 @@ public class AchievementController implements SubController {
         });
 
         this.achievement.addPropertyChangeListener(Achievement.PROPERTY_solutions, evt -> {
+            if (evt.getNewValue() != null && evt.getOldValue() == null) {
+                Solution solution = (Solution) evt.getNewValue();
+                OfficeTreeItem newSolution = new OfficeTreeItem(solution.getGitUrl() + " - " + solution.getPoints());
 
+                SolutionController con = new SolutionController(newSolution, solution);
+                con.init();
+
+                modelView.put(newSolution.getId(), con);
+                
+                this.solutions.getChildren().add(newSolution);
+            }
         });
     }
 

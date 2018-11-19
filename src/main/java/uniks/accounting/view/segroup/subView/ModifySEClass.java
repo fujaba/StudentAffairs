@@ -122,7 +122,7 @@ public class ModifySEClass extends Dialog<Void> {
             }
 
             for (SEStudent s : enrolledStud.getItems()) {
-                gb.getOrCreateAchievement(s, seClass);
+                gb.getOrCreateAchievement(s, seClass).setOfficeStatus("unregistered");
             }
         });
     }

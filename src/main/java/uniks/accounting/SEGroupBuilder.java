@@ -180,11 +180,10 @@ public class SEGroupBuilder
       if (solution == null)
       {
          solution = new Solution()
+               .setGitUrl(gitUrl)
                .setAchievement(achievement)
                .setAssignment(assignment);
       }
-
-      solution.setGitUrl(gitUrl);
 
       StringBuilder buf = new StringBuilder()
             .append("- " + EVENT_TYPE + ": ").append(BUILD_SOLUTION).append("\n")

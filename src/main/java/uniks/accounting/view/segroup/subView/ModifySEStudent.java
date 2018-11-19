@@ -70,7 +70,7 @@ public class ModifySEStudent extends Dialog<Void> {
 
         ((Button)this.getDialogPane().lookupButton(ButtonType.OK)).setOnAction(evt -> {
             for (SEClass c : enrolledClasses.getItems()) {
-                gb.getOrCreateAchievement(student, c);
+                gb.getOrCreateAchievement(student, c).setOfficeStatus("unregistered");
             }
         });
     }

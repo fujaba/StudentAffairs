@@ -72,6 +72,9 @@ public class MainController {
             } else if(modelItem instanceof Achievement) {
                 Achievement achievement = (Achievement) modelItem;
                 new ModifyAchievement(achievement).showAndWait();
+            } else if(modelItem instanceof  Solution) {
+                Solution solution = (Solution) modelItem;
+                new ModifySolution(solution).showAndWait();
             }
         }
     }

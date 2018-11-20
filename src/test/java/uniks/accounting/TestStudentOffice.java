@@ -114,6 +114,38 @@ public class TestStudentOffice
       Fulib.tablesGenerator().generate(mb.getClassModel());
    }
 
+   @Test
+   public void testTheoryGroupModel()
+   {
+      ClassModelBuilder mb = Fulib.classModelBuilder("uniks.accounting.theorygroup");
+
+      ClassBuilder theoryGroup = mb.buildClass("TheoryGroup")
+            .buildAttribute("head", STRING);
+      ClassBuilder theoryStudent = mb.buildClass("TheoryStudent")
+            .buildAttribute("studentId", STRING);
+      ClassBuilder seminar = mb.buildClass("Seminar")
+            .buildAttribute("topic", STRING)
+            .buildAttribute("term", STRING);
+      ClassBuilder presentation = mb.buildClass("Presentation")
+            .buildAttribute("slides", INT)
+            .buildAttribute("scolarship", INT)
+            .buildAttribute("content", INT)
+            .buildAttribute("total", INT)
+            .buildAttribute("grade", STRING)
+            .buildAttribute("officeStatus", STRING);
+
+      theoryGroup.buildAssociation(seminar, "seminars", MANY, "group", ONE);
+      theoryGroup.buildAssociation(theoryStudent, "students", MANY, "group", ONE);
+      theoryStudent.buildAssociation(presentation, "presentations", MANY, "student", ONE);
+      seminar.buildAssociation(presentation, "presentations", MANY, "seminar", ONE);
+
+      String fileName = FulibTools.classDiagrams().dumpSVG(mb.getClassModel(), "tmp/TheoryGroupModel.svg");
+      System.out.println(fileName);
+
+      Fulib.generator().generate(mb.getClassModel());
+      Fulib.tablesGenerator().generate(mb.getClassModel());
+   }
+
 
 
 

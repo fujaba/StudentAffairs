@@ -1,0 +1,190 @@
+- c1: 	ClassModel
+  classes: 	theoryGroup2 	theoryStudent3 	seminar4 	presentation5 	
+  defaultPropertyStyle: 	POJO
+  defaultRoleType: 	"java.util.ArrayList<%s>"
+  mainJavaDir: 	"src/main/java"
+  packageName: 	uniks.accounting.theorygroup
+  packageSrcFolder: 	"src/main/java/uniks/accounting/theorygroup"
+
+- theoryGroup2: 	Clazz
+  attributes: 	head6 	
+  model: 	c1
+  modified: 	false
+  name: 	TheoryGroup
+  propertyStyle: 	POJO
+  roles: 	seminars7 	students8 	
+
+- theoryStudent3: 	Clazz
+  attributes: 	studentId9 	
+  model: 	c1
+  modified: 	false
+  name: 	TheoryStudent
+  propertyStyle: 	POJO
+  roles: 	group10 	presentations11 	
+
+- seminar4: 	Clazz
+  attributes: 	topic12 	term13 	
+  model: 	c1
+  modified: 	false
+  name: 	Seminar
+  propertyStyle: 	POJO
+  roles: 	group14 	presentations15 	
+
+- presentation5: 	Clazz
+  attributes: 	slides16 	scolarship17 	content18 	total19 	grade20 	officeStatus21 	
+  model: 	c1
+  modified: 	false
+  name: 	Presentation
+  propertyStyle: 	POJO
+  roles: 	student22 	seminar23 	
+
+- head6: 	Attribute
+  clazz: 	theoryGroup2
+  modified: 	false
+  name: 	head
+  propertyStyle: 	POJO
+  type: 	String
+
+- seminars7: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	theoryGroup2
+  modified: 	false
+  name: 	seminars
+  other: 	group14
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- students8: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	theoryGroup2
+  modified: 	false
+  name: 	students
+  other: 	group10
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- studentId9: 	Attribute
+  clazz: 	theoryStudent3
+  modified: 	false
+  name: 	studentId
+  propertyStyle: 	POJO
+  type: 	String
+
+- group10: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	theoryStudent3
+  modified: 	false
+  name: 	group
+  other: 	students8
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- presentations11: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	theoryStudent3
+  modified: 	false
+  name: 	presentations
+  other: 	student22
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- topic12: 	Attribute
+  clazz: 	seminar4
+  modified: 	false
+  name: 	topic
+  propertyStyle: 	POJO
+  type: 	String
+
+- term13: 	Attribute
+  clazz: 	seminar4
+  modified: 	false
+  name: 	term
+  propertyStyle: 	POJO
+  type: 	String
+
+- group14: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	seminar4
+  modified: 	false
+  name: 	group
+  other: 	seminars7
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- presentations15: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	seminar4
+  modified: 	false
+  name: 	presentations
+  other: 	seminar23
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- slides16: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	slides
+  propertyStyle: 	POJO
+  type: 	int
+
+- scolarship17: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	scolarship
+  propertyStyle: 	POJO
+  type: 	int
+
+- content18: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	content
+  propertyStyle: 	POJO
+  type: 	int
+
+- total19: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	total
+  propertyStyle: 	POJO
+  type: 	int
+
+- grade20: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	grade
+  propertyStyle: 	POJO
+  type: 	String
+
+- officeStatus21: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	officeStatus
+  propertyStyle: 	POJO
+  type: 	String
+
+- student22: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	presentation5
+  modified: 	false
+  name: 	student
+  other: 	presentations11
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- seminar23: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	presentation5
+  modified: 	false
+  name: 	seminar
+  other: 	presentations15
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+

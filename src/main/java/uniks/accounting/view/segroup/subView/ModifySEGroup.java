@@ -80,6 +80,7 @@ public class ModifySEGroup extends Dialog<Void> {
             }
             
             for (String s : classes.getItems()) {
+                gb.getOrCreateSEClass(s, "2018-19");
             }
         });
     }

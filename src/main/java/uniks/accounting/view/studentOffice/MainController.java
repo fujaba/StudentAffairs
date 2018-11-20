@@ -67,7 +67,6 @@ public class MainController {
         SubController con = modelView.get(selectedItem.getId());
         if (con != null) {
             Object modelItem = con.getModel();
-
             if (modelItem instanceof StudentOffice) {
                 StudentOffice office = (StudentOffice) modelItem;
                 new ModifyStudentOffice(office).showAndWait();

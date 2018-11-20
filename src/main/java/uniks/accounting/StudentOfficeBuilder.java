@@ -31,6 +31,8 @@ public class StudentOfficeBuilder
    public static final String EXAMINATION_GRADED = "examinationGraded";
    public static final String GRADE = "grade";
 
+   public static final String DATABASE_STUDENTS_OFFICE_EVENTS_YAML = "database/StudentsOfficeEvents.yaml";
+
    private StudentOffice studentOffice;
    private String officeName = "";
 
@@ -39,11 +41,24 @@ public class StudentOfficeBuilder
       return studentOffice;
    }
 
-   private EventSource eventSource = new EventSource();
+   private EventSource eventSource;
+   private EventFiler eventFiler;
+
+   public StudentOfficeBuilder()
+   {
+      eventSource = new EventSource();
+      eventFiler = new EventFiler(eventSource).setHistoryFileName(DATABASE_STUDENTS_OFFICE_EVENTS_YAML);
+   }
+
 
    public EventSource getEventSource()
    {
       return eventSource;
+   }
+
+   public EventFiler getEventFiler()
+   {
+      return eventFiler;
    }
 
    public String getEventLog()
@@ -122,7 +137,9 @@ public class StudentOfficeBuilder
 
    private UniStudent getOrCreateStudent(String s)
    {
-      return studentOffice.getStudents(s);
+
+      UniStudent stud = studentOffice.getStudents(s);
+      return stud;
    }
 
    private Course getOrCreateCourse(String  courseName)

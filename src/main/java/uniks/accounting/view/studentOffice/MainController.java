@@ -27,6 +27,8 @@ public class MainController {
     public void init() {
         this.view.getCreateOffice().setOnAction(this::onCreateOffice);
         this.view.getUpdate().setOnAction(this::onUpdate);
+
+
     }
 
     private void onOfficeOverviewDoubleClick(MouseEvent evt) {
@@ -39,6 +41,9 @@ public class MainController {
         String departmentName = this.view.getDepartmentName().getText();
         if (departmentName != null && !departmentName.isEmpty()) {
             StudentOffice office = ob.getOrCreateStudentOffice(departmentName);
+            String yaml = ob.getEventFiler().loadHistory();
+            ob.applyEvents(yaml);
+            ob.getEventFiler().startEventLogging();
             OfficeTreeItem rootItem = new OfficeTreeItem("Department - " + departmentName);
 
             StudentOfficeController officeCon = new StudentOfficeController(rootItem, office);

@@ -4,7 +4,7 @@ import java.beans.PropertyChangeSupport;
 
 import java.beans.PropertyChangeListener;
 
-public class TheoryStudent 
+public class TheoryStudent  
 {
 
    public static final String PROPERTY_studentId = "studentId";
@@ -193,6 +193,8 @@ public class TheoryStudent
       StringBuilder result = new StringBuilder();
 
       result.append(" ").append(this.getStudentId());
+      result.append(" ").append(this.getName());
+      result.append(" ").append(this.getTa_4());
 
 
       return result.substring(1);
@@ -205,6 +207,48 @@ public class TheoryStudent
       this.withoutPresentations(this.getPresentations().clone());
 
 
+   }
+
+
+   public static final String PROPERTY_name = "name";
+
+   private String name;
+
+   public String getName()
+   {
+      return name;
+   }
+
+   public TheoryStudent setName(String value)
+   {
+      if (value == null ? this.name != null : ! value.equals(this.name))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         firePropertyChange("name", oldValue, value);
+      }
+      return this;
+   }
+
+
+   public static final String PROPERTY_ta_4 = "ta_4";
+
+   private String ta_4;
+
+   public String getTa_4()
+   {
+      return ta_4;
+   }
+
+   public TheoryStudent setTa_4(String value)
+   {
+      if (value == null ? this.ta_4 != null : ! value.equals(this.ta_4))
+      {
+         String oldValue = this.ta_4;
+         this.ta_4 = value;
+         firePropertyChange("ta_4", oldValue, value);
+      }
+      return this;
    }
 
 

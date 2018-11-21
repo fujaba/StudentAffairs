@@ -161,6 +161,7 @@ public class SEStudent
       StringBuilder result = new StringBuilder();
 
       result.append(" ").append(this.getStudentId());
+      result.append(" ").append(this.getTeachingAssistantFor());
 
 
       return result.substring(1);
@@ -215,5 +216,26 @@ public class SEStudent
    public static final String PROPERTY_group = "group";
 
    public static final String PROPERTY_achievements = "achievements";
+
+   public static final String PROPERTY_teachingAssistantFor = "teachingAssistantFor";
+
+   private String teachingAssistantFor;
+
+   public String getTeachingAssistantFor()
+   {
+      return teachingAssistantFor;
+   }
+
+   public SEStudent setTeachingAssistantFor(String value)
+   {
+      if (value == null ? this.teachingAssistantFor != null : ! value.equals(this.teachingAssistantFor))
+      {
+         String oldValue = this.teachingAssistantFor;
+         this.teachingAssistantFor = value;
+         firePropertyChange("teachingAssistantFor", oldValue, value);
+      }
+      return this;
+   }
+
 
 }

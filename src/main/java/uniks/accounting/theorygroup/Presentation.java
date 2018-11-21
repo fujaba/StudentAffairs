@@ -4,7 +4,7 @@ import java.beans.PropertyChangeSupport;
 
 import java.beans.PropertyChangeListener;
 
-public class Presentation 
+public class Presentation  
 {
 
    public static final String PROPERTY_slides = "slides";
@@ -23,27 +23,6 @@ public class Presentation
          int oldValue = this.slides;
          this.slides = value;
          firePropertyChange("slides", oldValue, value);
-      }
-      return this;
-   }
-
-
-   public static final String PROPERTY_scolarship = "scolarship";
-
-   private int scolarship;
-
-   public int getScolarship()
-   {
-      return scolarship;
-   }
-
-   public Presentation setScolarship(int value)
-   {
-      if (value != this.scolarship)
-      {
-         int oldValue = this.scolarship;
-         this.scolarship = value;
-         firePropertyChange("scolarship", oldValue, value);
       }
       return this;
    }
@@ -245,6 +224,35 @@ public class Presentation
       return true;
    }
 
+   public void removeYou()
+   {
+      this.setStudent(null);
+      this.setSeminar(null);
+
+   }
+
+
+   public static final String PROPERTY_scholarship = "scholarship";
+
+   private int scholarship;
+
+   public int getScholarship()
+   {
+      return scholarship;
+   }
+
+   public Presentation setScholarship(int value)
+   {
+      if (value != this.scholarship)
+      {
+         int oldValue = this.scholarship;
+         this.scholarship = value;
+         firePropertyChange("scholarship", oldValue, value);
+      }
+      return this;
+   }
+
+
    @Override
    public String toString()
    {
@@ -256,13 +264,5 @@ public class Presentation
 
       return result.substring(1);
    }
-
-   public void removeYou()
-   {
-      this.setStudent(null);
-      this.setSeminar(null);
-
-   }
-
 
 }

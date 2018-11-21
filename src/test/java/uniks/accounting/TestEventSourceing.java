@@ -94,6 +94,8 @@ public class TestEventSourceing
 
       storeEvents(CONFIG_STUDENT_OFFICE_EVENTS_YAML, log);
 
+
+      // SE Group
       SEGroupBuilder gb = new SEGroupBuilder();
       SEGroup seGroup = gb.buildSEGroup(ALBERT);
       gb.getOrCreateStudent("Alica", M_4242);

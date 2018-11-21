@@ -1,0 +1,64 @@
+- c1: 	ClassModel
+  classes: 	tAPool2 	tAStudent3 	
+  defaultPropertyStyle: 	POJO
+  defaultRoleType: 	"java.util.ArrayList<%s>"
+  mainJavaDir: 	"src/main/java"
+  packageName: 	uniks.accounting.tapool
+  packageSrcFolder: 	"src/main/java/uniks/accounting/tapool"
+
+- tAPool2: 	Clazz
+  model: 	c1
+  modified: 	false
+  name: 	TAPool
+  propertyStyle: 	POJO
+  roles: 	students4 	
+
+- tAStudent3: 	Clazz
+  attributes: 	studentId5 	name6 	teachingAssistantFor7 	
+  model: 	c1
+  modified: 	false
+  name: 	TAStudent
+  propertyStyle: 	POJO
+  roles: 	pool8 	
+
+- students4: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	tAPool2
+  modified: 	false
+  name: 	students
+  other: 	pool8
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- studentId5: 	Attribute
+  clazz: 	tAStudent3
+  modified: 	false
+  name: 	studentId
+  propertyStyle: 	POJO
+  type: 	String
+
+- name6: 	Attribute
+  clazz: 	tAStudent3
+  modified: 	false
+  name: 	name
+  propertyStyle: 	POJO
+  type: 	String
+
+- teachingAssistantFor7: 	Attribute
+  clazz: 	tAStudent3
+  modified: 	false
+  name: 	teachingAssistantFor
+  propertyStyle: 	POJO
+  type: 	String
+
+- pool8: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	tAStudent3
+  modified: 	false
+  name: 	pool
+  other: 	students4
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+

@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
-public class TheoryGroupTable 
+public class TheoryGroupTable  
 {
 
    public TheoryGroupTable(TheoryGroup... start)

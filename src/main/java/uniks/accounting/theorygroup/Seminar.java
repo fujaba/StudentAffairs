@@ -4,7 +4,7 @@ import java.beans.PropertyChangeSupport;
 
 import java.beans.PropertyChangeListener;
 
-public class Seminar 
+public class Seminar  
 {
 
    public static final String PROPERTY_topic = "topic";

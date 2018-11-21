@@ -1,14 +1,12 @@
-package uniks.accounting.theorygroup.tables;
+package uniks.accounting.tapool.tables;
 
 import java.util.ArrayList;
 
 import java.util.LinkedHashMap;
 
-import uniks.accounting.theorygroup.TheoryStudent;
+import uniks.accounting.tapool.TAStudent;
 
-import uniks.accounting.theorygroup.TheoryGroup;
-
-import uniks.accounting.theorygroup.Presentation;
+import uniks.accounting.tapool.TAPool;
 
 import java.util.Arrays;
 
@@ -16,14 +14,14 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
-public class TheoryStudentTable  
+public class TAStudentTable 
 {
 
-   public TheoryStudentTable(TheoryStudent... start)
+   public TAStudentTable(TAStudent... start)
    {
-      this.setColumnName("TheoryStudent");
+      this.setColumnName("TAStudent");
       columnMap.put(this.getColumnName(), 0);
-      for (TheoryStudent current : start)
+      for (TAStudent current : start)
       {
          ArrayList<Object> row = new ArrayList<>();
          row.add(current);
@@ -38,7 +36,7 @@ public class TheoryStudentTable
       return table;
    }
 
-   public TheoryStudentTable setTable(ArrayList<ArrayList<Object>> value)
+   public TAStudentTable setTable(ArrayList<ArrayList<Object>> value)
    {
       this.table = value;
       return this;
@@ -52,7 +50,7 @@ public class TheoryStudentTable
       return columnName;
    }
 
-   public TheoryStudentTable setColumnName(String value)
+   public TAStudentTable setColumnName(String value)
    {
       this.columnName = value;
       return this;
@@ -66,7 +64,7 @@ public class TheoryStudentTable
       return columnMap;
    }
 
-   public TheoryStudentTable setColumnMap(LinkedHashMap<String, Integer> value)
+   public TAStudentTable setColumnMap(LinkedHashMap<String, Integer> value)
    {
       this.columnMap = value;
       return this;
@@ -87,7 +85,7 @@ public class TheoryStudentTable
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         TheoryStudent start = (TheoryStudent) row.get(columnMap.get(this.getColumnName()));
+         TAStudent start = (TAStudent) row.get(columnMap.get(this.getColumnName()));
          ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
          newRow.add(start.getStudentId());
          this.table.add(newRow);
@@ -95,13 +93,12 @@ public class TheoryStudentTable
       return result;
    }
 
-   public TheoryGroupTable expandGroup(String... rowName)
+   public StringTable expandName(String... rowName)
    {
-      TheoryGroupTable result = new TheoryGroupTable();
+      StringTable result = new StringTable();
       result.setColumnMap(this.columnMap);
-      result.setTable(table);
+      result.setTable(this.table);
       int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
-
       String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
       result.setColumnName(newColumnName);
       columnMap.put(newColumnName, newColumnNumber);
@@ -110,33 +107,39 @@ public class TheoryStudentTable
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         TheoryStudent start = (TheoryStudent) row.get(columnMap.get(this.getColumnName()));
+         TAStudent start = (TAStudent) row.get(columnMap.get(this.getColumnName()));
          ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
-         newRow.add(start.getGroup());
+         newRow.add(start.getName());
          this.table.add(newRow);
       }
       return result;
    }
 
-   public TheoryStudentTable hasGroup(TheoryGroupTable rowName)
+   public StringTable expandTeachingAssistantFor(String... rowName)
    {
+      StringTable result = new StringTable();
+      result.setColumnMap(this.columnMap);
+      result.setTable(this.table);
+      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
+      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
+      result.setColumnName(newColumnName);
+      columnMap.put(newColumnName, newColumnNumber);
+
       ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         TheoryStudent start = (TheoryStudent) row.get(columnMap.get(this.getColumnName()));
-         TheoryGroup other = (TheoryGroup) row.get(columnMap.get(rowName.getColumnName()));
-         if (start.getGroup() == other)
-         {
-            this.table.add(row);
-         }
+         TAStudent start = (TAStudent) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getTeachingAssistantFor());
+         this.table.add(newRow);
       }
-      return this;
+      return result;
    }
 
-   public PresentationTable expandPresentations(String... rowName)
+   public TAPoolTable expandPool(String... rowName)
    {
-      PresentationTable result = new PresentationTable();
+      TAPoolTable result = new TAPoolTable();
       result.setColumnMap(this.columnMap);
       result.setTable(table);
       int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
@@ -149,26 +152,23 @@ public class TheoryStudentTable
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         TheoryStudent start = (TheoryStudent) row.get(columnMap.get(this.getColumnName()));
-         for (Presentation current : start.getPresentations())
-         {
-            ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
-            newRow.add(current);
-            this.table.add(newRow);
-         }
+         TAStudent start = (TAStudent) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getPool());
+         this.table.add(newRow);
       }
       return result;
    }
 
-   public TheoryStudentTable hasPresentations(PresentationTable rowName)
+   public TAStudentTable hasPool(TAPoolTable rowName)
    {
       ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         TheoryStudent start = (TheoryStudent) row.get(columnMap.get(this.getColumnName()));
-         Presentation other = (Presentation) row.get(columnMap.get(rowName.getColumnName()));
-         if (start.getPresentations().contains(other))
+         TAStudent start = (TAStudent) row.get(columnMap.get(this.getColumnName()));
+         TAPool other = (TAPool) row.get(columnMap.get(rowName.getColumnName()));
+         if (start.getPool() == other)
          {
             this.table.add(row);
          }
@@ -176,7 +176,7 @@ public class TheoryStudentTable
       return this;
    }
 
-   public TheoryStudentTable selectColumns(String... columnNames)
+   public TAStudentTable selectColumns(String... columnNames)
    {
       LinkedHashMap<String, Integer> oldColumnMap = (LinkedHashMap<String, Integer>) this.columnMap.clone();
       this.columnMap.clear();
@@ -209,7 +209,7 @@ public class TheoryStudentTable
       return this;
    }
 
-   public TheoryStudentTable dropColumns(String... columnNames)
+   public TAStudentTable dropColumns(String... columnNames)
    {
       LinkedHashMap<String, Integer> oldColumnMap = (LinkedHashMap<String, Integer>) this.columnMap.clone();
       this.columnMap.clear();
@@ -261,13 +261,13 @@ public class TheoryStudentTable
       this.columnMap.put(columnName, newColumnNumber);
    }
 
-   public TheoryStudentTable filter(Predicate< TheoryStudent > predicate)
+   public TAStudentTable filter(Predicate< TAStudent > predicate)
    {
       ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         TheoryStudent start = (TheoryStudent) row.get(columnMap.get(this.getColumnName()));
+         TAStudent start = (TAStudent) row.get(columnMap.get(this.getColumnName()));
          if (predicate.test(start))
          {
             this.table.add(row);
@@ -276,7 +276,7 @@ public class TheoryStudentTable
       return this;
    }
 
-   public TheoryStudentTable filterRow(Predicate<LinkedHashMap<String,Object> > predicate)
+   public TAStudentTable filterRow(Predicate<LinkedHashMap<String,Object> > predicate)
    {
       ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
       this.table.clear();
@@ -295,12 +295,12 @@ public class TheoryStudentTable
       return this;
    }
 
-   public LinkedHashSet< TheoryStudent > toSet()
+   public LinkedHashSet< TAStudent > toSet()
    {
-      LinkedHashSet< TheoryStudent > result = new LinkedHashSet<>();
+      LinkedHashSet< TAStudent > result = new LinkedHashSet<>();
       for (ArrayList row : this.table)
       {
-         TheoryStudent value = (TheoryStudent) row.get(columnMap.get(columnName));
+         TAStudent value = (TAStudent) row.get(columnMap.get(columnName));
          result.add(value);
       }
       return result;
@@ -326,49 +326,5 @@ public class TheoryStudentTable
       return buf.toString();
    }
 
-
-   public StringTable expandName(String... rowName)
-   {
-      StringTable result = new StringTable();
-      result.setColumnMap(this.columnMap);
-      result.setTable(this.table);
-      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
-      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
-      result.setColumnName(newColumnName);
-      columnMap.put(newColumnName, newColumnNumber);
-
-      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
-      this.table.clear();
-      for (ArrayList<Object> row : oldTable)
-      {
-         TheoryStudent start = (TheoryStudent) row.get(columnMap.get(this.getColumnName()));
-         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
-         newRow.add(start.getName());
-         this.table.add(newRow);
-      }
-      return result;
-   }
-
-   public StringTable expandTa_4(String... rowName)
-   {
-      StringTable result = new StringTable();
-      result.setColumnMap(this.columnMap);
-      result.setTable(this.table);
-      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
-      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
-      result.setColumnName(newColumnName);
-      columnMap.put(newColumnName, newColumnNumber);
-
-      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
-      this.table.clear();
-      for (ArrayList<Object> row : oldTable)
-      {
-         TheoryStudent start = (TheoryStudent) row.get(columnMap.get(this.getColumnName()));
-         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
-         newRow.add(start.getTa_4());
-         this.table.add(newRow);
-      }
-      return result;
-   }
 
 }

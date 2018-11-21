@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
-public class PresentationTable 
+public class PresentationTable  
 {
 
    public PresentationTable(Presentation... start)
@@ -90,28 +90,6 @@ public class PresentationTable
          Presentation start = (Presentation) row.get(columnMap.get(this.getColumnName()));
          ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
          newRow.add(start.getSlides());
-         this.table.add(newRow);
-      }
-      return result;
-   }
-
-   public intTable expandScolarship(String... rowName)
-   {
-      intTable result = new intTable();
-      result.setColumnMap(this.columnMap);
-      result.setTable(this.table);
-      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
-      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
-      result.setColumnName(newColumnName);
-      columnMap.put(newColumnName, newColumnNumber);
-
-      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
-      this.table.clear();
-      for (ArrayList<Object> row : oldTable)
-      {
-         Presentation start = (Presentation) row.get(columnMap.get(this.getColumnName()));
-         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
-         newRow.add(start.getScolarship());
          this.table.add(newRow);
       }
       return result;
@@ -433,5 +411,27 @@ public class PresentationTable
       return buf.toString();
    }
 
+
+   public intTable expandScholarship(String... rowName)
+   {
+      intTable result = new intTable();
+      result.setColumnMap(this.columnMap);
+      result.setTable(this.table);
+      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
+      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
+      result.setColumnName(newColumnName);
+      columnMap.put(newColumnName, newColumnNumber);
+
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         Presentation start = (Presentation) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getScholarship());
+         this.table.add(newRow);
+      }
+      return result;
+   }
 
 }

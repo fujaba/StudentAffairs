@@ -2,6 +2,7 @@ package uniks.accounting;
 
 import org.fulib.yaml.Yamler;
 import uniks.accounting.segroup.*;
+import uniks.accounting.theorygroup.TheoryStudent;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -32,7 +33,8 @@ public class SEGroupBuilder
    public static final String GRADE_SOLUTION = "gradeSolution";
    public static final String GRADE = "grade";
    public static final String EXAMINATION_GRADED = "examinationGraded";
-
+   public static final String STUDENT_HIRED_AS_TA = "studentHiredAsTA";
+   public static final String TEACHING_ASSISTANT_FOR = "teachingAssistantFor";
 
    private SEGroup seGroup;
    private EventSource eventSource = new EventSource();
@@ -61,6 +63,11 @@ public class SEGroupBuilder
          else if (STUDENT_CREATED.equals(map.get(EVENT_TYPE)))
          {
             getOrCreateStudent(map.get(NAME), map.get(STUDENT_ID));
+         }
+         else if (STUDENT_HIRED_AS_TA.equals(map.get(EVENT_TYPE)))
+         {
+            SEStudent student = getOrCreateStudent(map.get(NAME), map.get(STUDENT_ID));
+            studentHired(student, map.get(NAME), map.get(LECTURER_NAME));
          }
          else if (BUILD_SE_CLASS.equals(map.get(EVENT_TYPE)))
          {
@@ -115,6 +122,28 @@ public class SEGroupBuilder
    private SEStudent getOrCreateStudent(String s)
    {
       return seGroup.getStudents(s);
+   }
+
+
+   private void studentHired(SEStudent student, String studentName, String lecturer)
+   {
+      if (lecturer.equals(student.getTeachingAssistantFor()))
+      {
+         return;
+      }
+
+      student.setTeachingAssistantFor(lecturer);
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + EVENT_TYPE + ": ").append(STUDENT_ENROLLED).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
+            .append("  " + NAME + ": ").append(Yamler.encapsulate(studentName)).append("\n")
+            .append("  " + TEACHING_ASSISTANT_FOR + ": ").append(Yamler.encapsulate(lecturer)).append("\n")
+            .append("\n");
+
+      eventSource.append(buf);
+
+      return;
    }
 
 

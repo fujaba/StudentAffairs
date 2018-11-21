@@ -85,7 +85,8 @@ public class TestStudentOffice
       ClassBuilder seGroup = mb.buildClass("SEGroup")
             .buildAttribute("head", STRING);
       ClassBuilder seStudent = mb.buildClass("SEStudent")
-            .buildAttribute("studentId", STRING);
+            .buildAttribute("studentId", STRING)
+            .buildAttribute("teachingAssistantFor", STRING);
       ClassBuilder seClass = mb.buildClass("SEClass")
             .buildAttribute("topic", STRING)
             .buildAttribute("term", STRING);
@@ -122,13 +123,15 @@ public class TestStudentOffice
       ClassBuilder theoryGroup = mb.buildClass("TheoryGroup")
             .buildAttribute("head", STRING);
       ClassBuilder theoryStudent = mb.buildClass("TheoryStudent")
-            .buildAttribute("studentId", STRING);
+            .buildAttribute("studentId", STRING)
+            .buildAttribute("name", STRING)
+            .buildAttribute("ta_4", STRING);
       ClassBuilder seminar = mb.buildClass("Seminar")
             .buildAttribute("topic", STRING)
             .buildAttribute("term", STRING);
       ClassBuilder presentation = mb.buildClass("Presentation")
             .buildAttribute("slides", INT)
-            .buildAttribute("scolarship", INT)
+            .buildAttribute("scholarship", INT)
             .buildAttribute("content", INT)
             .buildAttribute("total", INT)
             .buildAttribute("grade", STRING)
@@ -146,6 +149,26 @@ public class TestStudentOffice
       Fulib.tablesGenerator().generate(mb.getClassModel());
    }
 
+
+   @Test
+   public void testTAPool()
+   {
+      ClassModelBuilder mb = Fulib.classModelBuilder("uniks.accounting.tapool");
+
+      ClassBuilder taPool = mb.buildClass("TAPool");
+      ClassBuilder taStudent = mb.buildClass("TAStudent")
+            .buildAttribute("studentId", STRING)
+            .buildAttribute("name", STRING)
+            .buildAttribute("teachingAssistantFor", STRING);
+
+      taPool.buildAssociation(taStudent, "students", MANY, "pool", ONE);
+
+      String fileName = FulibTools.classDiagrams().dumpSVG(mb.getClassModel(), "tmp/TAPoolModel.svg");
+      System.out.println(fileName);
+
+      Fulib.generator().generate(mb.getClassModel());
+      Fulib.tablesGenerator().generate(mb.getClassModel());
+   }
 
 
 

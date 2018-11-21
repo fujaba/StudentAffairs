@@ -2,12 +2,13 @@ package uniks.accounting;
 
 import org.fulib.yaml.Yamler;
 import uniks.accounting.segroup.*;
+import uniks.accounting.theorygroup.Presentation;
+import uniks.accounting.theorygroup.Seminar;
 import uniks.accounting.theorygroup.TheoryGroup;
 import uniks.accounting.theorygroup.TheoryStudent;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Locale;
 
 public class TheoryGroupBuilder
 {
@@ -17,24 +18,27 @@ public class TheoryGroupBuilder
    public static final String STUDENT_CREATED = "studentCreated";
    public static final String STUDENT_ID = "studentId";
    public static final String NAME = "name";
-   public static final String BUILD_SE_CLASS = "buildSEClass";
    public static final String TOPIC = "topic";
    public static final String TERM = "term";
    public static final String TASK = "task";
    public static final String POINTS = "points";
-   public static final String BUILD_ASSIGNMENT = "buildAssignment";
    public static final String ENROLLED = "enrolled";
-   public static final String BUILD_ACHIEVEMENT = "buildAchievement";
    public static final String STUDENT_ENROLLED = "studentEnrolled";
    public static final String COURSE_NAME = "courseName";
    public static final String LECTURER_NAME = "lecturerName";
    public static final String DATE = "date";
-   public static final String BUILD_SOLUTION = "buildSolution";
    public static final String GIT_URL = "gitUrl";
-   public static final String GRADE_SOLUTION = "gradeSolution";
    public static final String GRADE = "grade";
    public static final String EXAMINATION_GRADED = "examinationGraded";
    public static final String MARTIN = "Martin";
+   public static final String SEMINAR_CREATED = "seminarCreated";
+   public static final String PRESENTATION_CREATED = "presentationCreated";
+   public static final String PRESENTATION_GRADED = "presentationGraded";
+   public static final String SLIDES = "slides";
+   public static final String SCHOLARSHIP = "scholarship";
+   public static final String CONTENT = "content";
+   public static final String STUDENT_HIRED_AS_TA = "studentHiredAsTA";
+   public static final String TEACHING_ASSISTANT_FOR = "teachingAssistantFor";
 
 
    private TheoryGroup theoryGroup;
@@ -65,231 +69,207 @@ public class TheoryGroupBuilder
          {
             getOrCreateStudent(map.get(NAME), map.get(STUDENT_ID));
          }
-         else if (BUILD_SE_CLASS.equals(map.get(EVENT_TYPE)))
+         else if (STUDENT_HIRED_AS_TA.equals(map.get(EVENT_TYPE)))
          {
-            getOrCreateSEClass(map.get(TOPIC), map.get(TERM));
+            TheoryStudent student = getOrCreateStudent(map.get(NAME), map.get(STUDENT_ID));
+            studentHired(student, map.get(LECTURER_NAME));
          }
-         else if (BUILD_ASSIGNMENT.equals(map.get(EVENT_TYPE)))
+         else if (SEMINAR_CREATED.equals(map.get(EVENT_TYPE)))
          {
-            SEClass seClass = theoryGroup.getClasses(map.get(TOPIC), map.get(TERM));
-            double points = Double.parseDouble(map.get(POINTS));
-            buildAssignment(seClass, map.get(TASK), points);
+            getOrCreateSeminar(map.get(TOPIC), map.get(TERM));
          }
-         else if (BUILD_ACHIEVEMENT.equals(map.get(EVENT_TYPE)))
+         else if (PRESENTATION_CREATED.equals(map.get(EVENT_TYPE)))
          {
-            SEStudent student = getOrCreateStudent(map.get(STUDENT_ID));
-            SEClass seClass = theoryGroup.getClasses(map.get(TOPIC), map.get(TERM));
-            getOrCreateAchievement(student, seClass);
+            TheoryStudent student = getOrCreateStudent(map.get(STUDENT_ID), map.get(NAME));
+            Seminar seminar = getOrCreateSeminar(map.get(TOPIC), map.get(TERM));
+            getOrCreatePresentation(student, seminar);
+         }
+         else if (PRESENTATION_GRADED.equals(map.get(EVENT_TYPE)))
+         {
+            TheoryStudent student = getOrCreateStudent(map.get(STUDENT_ID), map.get(NAME));
+            Seminar seminar = getOrCreateSeminar(map.get(TOPIC), map.get(TERM));
+            Presentation presentation = getOrCreatePresentation(student, seminar);
+            gradePresentation(presentation, map.get(SLIDES), map.get(SCHOLARSHIP), map.get(CONTENT));
          }
          else if (STUDENT_ENROLLED.equals(map.get(EVENT_TYPE)))
          {
-            SEStudent student = getOrCreateStudent(map.get(STUDENT_ID));
-            SEClass seClass = getOrCreateSEClass(map.get(COURSE_NAME), map.get(DATE));
-            Achievement achievement = getOrCreateAchievement(student, seClass);
-            enroll(achievement);
-         }
-         else if (BUILD_SOLUTION.equals(map.get(EVENT_TYPE)))
-         {
-            SEStudent student = getOrCreateStudent(map.get(STUDENT_ID));
-            SEClass seClass = getOrCreateSEClass(map.get(TOPIC), map.get(TERM));
-            Achievement achievement = getOrCreateAchievement(student, seClass);
-            Assignment assignment = seClass.getAssignments(map.get(TASK));
-            buildSolution(achievement, assignment, map.get(GIT_URL));
-         }
-         else if (GRADE_SOLUTION.equals(map.get(EVENT_TYPE)))
-         {
-            SEStudent student = getOrCreateStudent(map.get(STUDENT_ID));
-            SEClass seClass = getOrCreateSEClass(map.get(TOPIC), map.get(TERM));
-            Achievement achievement = getOrCreateAchievement(student, seClass);
-            Assignment assignment = seClass.getAssignments(map.get(TASK));
-            Solution solution = achievement.getSolutions(assignment);
-            gradeSolution(solution, Double.parseDouble(map.get(POINTS)));
+            TheoryStudent student = getOrCreateStudent(map.get(STUDENT_ID), map.get(NAME));
+            Seminar seminar = getOrCreateSeminar(map.get(COURSE_NAME), map.get(DATE));
+            Presentation presentation = getOrCreatePresentation(student, seminar);
+            enroll(presentation);
          }
          else if (EXAMINATION_GRADED.equals(map.get(EVENT_TYPE)))
          {
-            SEStudent student = getOrCreateStudent(map.get(STUDENT_ID));
-            SEClass seClass = getOrCreateSEClass(map.get(COURSE_NAME), map.get(DATE));
-            Achievement achievement = getOrCreateAchievement(student, seClass);
-            gradeExamination(achievement);
+            TheoryStudent student = getOrCreateStudent(map.get(STUDENT_ID), map.get(NAME));
+            Seminar seminar = getOrCreateSeminar(map.get(COURSE_NAME), map.get(DATE));
+            Presentation presentation = getOrCreatePresentation(student, seminar);
+            gradePresentation(presentation);
          }
       }
    }
 
-   private SEStudent getOrCreateStudent(String s)
+   private void studentHired(TheoryStudent student, String lecturer)
    {
-      return theoryGroup.getStudents(s);
+      if (lecturer.equals(student.getTa_4()))
+      {
+         return;
+      }
+
+      student.setTa_4(lecturer);
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + EVENT_TYPE + ": ").append(STUDENT_ENROLLED).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
+            .append("  " + NAME + ": ").append(Yamler.encapsulate(student.getName())).append("\n")
+            .append("  " + TEACHING_ASSISTANT_FOR + ": ").append(Yamler.encapsulate(lecturer)).append("\n")
+            .append("\n");
+
+      eventSource.append(buf);
+
+      return;
    }
 
 
-   public void gradeExamination(Achievement achievement)
+   public void enroll(Presentation presentation)
    {
-      double sumOfAssignments = 0.0;
-      for (Assignment a : achievement.getSeClass().getAssignments())
+      if (ENROLLED.equals(presentation.getOfficeStatus()))
       {
-         sumOfAssignments += a.getPoints();
+         return;
       }
 
-      double sumOfSolutions = 0.0;
-      for (Solution s : achievement.getSolutions())
+      presentation.setOfficeStatus(ENROLLED);
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + EVENT_TYPE + ": ").append(STUDENT_ENROLLED).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(presentation.getStudent().getStudentId())).append("\n")
+            .append("  " + NAME + ": ").append(Yamler.encapsulate(presentation.getStudent().getName())).append("\n")
+            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(presentation.getSeminar().getTopic())).append("\n")
+            .append("  " + TERM + ": ").append(Yamler.encapsulate(presentation.getSeminar().getTerm())).append("\n")
+            .append("\n");
+
+      eventSource.append(buf);
+
+      return;
+   }
+
+   private void gradePresentation(Presentation presentation, String slides, String scholarship, String content)
+   {
+
+      int slidesPoints = Integer.parseInt(slides);
+      int scholarshipPoints = Integer.parseInt(scholarship);
+      int contentPoints = Integer.parseInt(content);
+
+      if (presentation.getSlides() == slidesPoints
+      && presentation.getScholarship() == scholarshipPoints
+      && presentation.getContent() == contentPoints)
       {
-         sumOfSolutions += s.getPoints();
+         return;
       }
 
-      int missed = (int) (sumOfAssignments - sumOfSolutions);
-      char grade = (char) ('A' + (missed / 10));
+      presentation
+            .setSlides(slidesPoints)
+            .setScholarship(scholarshipPoints)
+            .setContent(contentPoints);
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + EVENT_TYPE + ": ").append(PRESENTATION_GRADED).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(presentation.getStudent().getStudentId())).append("\n")
+            .append("  " + NAME + ": ").append(Yamler.encapsulate(presentation.getStudent().getName())).append("\n")
+            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(presentation.getSeminar().getTopic())).append("\n")
+            .append("  " + TERM + ": ").append(Yamler.encapsulate(presentation.getSeminar().getTerm())).append("\n")
+            .append("  " + SLIDES + ": ").append(Yamler.encapsulate("" + presentation.getSlides())).append("\n")
+            .append("  " + SCHOLARSHIP + ": ").append(Yamler.encapsulate("" + presentation.getScholarship())).append("\n")
+            .append("  " + CONTENT + ": ").append(Yamler.encapsulate("" + presentation.getContent())).append("\n")
+            .append("\n");
+   }
+
+
+   private Presentation getOrCreatePresentation(TheoryStudent student, Seminar seminar)
+   {
+      for (Presentation p : student.getPresentations())
+      {
+         if (p.getSeminar() == seminar)
+         {
+            return p;
+         }
+      }
+
+      Presentation presentation = new Presentation()
+            .setStudent(student)
+            .setSeminar(seminar);
+
+      StringBuilder buf = new StringBuilder()
+            .append("- " + EVENT_TYPE + ": ").append(PRESENTATION_CREATED).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
+            .append("  " + NAME + ": ").append(Yamler.encapsulate(student.getName())).append("\n")
+            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(seminar.getTopic())).append("\n")
+            .append("  " + TERM + ": ").append(Yamler.encapsulate(seminar.getTerm())).append("\n")
+            .append("\n");
+
+      return presentation;
+   }
+
+
+   public void gradePresentation(Presentation presentation)
+   {
+      double totalPoints = presentation.getSlides()
+            + presentation.getScholarship()
+            + presentation.getContent();
+
+
+      double missed = 30.0 - totalPoints;
+      char grade = (char) ('A' + (missed / 4));
 
       if (grade > 'F') grade = 'F';
 
-      if (("" + grade).equals(achievement.getGrade())) return;
+      if (("" + grade).equals(presentation.getGrade())) return;
 
-      achievement.setGrade("" + grade);
+      presentation.setGrade("" + grade);
 
       StringBuilder buf = new StringBuilder()
             .append("- " + EVENT_TYPE + ": ").append(EXAMINATION_GRADED).append("\n")
-            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
-            .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
-            .append("  " + DATE + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n")
-            .append("  " + LECTURER_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getGroup().getHead())).append("\n")
+            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(presentation.getStudent().getStudentId())).append("\n")
+            .append("  " + NAME + ": ").append(Yamler.encapsulate(presentation.getStudent().getName())).append("\n")
+            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(presentation.getSeminar().getTopic())).append("\n")
+            .append("  " + TERM + ": ").append(Yamler.encapsulate(presentation.getSeminar().getTerm())).append("\n")
             .append("  " + GRADE + ": ").append(grade).append("\n\n");
 
       eventSource.append(buf);
    }
 
 
-   public void gradeSolution(Solution solution, double points)
+
+
+   public Seminar getOrCreateSeminar(String topic, String term)
    {
-      solution.setPoints(points);
+      Seminar seminar = null;
 
-      Achievement achievement = solution.getAchievement();
-
-      StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(GRADE_SOLUTION).append("\n")
-            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
-            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
-            .append("  " + TERM + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n")
-            .append("  " + TASK + ": ").append(Yamler.encapsulate(solution.getAssignment().getTask())).append("\n")
-            .append("  " + POINTS + ": ").append(String.format(Locale.ENGLISH, "%.1f", points)).append("\n\n");
-
-      eventSource.append(buf);
-   }
-
-
-   public Solution buildSolution(Achievement achievement, Assignment assignment, String gitUrl)
-   {
-      Solution solution = achievement.getSolutions(assignment);
-
-      if (solution != null && solution.getGitUrl().equals(gitUrl)) return  solution;
-
-      if (solution == null)
+      for (Seminar s : theoryGroup.getSeminars())
       {
-         solution = new Solution()
-               .setGitUrl(gitUrl)
-               .setAchievement(achievement)
-               .setAssignment(assignment);
+         if (s.getTopic().equals(topic) && s.getTerm().equals(term))
+         {
+            seminar = s;
+            return seminar;
+         }
       }
 
-      StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(BUILD_SOLUTION).append("\n")
-            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
-            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
-            .append("  " + TERM + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n")
-            .append("  " + TASK + ": ").append(Yamler.encapsulate(assignment.getTask())).append("\n")
-            .append("  " + GIT_URL + ": ").append(Yamler.encapsulate(gitUrl)).append("\n\n");
-
-      eventSource.append(buf);
-
-      return solution;
-   }
-
-
-   public Achievement enroll(Achievement achievement)
-   {
-      achievement.setOfficeStatus(ENROLLED);
-
-      StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(STUDENT_ENROLLED).append("\n")
-            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(achievement.getStudent().getStudentId())).append("\n")
-            .append("  " + COURSE_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTopic())).append("\n")
-            .append("  " + LECTURER_NAME + ": ").append(Yamler.encapsulate(achievement.getSeClass().getGroup().getHead())).append("\n")
-            .append("  " + DATE + ": ").append(Yamler.encapsulate(achievement.getSeClass().getTerm())).append("\n\n");
-
-      eventSource.append(buf);
-
-      return achievement;
-   }
-
-
-   public Achievement getOrCreateAchievement(SEStudent student, SEClass seClass)
-   {
-      Achievement achievement = student.getAchievements(seClass);
-
-      if (achievement != null) return achievement;
-
-      achievement = new Achievement()
-            .setStudent(student)
-            .setSeClass(seClass);
-
-      StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(BUILD_ACHIEVEMENT).append("\n")
-            .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
-            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(seClass.getTopic())).append("\n")
-            .append("  " + TERM + ": ").append(Yamler.encapsulate(seClass.getTerm())).append("\n\n");
-
-      eventSource.append(buf);
-
-      return achievement;
-   }
-
-
-   public Assignment buildAssignment(SEClass seClass, String task, double points)
-   {
-      Assignment assignment = seClass.getAssignments(task);
-
-      if (assignment != null && assignment.getPoints() == points) return assignment;
-
-      if (assignment == null)
-      {
-         assignment = new Assignment()
-               .setTask(task)
-               .setPoints(points)
-               .setSeClass(seClass);
-      }
-
-      StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(BUILD_ASSIGNMENT).append("\n")
-            .append("  " + TOPIC + ": ").append(Yamler.encapsulate(seClass.getTopic())).append("\n")
-            .append("  " + TERM + ": ").append(Yamler.encapsulate(seClass.getTerm())).append("\n")
-            .append("  " + TASK + ": ").append(Yamler.encapsulate(task)).append("\n")
-            .append("  " + POINTS + ": ").append(String.format(Locale.ENGLISH, "%.1f", points)).append("\n\n");
-
-      eventSource.append(buf);
-
-      return assignment;
-   }
-
-   public SEClass getOrCreateSEClass(String topic, String term)
-   {
-      SEClass seClass = theoryGroup.getClasses(topic, term);
-
-      if (seClass != null) return seClass;
-
-      seClass = new SEClass()
+      seminar = new Seminar()
             .setTopic(topic)
             .setTerm(term)
             .setGroup(theoryGroup);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(BUILD_SE_CLASS).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(SEMINAR_CREATED).append("\n")
             .append("  " + TOPIC + ": ").append(Yamler.encapsulate(topic)).append("\n")
             .append("  " + TERM + ": ").append(Yamler.encapsulate(term)).append("\n\n");
 
       eventSource.append(buf);
 
-      return seClass;
+      return seminar;
    }
 
 
-   public SEStudent getOrCreateStudent(String name, String studentId)
+   public TheoryStudent getOrCreateStudent(String name, String studentId)
    {
       TheoryStudent student = null;
 
@@ -302,10 +282,14 @@ public class TheoryGroupBuilder
          }
       }
 
-      if (student != null) return student;
+      if (student != null && student.getName().equals(name))
+      {
+         return student;
+      }
 
-      student = new SEStudent()
+      student = new TheoryStudent()
             .setStudentId(studentId)
+            .setName(name)
             .setGroup(theoryGroup);
 
       StringBuilder buf = new StringBuilder()

@@ -4,7 +4,7 @@ import java.beans.PropertyChangeSupport;
 
 import java.beans.PropertyChangeListener;
 
-public class TheoryGroup 
+public class TheoryGroup  
 {
 
    public static final String PROPERTY_head = "head";

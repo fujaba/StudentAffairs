@@ -1,0 +1,9 @@
+- eventType: taPoolCreated
+  .eventNumber: 1
+
+- eventType: studentHiredAsTA
+  studentId: m4242
+  name: Alice
+  teachingAssistantFor: Martin
+  .eventNumber: 2
+

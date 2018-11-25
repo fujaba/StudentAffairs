@@ -15,7 +15,7 @@ public class TAPoolBuilder
    public static final String STUDENT_HIRED_AS_TA = "studentHiredAsTA";
    public static final String STUDENT_ID = "studentId";
    public static final String NAME = "name";
-   public static final String LECTURER_NAME = "lecturerName";
+   public static final String TEACHING_ASSISTANT_FOR = "teachingAssistantFor";
 
    private TAPool taPool;
 
@@ -45,7 +45,7 @@ public class TAPoolBuilder
          else if (STUDENT_HIRED_AS_TA.equals(map.get(EVENT_TYPE)))
          {
             getOrCreateTAPool();
-            getOrCreateStudent(map.get(NAME), map.get(STUDENT_ID), map.get(LECTURER_NAME));
+            getOrCreateStudent(map.get(NAME), map.get(STUDENT_ID), map.get(TEACHING_ASSISTANT_FOR));
          }
       }
    }
@@ -71,6 +71,7 @@ public class TAPoolBuilder
       if (student == null)
       {
          student = new TAStudent();
+         taPool.withStudents(student);
       }
 
       student.setStudentId(studentId)
@@ -81,9 +82,9 @@ public class TAPoolBuilder
             .append("- " + EVENT_TYPE + ": ").append(STUDENT_HIRED_AS_TA).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
             .append("  " + NAME + ": ").append(Yamler.encapsulate(student.getName())).append("\n")
-            .append("  " + LECTURER_NAME + ": ").append(Yamler.encapsulate(lecturer)).append("\n")
+            .append("  " + TEACHING_ASSISTANT_FOR + ": ").append(Yamler.encapsulate(lecturer)).append("\n")
             .append("\n");
-
+      eventSource.append(buf);
    }
 
    private void getOrCreateTAPool()
@@ -95,5 +96,7 @@ public class TAPoolBuilder
       StringBuilder buf = new StringBuilder()
             .append("- " + EVENT_TYPE + ": ").append(TA_POOL_CREATED).append("\n")
             .append("\n");
+
+      eventSource.append(buf);
    }
 }

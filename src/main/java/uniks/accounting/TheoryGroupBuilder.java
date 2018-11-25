@@ -108,7 +108,7 @@ public class TheoryGroupBuilder
       }
    }
 
-   private void studentHired(TheoryStudent student, String lecturer)
+   public void studentHired(TheoryStudent student, String lecturer)
    {
       if (lecturer.equals(student.getTa_4()))
       {
@@ -118,7 +118,7 @@ public class TheoryGroupBuilder
       student.setTa_4(lecturer);
 
       StringBuilder buf = new StringBuilder()
-            .append("- " + EVENT_TYPE + ": ").append(STUDENT_ENROLLED).append("\n")
+            .append("- " + EVENT_TYPE + ": ").append(STUDENT_HIRED_AS_TA).append("\n")
             .append("  " + STUDENT_ID + ": ").append(Yamler.encapsulate(student.getStudentId())).append("\n")
             .append("  " + NAME + ": ").append(Yamler.encapsulate(student.getName())).append("\n")
             .append("  " + TEACHING_ASSISTANT_FOR + ": ").append(Yamler.encapsulate(lecturer)).append("\n")
@@ -152,7 +152,7 @@ public class TheoryGroupBuilder
       return;
    }
 
-   private void gradePresentation(Presentation presentation, String slides, String scholarship, String content)
+   public void gradePresentation(Presentation presentation, String slides, String scholarship, String content)
    {
 
       int slidesPoints = Integer.parseInt(slides);
@@ -181,10 +181,12 @@ public class TheoryGroupBuilder
             .append("  " + SCHOLARSHIP + ": ").append(Yamler.encapsulate("" + presentation.getScholarship())).append("\n")
             .append("  " + CONTENT + ": ").append(Yamler.encapsulate("" + presentation.getContent())).append("\n")
             .append("\n");
+
+      eventSource.append(buf);
    }
 
 
-   private Presentation getOrCreatePresentation(TheoryStudent student, Seminar seminar)
+   public Presentation getOrCreatePresentation(TheoryStudent student, Seminar seminar)
    {
       for (Presentation p : student.getPresentations())
       {

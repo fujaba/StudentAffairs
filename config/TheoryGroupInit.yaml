@@ -1,0 +1,43 @@
+- eventType: theoryGroupCreated
+  head: Martin
+  .eventNumber: 1
+
+- eventType: seminarCreated
+  topic: Automata
+  term: 2019.03.23
+  .eventNumber: 2
+
+- eventType: studentCreated
+  studentId: m4242
+  name: Alice
+  .eventNumber: 3
+
+- eventType: studentCreated
+  studentId: m2323
+  name: Bob
+  .eventNumber: 4
+
+- eventType: presentationGraded
+  studentId: m4242
+  name: Alice
+  topic: Automata
+  term: 2019.03.23
+  slides: 9
+  scholarship: 9
+  content: 9
+  .eventNumber: 5
+
+- eventType: examinationGraded
+  studentId: m4242
+  name: Alice
+  topic: Automata
+  term: 2019.03.23
+  grade: A
+  .eventNumber: 6
+
+- eventType: studentHiredAsTA
+  studentId: m4242
+  name: Alice
+  teachingAssistantFor: Martin
+  .eventNumber: 7
+

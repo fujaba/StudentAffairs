@@ -8,6 +8,10 @@ import org.junit.Test;
 import spark.utils.IOUtils;
 import uniks.accounting.segroup.*;
 import uniks.accounting.studentOffice.*;
+import uniks.accounting.theorygroup.Presentation;
+import uniks.accounting.theorygroup.Seminar;
+import uniks.accounting.theorygroup.TheoryGroup;
+import uniks.accounting.theorygroup.TheoryStudent;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -38,6 +42,7 @@ public class TestEventSourceing
    public static final String CONFIG_STUDENT_OFFICE_EVENTS_YAML = "config/studentOfficeEvents.yaml";
    public static final String CONFIG_SE_GROUP_EVENTS_YAML = "config/seGroupEvents.yaml";
    public static final String CONFIG_SEGROUP_GRADING_YAML = "config/SEGroupGrading.yaml";
+   public static final String CONFIG_THEORY_GROUP_INIT_YAML = "config/TheoryGroupInit.yaml";
    private MqttClient mqttClient;
 
    @Test
@@ -61,42 +66,94 @@ public class TestEventSourceing
    {
       String log = null;
 
+
+      // init Students' Office
       StudentOfficeBuilder ob = new StudentOfficeBuilder();
       // ob.getEventSource().addEventListener(e -> storeEvents(e));
-
-      StudentOffice fb16 = ob.getOrCreateStudentOffice("FB16");
-      StudyProgram cs = ob.getOrCreateStudyProgram(CS);
-      Course math = ob.getOrCreateCourse(cs, "math");
-      Course modeling = ob.getOrCreateCourse(cs, MODELING);
-      Lecturer albert = ob.buildLecturer(ALBERT);
-      Examination exam = ob.getOrCreateExamination(modeling, albert, "2019-03-19");
-      ob.getOrCreateStudent("N.N.", M_4242);
-      UniStudent bob = ob.getOrCreateStudent("Bob", M_2323);
-      UniStudent alice = ob.getOrCreateStudent("Alice", M_4242);
-      ob.chooseMajorSubject(alice, cs);
-      ob.enroll(alice, exam);
-
+      StudentOffice fb16 = initialStudentOffice(ob);
       FulibTools.objectDiagrams().dumpSVG("images/StudentOfficeObjectsEnrolled.svg", ob.getStudentOffice());
 
+      // check Students' Office
       EventSource officeEventSource = ob.getEventSource();
       SortedMap<Integer, LinkedHashMap<String, String>> pullMap = officeEventSource.pull(0);
-
       assertThat(pullMap.size(), equalTo(10));
-
       Integer lastPullNumber = pullMap.lastKey();
       assertThat(lastPullNumber, equalTo(11));
-
       SortedMap<Integer, LinkedHashMap<String, String>> studentEvents = officeEventSource.pull(0, entry -> filterBuildStudent(entry));
-
       assertThat(studentEvents.size(), equalTo(2));
 
       log = EventSource.encodeYaml(pullMap);
-
       storeEvents(CONFIG_STUDENT_OFFICE_EVENTS_YAML, log);
 
 
-      // SE Group
+      // init SE Group
       SEGroupBuilder gb = new SEGroupBuilder();
+      initSEGroup(ob, officeEventSource, gb);
+
+      assertThat(fb16.getStudents(M_4242).getName(), equalTo("Alice"));
+      assertThat(fb16.getStudents(M_4242).getEnrollments().get(0).getGrade(), equalTo("A"));
+      FulibTools.objectDiagrams().dumpSVG("tmp/StudentOffice.svg", ob.getStudentOffice());
+      pullMap = officeEventSource.pull(lastPullNumber);
+      lastPullNumber = pullMap.lastKey();
+
+      // clone SE Group
+      cloneSEGroup(log, officeEventSource, pullMap);
+
+      // init TheoryGroup
+      TheoryGroupBuilder tb = new TheoryGroupBuilder();
+      initTheoryGroup(tb, ob, gb);
+
+      // notify TAPool
+      TAPoolBuilder pb = new TAPoolBuilder();
+      notifyPoolBuilder(pb, tb);
+   }
+
+   private void notifyPoolBuilder(TAPoolBuilder pb, TheoryGroupBuilder tb)
+   {
+      SortedMap<Integer, LinkedHashMap<String, String>> eventList = tb.getEventSource().pull(0);
+
+      pb.applyEvents(EventSource.encodeYaml(eventList));
+
+      storeEvents("config/TAPoolInit.yaml", EventSource.encodeYaml(pb.getEventSource().pull(0)));
+
+      FulibTools.objectDiagrams().dumpSVG("tmp/TAPoolInit.svg", pb.getTaPool());
+   }
+
+   private void initTheoryGroup(TheoryGroupBuilder tb, StudentOfficeBuilder ob, SEGroupBuilder gb)
+   {
+      TheoryGroup theoryGroup = tb.getOrCreateTheoryGroup();
+      Seminar automata = tb.getOrCreateSeminar("Automata", "2019.03.23");
+      TheoryStudent alice = tb.getOrCreateStudent("Alice", M_4242);
+      tb.getOrCreateStudent("Bob", M_2323);
+      Presentation presentation = tb.getOrCreatePresentation(alice, automata);
+      tb.gradePresentation(presentation, "9", "9", "9");
+      tb.gradePresentation(presentation);
+
+      tb.studentHired(alice, "Martin");
+
+      SortedMap<Integer, LinkedHashMap<String, String>> groupEvents = tb.getEventSource().pull(0);
+
+      storeEvents(CONFIG_THEORY_GROUP_INIT_YAML, EventSource.encodeYaml(groupEvents));
+
+      FulibTools.objectDiagrams().dumpSVG("tmp/TheoryGroupInit.svg", theoryGroup);
+   }
+
+   private void cloneSEGroup(String log, EventSource officeEventSource, SortedMap<Integer, LinkedHashMap<String, String>> pullMap)
+   {
+      StudentOfficeBuilder clone = new StudentOfficeBuilder();
+      clone.applyEvents(log);
+
+      FulibTools.objectDiagrams().dumpSVG("tmp/OfficeClone.svg", clone.getStudentOffice());
+
+      clone.applyEvents(officeEventSource.encodeYaml(pullMap));
+
+      FulibTools.objectDiagrams().dumpSVG("tmp/OfficeCloneGroupMerge.svg", clone.getStudentOffice());
+
+      assertThat(clone.getStudentOffice().getStudents().size(), equalTo(2));
+   }
+
+   private void initSEGroup(StudentOfficeBuilder ob, EventSource officeEventSource, SEGroupBuilder gb)
+   {
       SEGroup seGroup = gb.buildSEGroup(ALBERT);
       gb.getOrCreateStudent("Alica", M_4242);
       SEClass modelingClass = gb.getOrCreateSEClass(MODELING, "2018-10");
@@ -137,27 +194,22 @@ public class TestEventSourceing
       groupEvents = groupEventSource.pull(0, SEGroupBuilder.EXAMINATION_GRADED);
       seLog = EventSource.encodeYaml(groupEvents);
       ob.applyEvents(seLog);
+   }
 
-      assertThat(fb16.getStudents(M_4242).getName(), equalTo("Alice"));
-      assertThat(fb16.getStudents(M_4242).getEnrollments().get(0).getGrade(), equalTo("A"));
-
-      FulibTools.objectDiagrams().dumpSVG("tmp/StudentOffice.svg", ob.getStudentOffice());
-
-
-      pullMap = officeEventSource.pull(lastPullNumber);
-      lastPullNumber = pullMap.lastKey();
-
-      StudentOfficeBuilder clone = new StudentOfficeBuilder();
-      clone.applyEvents(log);
-
-      FulibTools.objectDiagrams().dumpSVG("tmp/OfficeClone.svg", clone.getStudentOffice());
-
-      clone.applyEvents(officeEventSource.encodeYaml(pullMap));
-
-      FulibTools.objectDiagrams().dumpSVG("tmp/OfficeCloneGroupMerge.svg", clone.getStudentOffice());
-
-      assertThat(clone.getStudentOffice().getStudents().size(), equalTo(2));
-
+   private StudentOffice initialStudentOffice(StudentOfficeBuilder ob)
+   {
+      StudentOffice fb16 = ob.getOrCreateStudentOffice("FB16");
+      StudyProgram cs = ob.getOrCreateStudyProgram(CS);
+      Course math = ob.getOrCreateCourse(cs, "math");
+      Course modeling = ob.getOrCreateCourse(cs, MODELING);
+      Lecturer albert = ob.buildLecturer(ALBERT);
+      Examination exam = ob.getOrCreateExamination(modeling, albert, "2019-03-19");
+      ob.getOrCreateStudent("N.N.", M_4242);
+      UniStudent bob = ob.getOrCreateStudent("Bob", M_2323);
+      UniStudent alice = ob.getOrCreateStudent("Alice", M_4242);
+      ob.chooseMajorSubject(alice, cs);
+      ob.enroll(alice, exam);
+      return fb16;
    }
 
    private void storeEvents(String fileName, String yaml)

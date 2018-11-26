@@ -5,7 +5,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import uniks.accounting.segroup.*;
 import uniks.accounting.view.segroup.subController.SEGroupController;
-import uniks.accounting.view.segroup.subController.SubController;
+import uniks.accounting.view.shared.OfficeTreeItem;
+import uniks.accounting.view.shared.SubController;
 import uniks.accounting.view.segroup.subView.*;
 
 import static uniks.accounting.view.segroup.SEGroupApplication.gb;

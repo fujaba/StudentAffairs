@@ -2,7 +2,8 @@ package uniks.accounting.view.segroup.subController;
 
 import uniks.accounting.segroup.Achievement;
 import uniks.accounting.segroup.SEStudent;
-import uniks.accounting.view.segroup.subView.OfficeTreeItem;
+import uniks.accounting.view.shared.OfficeTreeItem;
+import uniks.accounting.view.shared.SubController;
 
 import static uniks.accounting.view.segroup.SEGroupApplication.modelView;
 

@@ -4,7 +4,8 @@ import uniks.accounting.studentOffice.Lecturer;
 import uniks.accounting.studentOffice.StudentOffice;
 import uniks.accounting.studentOffice.StudyProgram;
 import uniks.accounting.studentOffice.UniStudent;
-import uniks.accounting.view.studentOffice.subView.OfficeTreeItem;
+import uniks.accounting.view.shared.OfficeTreeItem;
+import uniks.accounting.view.shared.SubController;
 
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.modelView;
 

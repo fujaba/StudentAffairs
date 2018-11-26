@@ -1,4 +1,4 @@
-package uniks.accounting.view.segroup.subView;
+package uniks.accounting.view.shared;
 
 import javafx.scene.control.TreeItem;
 

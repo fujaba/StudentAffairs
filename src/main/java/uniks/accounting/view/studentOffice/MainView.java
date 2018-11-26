@@ -8,7 +8,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import uniks.accounting.view.studentOffice.subView.OfficeTreeItem;
+import uniks.accounting.view.shared.OfficeTreeItem;
 
 public class MainView extends VBox {
     

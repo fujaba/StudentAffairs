@@ -8,9 +8,13 @@ import uniks.accounting.studentOffice.Course;
 import uniks.accounting.studentOffice.Examination;
 import uniks.accounting.studentOffice.StudentOffice;
 import uniks.accounting.studentOffice.StudyProgram;
+import uniks.accounting.view.shared.OfficeTreeItem;
+import uniks.accounting.view.shared.SubController;
 import uniks.accounting.view.studentOffice.subController.StudentOfficeController;
-import uniks.accounting.view.studentOffice.subController.SubController;
-import uniks.accounting.view.studentOffice.subView.*;
+import uniks.accounting.view.studentOffice.subView.ModifyCourse;
+import uniks.accounting.view.studentOffice.subView.ModifyExamination;
+import uniks.accounting.view.studentOffice.subView.ModifyStudentOffice;
+import uniks.accounting.view.studentOffice.subView.ModifyStudyProgram;
 
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.modelView;
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.ob;

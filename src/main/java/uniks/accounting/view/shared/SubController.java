@@ -1,4 +1,4 @@
-package uniks.accounting.view.studentOffice.subController;
+package uniks.accounting.view.shared;
 
 public interface SubController {
     public Object getModel();

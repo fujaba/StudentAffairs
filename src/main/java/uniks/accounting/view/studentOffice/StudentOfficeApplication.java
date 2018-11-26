@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import uniks.accounting.StudentOfficeBuilder;
-import uniks.accounting.view.studentOffice.subController.SubController;
+import uniks.accounting.view.shared.SubController;
 
 import java.util.HashMap;
 

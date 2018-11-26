@@ -70,7 +70,7 @@ public class ModifySEClass extends Dialog<Void> {
         achievBox.getChildren().addAll(achievLabel, unassignedStud, achievContrBox, enrolledStud);
 
         addListsBox.getChildren().addAll(assignBox, achievBox);
-        b.getChildren().addAll(nameBox, term, addListsBox);
+        b.getChildren().addAll(nameBox, termBox, addListsBox);
         pane.setContent(b);
         this.setDialogPane(pane);
 
@@ -111,7 +111,7 @@ public class ModifySEClass extends Dialog<Void> {
             }
         });
 
-        ((Button)this.getDialogPane().lookupButton(ButtonType.OK)).setOnAction(evt -> {
+        ((Button) this.getDialogPane().lookupButton(ButtonType.OK)).setOnAction(evt -> {
             seClass.setTopic(name.getText());
             seClass.setTerm(term.getText());
 

@@ -119,13 +119,13 @@ public class SEGroupBuilder
       }
    }
 
-   private SEStudent getOrCreateStudent(String s)
+   public SEStudent getOrCreateStudent(String s)
    {
       return seGroup.getStudents(s);
    }
 
 
-   private void studentHired(SEStudent student, String studentName, String lecturer)
+   public void studentHired(SEStudent student, String studentName, String lecturer)
    {
       if (lecturer.equals(student.getTeachingAssistantFor()))
       {
@@ -142,8 +142,6 @@ public class SEGroupBuilder
             .append("\n");
 
       eventSource.append(buf);
-
-      return;
    }
 
 

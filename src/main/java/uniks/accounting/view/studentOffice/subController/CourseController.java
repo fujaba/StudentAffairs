@@ -2,7 +2,8 @@ package uniks.accounting.view.studentOffice.subController;
 
 import uniks.accounting.studentOffice.Course;
 import uniks.accounting.studentOffice.Examination;
-import uniks.accounting.view.studentOffice.subView.OfficeTreeItem;
+import uniks.accounting.view.shared.OfficeTreeItem;
+import uniks.accounting.view.shared.SubController;
 
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.modelView;
 

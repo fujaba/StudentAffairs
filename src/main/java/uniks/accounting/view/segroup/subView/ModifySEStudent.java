@@ -10,6 +10,7 @@ import uniks.accounting.segroup.Achievement;
 import uniks.accounting.segroup.SEClass;
 import uniks.accounting.segroup.SEStudent;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,12 @@ public class ModifySEStudent extends Dialog<Void> {
         b.setSpacing(20.0);
         b.setPadding(new Insets(15.0));
 
+        HBox teachingBox = new HBox(5.0);
+        teachingBox.setAlignment(Pos.CENTER);
+        Label teachingLabel = new Label("Assistant of:");
+        TextField teaching = new TextField(student.getTeachingAssistantFor());
+        teachingBox.getChildren().addAll(teachingLabel, teaching);
+
         VBox assignBox = new VBox(5.0);
         assignBox.setMaxHeight(450.0);
         Label assignLabel = new Label("Manage achievements");
@@ -41,7 +48,7 @@ public class ModifySEStudent extends Dialog<Void> {
         assignContrBox.getChildren().addAll(assignClass, unassignClass);
         assignBox.getChildren().addAll(assignLabel, unassignedClasses, assignContrBox, enrolledClasses);
 
-        b.getChildren().addAll(assignBox);
+        b.getChildren().addAll(teachingBox, assignBox);
         pane.setContent(b);
         this.setDialogPane(pane);
 
@@ -69,6 +76,11 @@ public class ModifySEStudent extends Dialog<Void> {
         });
 
         ((Button)this.getDialogPane().lookupButton(ButtonType.OK)).setOnAction(evt -> {
+            if (teaching.getText() != null && !teaching.getText().isEmpty()) {
+                String studentName = new String(new BigInteger(student.getStudentId()).toByteArray());  // ATTENTION: This is just for demonstration purposes
+                gb.studentHired(student, studentName, teaching.getText());
+            }
+            
             for (SEClass c : enrolledClasses.getItems()) {
                 gb.getOrCreateAchievement(student, c).setOfficeStatus("unregistered");
             }

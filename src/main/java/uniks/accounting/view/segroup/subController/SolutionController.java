@@ -1,7 +1,8 @@
 package uniks.accounting.view.segroup.subController;
 
 import uniks.accounting.segroup.Solution;
-import uniks.accounting.view.segroup.subView.OfficeTreeItem;
+import uniks.accounting.view.shared.OfficeTreeItem;
+import uniks.accounting.view.shared.SubController;
 
 public class SolutionController implements SubController {
     

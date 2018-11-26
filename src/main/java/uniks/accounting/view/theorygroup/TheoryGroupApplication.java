@@ -1,19 +1,19 @@
-package uniks.accounting.view.segroup;
+package uniks.accounting.view.theorygroup;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import uniks.accounting.SEGroupBuilder;
+import uniks.accounting.TheoryGroupBuilder;
 import uniks.accounting.view.shared.SubController;
 
 import java.util.HashMap;
 
-public class SEGroupApplication extends Application {
+public class TheoryGroupApplication extends Application {
 
-    public static SEGroupBuilder gb;
+    public static TheoryGroupBuilder gb;
     public static HashMap<String, SubController> modelView;
     static {
-        gb = new SEGroupBuilder();
+        gb = new TheoryGroupBuilder();
         modelView = new HashMap<>();
     }
     
@@ -23,7 +23,7 @@ public class SEGroupApplication extends Application {
         MainController con = new MainController(groupView);
         con.init();
         
-        primaryStage.setTitle("SE Group Application");
+        primaryStage.setTitle("Theory Group Application");
         primaryStage.setMinWidth(300.0);
         primaryStage.setMinHeight(600.0);
         primaryStage.setScene(new Scene(groupView));

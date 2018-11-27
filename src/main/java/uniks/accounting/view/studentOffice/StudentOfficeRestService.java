@@ -9,6 +9,7 @@ import uniks.accounting.EventSource;
 import uniks.accounting.StudentOfficeBuilder;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static spark.Spark.*;
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.ob;
@@ -55,9 +56,10 @@ public class StudentOfficeRestService {
         
         EventSource eventSource = ob.getEventSource();
         SortedMap<Long, LinkedHashMap<String, String>> map = eventSource.pull(timestamp,
-                StudentOfficeBuilder.STUDENT_CREATED, StudentOfficeBuilder.STUDENT_ENROLLED);
-        
-        String result = EventSource.encodeYaml(map);
+                StudentOfficeBuilder.STUDENT_ENROLLED);
+        List<LinkedHashMap<String, String>> filteredEvents = map.values().stream().filter(event -> event.get(StudentOfficeBuilder.LECTURER_NAME).equals(caller)).collect(Collectors.toList());
+
+        String result = EventSource.encodeYaml(filteredEvents);
         
         res.status(200);
         return result;

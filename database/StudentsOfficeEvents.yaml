@@ -1,0 +1,37 @@
+- eventType: studentCreated
+  studentId: 280991720293
+  name: Alice
+  .eventKey: "studentCreated/280991720293"
+  .eventTimestamp: 1543336780958
+
+- eventType: lecturerCreated
+  name: Albert
+  .eventTimestamp: 1543336780988
+
+- eventType: studyProgramCreated
+  name: CS
+  .eventTimestamp: 1543336781003
+
+- eventType: chooseMajorSubject
+  studentId: 280991720293
+  majorSubject: CS
+  .eventTimestamp: 1543336805656
+
+- eventType: courseCreated
+  programName: CS
+  name: PM
+  .eventTimestamp: 1543336823498
+
+- eventType: examinationCreated
+  course: PM
+  lecturer: Albert
+  date: "2018-11-29"
+  .eventTimestamp: 1543336846509
+
+- eventType: studentEnrolled
+  studentId: 280991720293
+  courseName: PM
+  lecturerName: Albert
+  date: "2018-11-29"
+  .eventTimestamp: 1543336853160
+

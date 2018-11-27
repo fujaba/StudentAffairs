@@ -45,9 +45,6 @@ public class MainController {
         String departmentName = this.view.getDepartmentName().getText();
         if (departmentName != null && !departmentName.isEmpty()) {
             StudentOffice office = ob.getOrCreateStudentOffice(departmentName);
-            String yaml = ob.getEventFiler().loadHistory();
-            ob.applyEvents(yaml);
-            ob.getEventFiler().startEventLogging();
             OfficeTreeItem rootItem = new OfficeTreeItem("Department - " + departmentName);
 
             StudentOfficeController officeCon = new StudentOfficeController(rootItem, office);
@@ -55,6 +52,10 @@ public class MainController {
             
             modelView.put(rootItem.getId(), officeCon);
 
+            String yaml = ob.getEventFiler().loadHistory();
+            ob.applyEvents(yaml);
+            ob.getEventFiler().startEventLogging();
+            
             this.view.addRootTreeItem(rootItem);
 
             this.view.getOfficeOverview().setOnMousePressed(this::onOfficeOverviewDoubleClick);

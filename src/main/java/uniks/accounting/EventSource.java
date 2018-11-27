@@ -114,6 +114,17 @@ public class EventSource
 
       return buf.toString();
    }
+   
+   public static String encodeYaml(List<LinkedHashMap<String, String>> events) {
+      StringBuffer buf = new StringBuffer();
+      
+      for (LinkedHashMap<String, String> event : events) {
+         String oneObj = encodeYaml(event);
+         buf.append(oneObj);
+      }
+      
+      return buf.toString();
+   }
 
    public static String encodeYaml(LinkedHashMap<String, String> event)
    {

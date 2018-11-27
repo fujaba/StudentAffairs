@@ -10,6 +10,7 @@ import uniks.accounting.StudentOfficeBuilder;
 import uniks.accounting.TAPoolBuilder;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static spark.Spark.*;
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.ob;
@@ -58,8 +59,10 @@ public class TAPoolRestService {
         EventSource eventSource = tb.getEventSource();
         SortedMap<Long, LinkedHashMap<String, String>> map = eventSource.pull(timestamp,
                 TAPoolBuilder.STUDENT_HIRED_AS_TA);
+        List<LinkedHashMap<String, String>> filteredEvents = map.values().stream().filter(event -> event.get(TAPoolBuilder.TEACHING_ASSISTANT_FOR).equals(caller)).collect(Collectors.toList());
 
-        String result = EventSource.encodeYaml(map);
+        String result = EventSource.encodeYaml(filteredEvents);
+
 
         res.status(200);
         return result;

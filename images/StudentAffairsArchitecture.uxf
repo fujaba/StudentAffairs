@@ -4,8 +4,8 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>290</x>
-      <y>230</y>
+      <x>390</x>
+      <y>80</y>
       <w>120</w>
       <h>80</h>
     </coordinates>
@@ -18,8 +18,8 @@ GUI</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>290</x>
-      <y>370</y>
+      <x>390</x>
+      <y>220</y>
       <w>120</w>
       <h>80</h>
     </coordinates>
@@ -31,133 +31,133 @@ Microservice</panel_attributes>
   </element>
   <element>
     <id>Text</id>
-    <coordinates>
-      <x>300</x>
-      <y>510</y>
-      <w>100</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>
-Student's
-Office
-Event
-Source
-halign=center
-customelement=
-// Text Elemnt
-// DB Symbol
-drawArc(0,0,width,height*1/5,0,360,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
-drawLine(0,height/10,0,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
-drawLine(width,height/10,width,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
-drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>340</x>
-      <y>300</y>
-      <w>30</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.&gt;
-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>340</x>
-      <y>440</y>
-      <w>30</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.&gt;
-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>560</x>
-      <y>300</y>
-      <w>30</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.&gt;
-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>510</x>
-      <y>230</y>
-      <w>120</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>symbol=component
-SE
-Group
-GUI</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>510</x>
-      <y>370</y>
-      <w>120</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>symbol=component
-SE
-Group
-Microservice</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>560</x>
-      <y>440</y>
-      <w>30</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.&gt;
-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Text</id>
-    <coordinates>
-      <x>520</x>
-      <y>510</y>
-      <w>100</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>
-SE
-Group
-Event
-Source
-halign=center
-customelement=
-// Text Elemnt
-// DB Symbol
-drawArc(0,0,width,height*1/5,0,360,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
-drawLine(0,height/10,0,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
-drawLine(width,height/10,width,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
-drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
     <coordinates>
       <x>400</x>
-      <y>390</y>
+      <y>360</y>
+      <w>100</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>
+Student's
+Office
+Event
+Source
+halign=center
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*1/5,0,360,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/10,0,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/10,width,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>150</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>290</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>150</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>610</x>
+      <y>80</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+SE
+Group
+GUI</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>610</x>
+      <y>220</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+SE
+Group
+Microservice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>290</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>620</x>
+      <y>360</y>
+      <w>100</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>
+SE
+Group
+Event
+Source
+halign=center
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*1/5,0,360,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/10,0,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/10,width,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>240</y>
       <w>130</w>
       <h>50</h>
     </coordinates>
@@ -165,5 +165,196 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
 lt=-&gt;
 putEvents</panel_attributes>
     <additional_attributes>110.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>380</x>
+      <y>480</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+TA
+Pool
+GUI</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>380</x>
+      <y>620</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+TA
+Pool
+Microservice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>390</x>
+      <y>760</y>
+      <w>100</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>
+TA
+Pool
+Event
+Source
+halign=center
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*1/5,0,360,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/10,0,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/10,width,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>550</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>690</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
+      <y>550</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>600</x>
+      <y>480</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+Theory
+Group
+GUI</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>600</x>
+      <y>620</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+Theory
+Group
+Microservice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
+      <y>690</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>610</x>
+      <y>760</y>
+      <w>100</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>
+Theory
+Group
+Event
+Source
+halign=center
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*1/5,0,360,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/10,0,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/10,width,height*9/10)fg=black //Parameters (x1, y1, x2, y2) 
+drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parameters (x, y, width, height, start, extent, open)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>640</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>getEvents
+lt=-&gt;
+putEvents</panel_attributes>
+    <additional_attributes>110.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>280</y>
+      <w>180</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>getEvents
+lt=-&gt;
+putEvents</panel_attributes>
+    <additional_attributes>130.0;10.0;70.0;100.0;10.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>290</y>
+      <w>170</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>getEvents
+lt=-&gt;
+putEvents</panel_attributes>
+    <additional_attributes>120.0;330.0;60.0;270.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>

@@ -1,9 +1,8 @@
-package uniks.accounting.view.segroup;
+package uniks.accounting.view.theorygroup;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -12,7 +11,6 @@ import uniks.accounting.view.shared.OfficeTreeItem;
 
 public class MainView extends VBox {
     
-    private TextField profName;
     private Button createGroup;
     private Button update;
     
@@ -23,14 +21,12 @@ public class MainView extends VBox {
         this.setSpacing(20.0);
         this.setPadding(new Insets(15.0));
         
-        this.profName = new TextField();
         this.createGroup = new Button("Create Group");
         this.createGroup.setDefaultButton(true);
-        HBox.setHgrow(this.profName, Priority.ALWAYS);
         
         HBox b = new HBox(5.0);
         b.setAlignment(Pos.CENTER);
-        b.getChildren().addAll(this.profName, this.createGroup);
+        b.getChildren().addAll(this.createGroup);
         
         this.update = new Button("Modify");
         
@@ -41,10 +37,6 @@ public class MainView extends VBox {
         this.groupOverview = new TreeView<>(rootItem);
         VBox.setVgrow(this.groupOverview, Priority.ALWAYS);
         this.getChildren().addAll(this.groupOverview, update);
-    }
-
-    public TextField getProfName() {
-        return this.profName;
     }
 
     public Button getCreateGroup() {

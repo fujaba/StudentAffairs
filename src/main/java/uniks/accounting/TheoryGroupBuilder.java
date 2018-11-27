@@ -154,7 +154,6 @@ public class TheoryGroupBuilder
 
    public void gradePresentation(Presentation presentation, String slides, String scholarship, String content)
    {
-
       int slidesPoints = Integer.parseInt(slides);
       int scholarshipPoints = Integer.parseInt(scholarship);
       int contentPoints = Integer.parseInt(content);
@@ -169,7 +168,8 @@ public class TheoryGroupBuilder
       presentation
             .setSlides(slidesPoints)
             .setScholarship(scholarshipPoints)
-            .setContent(contentPoints);
+            .setContent(contentPoints)
+            .setTotal(slidesPoints + scholarshipPoints + contentPoints);
 
       StringBuilder buf = new StringBuilder()
             .append("- " + EVENT_TYPE + ": ").append(PRESENTATION_GRADED).append("\n")
@@ -197,6 +197,7 @@ public class TheoryGroupBuilder
       }
 
       Presentation presentation = new Presentation()
+            .setOfficeStatus("")
             .setStudent(student)
             .setSeminar(seminar);
 

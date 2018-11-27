@@ -1,19 +1,19 @@
-package uniks.accounting.view.segroup;
+package uniks.accounting.view.tapool;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import uniks.accounting.SEGroupBuilder;
+import uniks.accounting.TAPoolBuilder;
 import uniks.accounting.view.shared.SubController;
 
 import java.util.HashMap;
 
-public class SEGroupApplication extends Application {
+public class TAPoolApplication extends Application {
 
-    public static SEGroupBuilder gb;
+    public static TAPoolBuilder tb;
     public static HashMap<String, SubController> modelView;
     static {
-        gb = new SEGroupBuilder();
+        tb = new TAPoolBuilder();
         modelView = new HashMap<>();
     }
     
@@ -23,7 +23,7 @@ public class SEGroupApplication extends Application {
         MainController con = new MainController(groupView);
         con.init();
         
-        primaryStage.setTitle("SE Group Application");
+        primaryStage.setTitle("TA Pool Application");
         primaryStage.setMinWidth(300.0);
         primaryStage.setMinHeight(600.0);
         primaryStage.setScene(new Scene(groupView));

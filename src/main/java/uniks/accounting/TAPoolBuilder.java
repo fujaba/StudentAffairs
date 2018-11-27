@@ -50,7 +50,7 @@ public class TAPoolBuilder
       }
    }
 
-   private void getOrCreateStudent(String name, String studentId, String lecturer)
+   public TAStudent getOrCreateStudent(String name, String studentId, String lecturer)
    {
       TAStudent student = null;
 
@@ -65,18 +65,17 @@ public class TAPoolBuilder
 
       if (student != null && student.getName().equals(name) && student.getTeachingAssistantFor().equals(lecturer))
       {
-         return;
+         return student;
       }
 
       if (student == null)
       {
-         student = new TAStudent();
+         student = new TAStudent()
+                 .setStudentId(studentId)
+                 .setName(name)
+                 .setTeachingAssistantFor(lecturer);
          taPool.withStudents(student);
       }
-
-      student.setStudentId(studentId)
-            .setName(name)
-            .setTeachingAssistantFor(lecturer);
 
       StringBuilder buf = new StringBuilder()
             .append("- " + EVENT_TYPE + ": ").append(STUDENT_HIRED_AS_TA).append("\n")
@@ -85,11 +84,13 @@ public class TAPoolBuilder
             .append("  " + TEACHING_ASSISTANT_FOR + ": ").append(Yamler.encapsulate(lecturer)).append("\n")
             .append("\n");
       eventSource.append(buf);
+      
+      return student;
    }
 
-   private void getOrCreateTAPool()
+   public TAPool getOrCreateTAPool()
    {
-      if (taPool != null) return;
+      if (taPool != null) return taPool;
 
       taPool = new TAPool();
 
@@ -98,5 +99,7 @@ public class TAPoolBuilder
             .append("\n");
 
       eventSource.append(buf);
+      
+      return taPool;
    }
 }

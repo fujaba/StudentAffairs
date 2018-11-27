@@ -1,10 +1,10 @@
 package uniks.accounting.view.segroup.subController;
 
-import com.hazelcast.partition.strategy.StringAndPartitionAwarePartitioningStrategy;
 import uniks.accounting.segroup.Achievement;
 import uniks.accounting.segroup.Assignment;
 import uniks.accounting.segroup.SEClass;
-import uniks.accounting.view.segroup.subView.OfficeTreeItem;
+import uniks.accounting.view.shared.OfficeTreeItem;
+import uniks.accounting.view.shared.SubController;
 
 import static uniks.accounting.view.segroup.SEGroupApplication.modelView;
 

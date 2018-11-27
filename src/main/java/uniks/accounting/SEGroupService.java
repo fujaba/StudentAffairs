@@ -146,7 +146,7 @@ public class SEGroupService implements Runnable
                eventReportTopics.put(answerTopic, " " + eventTypes + " ");
             }
 
-            SortedMap<Integer, LinkedHashMap<String, String>> eventMaps = gb.getEventSource().pull(lastKnownNumber, relevantEventTypes);
+            SortedMap<Long, LinkedHashMap<String, String>> eventMaps = gb.getEventSource().pull(lastKnownNumber, relevantEventTypes);
 
             if (eventMaps.size() == 0) continue;
 

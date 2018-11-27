@@ -9,42 +9,41 @@ import java.util.function.Function;
 public class EventSource
 {
    public static final String EVENT_KEY = ".eventKey";
-   public static final String EVENT_NUMBER = ".eventNumber";
+   public static final String EVENT_TIMESTAMP = ".eventTimestamp";
    public static final String EVENT_TYPE = "eventType";
    private Yamler yamler = new Yamler();
 
-   private LinkedHashMap<String,Integer> keyNumMap = new LinkedHashMap<>();
-   private TreeMap<Integer, LinkedHashMap<String, String>> numEventMap = new TreeMap<>();
+   private LinkedHashMap<String,Long> keyNumMap = new LinkedHashMap<>();
+   private TreeMap<Long, LinkedHashMap<String, String>> numEventMap = new TreeMap<>();
+   
+   private long lastEventTime;
 
-   private int eventNumber = 0;
-
-   public int getEventNumber()
-   {
-      return eventNumber;
+   public long getLastEventTime() {
+      return lastEventTime;
    }
 
-   public SortedMap<Integer, LinkedHashMap<String, String>> pull(int lastKnownNumber)
+   public SortedMap<Long, LinkedHashMap<String, String>> pull(long since)
    {
-      SortedMap<Integer, LinkedHashMap<String, String>> tailMap = numEventMap.tailMap(lastKnownNumber + 1);
+      SortedMap<Long, LinkedHashMap<String, String>> tailMap = numEventMap.tailMap(since);
       return tailMap;
    }
 
-   public SortedMap<Integer, LinkedHashMap<String, String>> pull(int lastKnownNumber, String... relevantEventTypes)
+   public SortedMap<Long, LinkedHashMap<String, String>> pull(long since, String... relevantEventTypes)
    {
-      return pull(lastKnownNumber, e -> filterRelevantEventTypes(e, Arrays.asList(relevantEventTypes)));
+      return pull(since, e -> filterRelevantEventTypes(e, Arrays.asList(relevantEventTypes)));
    }
 
-   private Boolean filterRelevantEventTypes(Map.Entry<Integer, LinkedHashMap<String, String>> e, List<String> relevantEventTypes)
+   private Boolean filterRelevantEventTypes(Map.Entry<Long, LinkedHashMap<String, String>> e, List<String> relevantEventTypes)
    {
       LinkedHashMap<String, String> map = e.getValue();
       return relevantEventTypes.contains(map.get(EVENT_TYPE));
    }
 
-   public SortedMap<Integer, LinkedHashMap<String, String>> pull(int lastKnownNumber, Function<Map.Entry<Integer, LinkedHashMap<String, String>>,Boolean> filterOp)
+   public SortedMap<Long, LinkedHashMap<String, String>> pull(long scince, Function<Map.Entry<Long, LinkedHashMap<String, String>>,Boolean> filterOp)
    {
-      SortedMap<Integer, LinkedHashMap<String, String>> tailMap = numEventMap.tailMap(lastKnownNumber + 1);
-      TreeMap<Integer, LinkedHashMap<String, String>> resultMap = new TreeMap<>();
-      for (Map.Entry<Integer, LinkedHashMap<String, String>> entry : tailMap.entrySet())
+      SortedMap<Long, LinkedHashMap<String, String>> tailMap = numEventMap.tailMap(scince);
+      TreeMap<Long, LinkedHashMap<String, String>> resultMap = new TreeMap<>();
+      for (Map.Entry<Long, LinkedHashMap<String, String>> entry : tailMap.entrySet())
       {
          boolean result = filterOp.apply(entry);
 
@@ -59,26 +58,25 @@ public class EventSource
 
    public EventSource append(LinkedHashMap<String, String> event)
    {
-      eventNumber++;
-      String numberString = "" + eventNumber;
-
-      event.put(EVENT_NUMBER, numberString);
-
+      lastEventTime = System.currentTimeMillis();
+      String timestampString = "" + lastEventTime;
+      
+      event.put(EVENT_TIMESTAMP, timestampString);
+      
       String key = event.get(EVENT_KEY);
       if (key != null)
       {
-         Integer oldNum = keyNumMap.get(key);
+         Long oldNum = keyNumMap.get(key);
          if (oldNum != null) numEventMap.remove(oldNum);
       }
 
-      keyNumMap.put(key, eventNumber);
-      numEventMap.put(eventNumber, event);
+      keyNumMap.put(key, lastEventTime);
+      numEventMap.put(lastEventTime, event);
 
       for (Consumer<LinkedHashMap<String, String>> listener : eventListeners)
       {
          listener.accept(event);
       }
-
 
       return this;
    }
@@ -101,11 +99,11 @@ public class EventSource
       return encodeYaml(numEventMap);
    }
 
-   public static String encodeYaml(SortedMap<Integer, LinkedHashMap<String, String>> eventMap)
+   public static String encodeYaml(SortedMap<Long, LinkedHashMap<String, String>> eventMap)
    {
       StringBuffer buf = new StringBuffer();
 
-      for (Map.Entry<Integer, LinkedHashMap<String, String>> entry : eventMap.entrySet())
+      for (Map.Entry<Long, LinkedHashMap<String, String>> entry : eventMap.entrySet())
       {
          LinkedHashMap<String, String> event = entry.getValue();
 

@@ -1,4 +1,4 @@
-package uniks.accounting.view.theorygroup;
+package uniks.accounting.view.tapool;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,22 +11,22 @@ import uniks.accounting.view.shared.OfficeTreeItem;
 
 public class MainView extends VBox {
     
-    private Button createGroup;
+    private Button createPool;
     private Button update;
     
-    private TreeView<String> groupOverview;
+    private TreeView<String> poolOverview;
     
     public MainView() {
         this.setAlignment(Pos.TOP_CENTER);
         this.setSpacing(20.0);
         this.setPadding(new Insets(15.0));
         
-        this.createGroup = new Button("Create Group");
-        this.createGroup.setDefaultButton(true);
+        this.createPool = new Button("Create Pool");
+        this.createPool.setDefaultButton(true);
         
         HBox b = new HBox(5.0);
         b.setAlignment(Pos.CENTER);
-        b.getChildren().addAll(this.createGroup);
+        b.getChildren().addAll(this.createPool);
         
         this.update = new Button("Modify");
         
@@ -34,17 +34,17 @@ public class MainView extends VBox {
     }
     
     public void addRootItem(OfficeTreeItem rootItem) {
-        this.groupOverview = new TreeView<>(rootItem);
-        VBox.setVgrow(this.groupOverview, Priority.ALWAYS);
-        this.getChildren().addAll(this.groupOverview, update);
+        this.poolOverview = new TreeView<>(rootItem);
+        VBox.setVgrow(this.poolOverview, Priority.ALWAYS);
+        this.getChildren().addAll(this.poolOverview, update);
     }
 
-    public Button getCreateGroup() {
-        return this.createGroup;
+    public Button getCreatePool() {
+        return this.createPool;
     }
 
-    public TreeView<String> getGroupOverview() {
-        return this.groupOverview;
+    public TreeView<String> getPoolOverview() {
+        return this.poolOverview;
     }
 
     public Button getUpdate() {

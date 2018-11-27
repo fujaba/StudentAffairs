@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class TAPoolApplication extends Application {
 
     public static TAPoolBuilder tb;
+    public static TAPoolRestService ts;
     public static HashMap<String, SubController> modelView;
     static {
         tb = new TAPoolBuilder();
@@ -23,6 +24,8 @@ public class TAPoolApplication extends Application {
         MainController con = new MainController(groupView);
         con.init();
         
+        ts = new TAPoolRestService();
+        
         primaryStage.setTitle("TA Pool Application");
         primaryStage.setMinWidth(300.0);
         primaryStage.setMinHeight(600.0);
@@ -32,6 +35,7 @@ public class TAPoolApplication extends Application {
 
     @Override
     public void stop() {
+        ts.stopServer();
         System.exit(0);
     }
     

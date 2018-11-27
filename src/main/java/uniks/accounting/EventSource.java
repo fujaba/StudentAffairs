@@ -39,9 +39,9 @@ public class EventSource
       return relevantEventTypes.contains(map.get(EVENT_TYPE));
    }
 
-   public SortedMap<Long, LinkedHashMap<String, String>> pull(long scince, Function<Map.Entry<Long, LinkedHashMap<String, String>>,Boolean> filterOp)
+   public SortedMap<Long, LinkedHashMap<String, String>> pull(long since, Function<Map.Entry<Long, LinkedHashMap<String, String>>,Boolean> filterOp)
    {
-      SortedMap<Long, LinkedHashMap<String, String>> tailMap = numEventMap.tailMap(scince);
+      SortedMap<Long, LinkedHashMap<String, String>> tailMap = numEventMap.tailMap(since);
       TreeMap<Long, LinkedHashMap<String, String>> resultMap = new TreeMap<>();
       for (Map.Entry<Long, LinkedHashMap<String, String>> entry : tailMap.entrySet())
       {

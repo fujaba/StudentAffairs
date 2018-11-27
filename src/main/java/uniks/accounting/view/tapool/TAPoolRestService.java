@@ -1,4 +1,4 @@
-package uniks.accounting.view.studentOffice;
+package uniks.accounting.view.tapool;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,25 +7,27 @@ import spark.Request;
 import spark.Response;
 import uniks.accounting.EventSource;
 import uniks.accounting.StudentOfficeBuilder;
+import uniks.accounting.TAPoolBuilder;
 
 import java.util.*;
 
 import static spark.Spark.*;
 import static uniks.accounting.view.studentOffice.StudentOfficeApplication.ob;
+import static uniks.accounting.view.tapool.TAPoolApplication.tb;
 
-public class StudentOfficeRestService {
+public class TAPoolRestService {
     
     private static final Logger logger = LogManager.getLogger();
     
-    public StudentOfficeRestService() {
-        port(3000);
+    public TAPoolRestService() {
+        port(3001);
         
-        path("/api/office", () -> {
+        path("/api/pool", () -> {
             before("/*", (q, a) -> logger.debug(q.requestMethod() + " on " + q.uri() + " from " + q.host()));
             get("/get", this::getSharedEvents);
-            post("/put", this::putSharedEvents);    
+            post("/put", this::putSharedEvents);
         });
-
+        
         logger.info("Rest service listening on " + port());
     }
     
@@ -40,7 +42,7 @@ public class StudentOfficeRestService {
             res.status(400);
             return "Param 'since' need to be set";
         }
-        
+
         if (caller == null) {
             res.status(400);
             return "Param 'caller' need to be set";
@@ -52,17 +54,17 @@ public class StudentOfficeRestService {
             res.status(400);
             return "Param 'since' have to be a timestamp number";
         }
-        
-        EventSource eventSource = ob.getEventSource();
+
+        EventSource eventSource = tb.getEventSource();
         SortedMap<Long, LinkedHashMap<String, String>> map = eventSource.pull(timestamp,
-                StudentOfficeBuilder.STUDENT_CREATED, StudentOfficeBuilder.STUDENT_ENROLLED);
-        
+                TAPoolBuilder.STUDENT_HIRED_AS_TA);
+
         String result = EventSource.encodeYaml(map);
-        
+
         res.status(200);
         return result;
     }
-
+    
     private String putSharedEvents(Request req, Response res) {
         String caller = req.queryParams("caller");
         String body = req.body();
@@ -70,7 +72,7 @@ public class StudentOfficeRestService {
             res.status(400);
             return "Param 'caller' need to be set";
         }
-        
+
         if (body == null || body.isEmpty()) {
             res.status(400);
             return "Body is required";
@@ -81,21 +83,21 @@ public class StudentOfficeRestService {
         String result = "OK";
         switch (caller) {
             case "segroup":
-                allowedEvents = filterAllowedEventTypes(yamler.decodeList(body), 
-                    StudentOfficeBuilder.EXAMINATION_GRADED);
+                allowedEvents = filterAllowedEventTypes(yamler.decodeList(body),
+                    TAPoolBuilder.STUDENT_HIRED_AS_TA);
                 ob.applyEvents(allowedEvents);
                 break;
-                
+
             case "theorygroup":
                 allowedEvents = filterAllowedEventTypes(yamler.decodeList(body),
-                    StudentOfficeBuilder.EXAMINATION_GRADED);
+                    TAPoolBuilder.STUDENT_HIRED_AS_TA);
                 ob.applyEvents(allowedEvents);
                 break;
-         
+
             default:
                 break;
         }
-        
+
         res.status(200);
         return result;
     }

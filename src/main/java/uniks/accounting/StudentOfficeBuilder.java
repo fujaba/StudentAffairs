@@ -70,8 +70,11 @@ public class StudentOfficeBuilder
    {
       Yamler yamler = new Yamler();
       ArrayList<LinkedHashMap<String, String>> list = yamler.decodeList(yaml);
+      applyEvents(list);
+   }
 
-      for (LinkedHashMap<String, String> map : list)
+   public void applyEvents(ArrayList<LinkedHashMap<String, String>> events) {
+      for (LinkedHashMap<String, String> map : events)
       {
          if (STUDENT_OFFICE_CREATED.equals(map.get(EVENT_TYPE)))
          {

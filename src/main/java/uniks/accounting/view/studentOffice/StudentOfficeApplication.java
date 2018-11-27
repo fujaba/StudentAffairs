@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class StudentOfficeApplication extends Application {
     
     public static StudentOfficeBuilder ob;
+    public static StudentOfficeRestService os;
     public static HashMap<String, SubController> modelView;
     static {
         ob = new StudentOfficeBuilder();
@@ -23,6 +24,8 @@ public class StudentOfficeApplication extends Application {
         MainController con = new MainController(officeView);
         con.init();
 
+        os = new StudentOfficeRestService();
+
         primaryStage.setTitle("Student Office Application");
         primaryStage.setMinWidth(300.0);
         primaryStage.setMinHeight(600.0);
@@ -32,6 +35,7 @@ public class StudentOfficeApplication extends Application {
 
     @Override
     public void stop() {
+        os.stopServer();
         System.exit(0);
     }
 

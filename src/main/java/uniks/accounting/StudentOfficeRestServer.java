@@ -75,7 +75,7 @@ public class StudentOfficeRestServer {
       String caller = params.get("caller").value();
 
       EventSource eventSource = ob.getEventSource();
-      SortedMap<Integer, LinkedHashMap<String, String>> map = eventSource.pull(lastKnownNumber,
+      SortedMap<Long, LinkedHashMap<String, String>> map = eventSource.pull(lastKnownNumber,
             StudentOfficeBuilder.STUDENT_CREATED, StudentOfficeBuilder.STUDENT_ENROLLED);
       String yaml = EventSource.encodeYaml(map);
 

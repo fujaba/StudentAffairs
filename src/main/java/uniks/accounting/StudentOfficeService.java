@@ -146,7 +146,7 @@ public class StudentOfficeService implements Runnable
                relevantEventTypes = eventTypes.split(" ");
                eventReportTopics.put(answerTopic, " " + eventTypes + " ");
             }
-            SortedMap<Integer, LinkedHashMap<String, String>> eventMaps = ob.getEventSource().pull(lastKnownNumber, relevantEventTypes);
+            SortedMap<Long, LinkedHashMap<String, String>> eventMaps = ob.getEventSource().pull(lastKnownNumber, relevantEventTypes);
             String yamlList = EventSource.encodeYaml(eventMaps);
             try
             {

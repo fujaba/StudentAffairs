@@ -75,11 +75,11 @@ public class TestEventSourceing
 
       // check Students' Office
       EventSource officeEventSource = ob.getEventSource();
-      SortedMap<Integer, LinkedHashMap<String, String>> pullMap = officeEventSource.pull(0);
+      SortedMap<Long, LinkedHashMap<String, String>> pullMap = officeEventSource.pull(0);
       assertThat(pullMap.size(), equalTo(10));
-      Integer lastPullNumber = pullMap.lastKey();
+      Long lastPullNumber = pullMap.lastKey();
       assertThat(lastPullNumber, equalTo(11));
-      SortedMap<Integer, LinkedHashMap<String, String>> studentEvents = officeEventSource.pull(0, entry -> filterBuildStudent(entry));
+      SortedMap<Long, LinkedHashMap<String, String>> studentEvents = officeEventSource.pull(0, entry -> filterBuildStudent(entry));
       assertThat(studentEvents.size(), equalTo(2));
 
       log = EventSource.encodeYaml(pullMap);
@@ -110,7 +110,7 @@ public class TestEventSourceing
 
    private void notifyPoolBuilder(TAPoolBuilder pb, TheoryGroupBuilder tb)
    {
-      SortedMap<Integer, LinkedHashMap<String, String>> eventList = tb.getEventSource().pull(0);
+      SortedMap<Long, LinkedHashMap<String, String>> eventList = tb.getEventSource().pull(0);
 
       pb.applyEvents(EventSource.encodeYaml(eventList));
 
@@ -131,14 +131,14 @@ public class TestEventSourceing
 
       tb.studentHired(alice, "Martin");
 
-      SortedMap<Integer, LinkedHashMap<String, String>> groupEvents = tb.getEventSource().pull(0);
+      SortedMap<Long, LinkedHashMap<String, String>> groupEvents = tb.getEventSource().pull(0);
 
       storeEvents(CONFIG_THEORY_GROUP_INIT_YAML, EventSource.encodeYaml(groupEvents));
 
       FulibTools.objectDiagrams().dumpSVG("tmp/TheoryGroupInit.svg", theoryGroup);
    }
 
-   private void cloneSEGroup(String log, EventSource officeEventSource, SortedMap<Integer, LinkedHashMap<String, String>> pullMap)
+   private void cloneSEGroup(String log, EventSource officeEventSource, SortedMap<Long, LinkedHashMap<String, String>> pullMap)
    {
       StudentOfficeBuilder clone = new StudentOfficeBuilder();
       clone.applyEvents(log);
@@ -160,13 +160,13 @@ public class TestEventSourceing
       Assignment midTerm = gb.buildAssignment(modelingClass, MID_TERM, 23.0);
       Assignment finals = gb.buildAssignment(modelingClass, "finals", 42.0);
 
-      SortedMap<Integer, LinkedHashMap<String, String>> gbEventList = gb.getEventSource().pull(0);
+      SortedMap<Long, LinkedHashMap<String, String>> gbEventList = gb.getEventSource().pull(0);
       storeEvents(CONFIG_SE_GROUP_EVENTS_YAML, EventSource.encodeYaml(gbEventList));
 
-      SortedMap<Integer, LinkedHashMap<String, String>> sharedEvents = officeEventSource.pull(0, StudentOfficeBuilder.STUDENT_CREATED, StudentOfficeBuilder.STUDENT_ENROLLED);
+      SortedMap<Long, LinkedHashMap<String, String>> sharedEvents = officeEventSource.pull(0, StudentOfficeBuilder.STUDENT_CREATED, StudentOfficeBuilder.STUDENT_ENROLLED);
       gb.applyEvents(EventSource.encodeYaml(sharedEvents));
 
-      int lastGroupEvent = gb.getEventSource().getEventNumber();
+      long lastGroupEvent = gb.getEventSource().getLastEventTime();
 
       SEStudent seAlice = seGroup.getStudents(M_4242);
       Achievement aliceModelingAchievement = seAlice.getAchievements(modelingClass);
@@ -179,7 +179,7 @@ public class TestEventSourceing
       FulibTools.objectDiagrams().dumpSVG("images/SEGroup.svg", seGroup);
 
       EventSource groupEventSource = gb.getEventSource();
-      SortedMap<Integer, LinkedHashMap<String, String>> groupEvents = groupEventSource.pull(0);
+      SortedMap<Long, LinkedHashMap<String, String>> groupEvents = groupEventSource.pull(0);
       String seLog = EventSource.encodeYaml(groupEvents);
 
       groupEvents = groupEventSource.pull(lastGroupEvent);
@@ -361,7 +361,7 @@ public class TestEventSourceing
       gb.applyEvents(yaml);
 
       // push to office
-      SortedMap<Integer, LinkedHashMap<String, String>> map = gb.getEventSource().pull(0, SEGroupBuilder.EXAMINATION_GRADED);
+      SortedMap<Long, LinkedHashMap<String, String>> map = gb.getEventSource().pull(0, SEGroupBuilder.EXAMINATION_GRADED);
       yaml = EventSource.encodeYaml(map);
 
       StringBuilder postData = new StringBuilder();
@@ -423,7 +423,7 @@ public class TestEventSourceing
       }
    }
 
-   private Boolean filterBuildStudent(Map.Entry<Integer, LinkedHashMap<String, String>> entry)
+   private Boolean filterBuildStudent(Map.Entry<Long, LinkedHashMap<String, String>> entry)
    {
       LinkedHashMap<String, String> map = entry.getValue();
       String eventType = map.get(StudentOfficeBuilder.EVENT_TYPE);

@@ -13,6 +13,8 @@ public class MainView extends VBox {
     
     private Button createGroup;
     private Button update;
+    private Button put;
+    private Button get;
     
     private TreeView<String> groupOverview;
     
@@ -29,6 +31,9 @@ public class MainView extends VBox {
         b.getChildren().addAll(this.createGroup);
         
         this.update = new Button("Modify");
+        
+        this.put = new Button("Put");
+        this.get = new Button("Get");
         
         this.getChildren().addAll(b);
     }
@@ -49,5 +54,13 @@ public class MainView extends VBox {
 
     public Button getUpdate() {
         return this.update;
+    }
+
+    public Button getPut() {
+        return put;
+    }
+
+    public Button getGet() {
+        return get;
     }
 }

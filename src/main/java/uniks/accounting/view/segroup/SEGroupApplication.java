@@ -1,11 +1,13 @@
 package uniks.accounting.view.segroup;
 
+import com.mashape.unirest.http.Unirest;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import uniks.accounting.SEGroupBuilder;
 import uniks.accounting.view.shared.SubController;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class SEGroupApplication extends Application {
@@ -31,7 +33,8 @@ public class SEGroupApplication extends Application {
     }
 
     @Override
-    public void stop() {
+    public void stop() throws IOException {
+        Unirest.shutdown();
         System.exit(0);
     }
     

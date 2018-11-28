@@ -15,6 +15,8 @@ public class MainView extends VBox {
     private TextField profName;
     private Button createGroup;
     private Button update;
+    private Button put;
+    private Button get;
     
     private TreeView<String> groupOverview;
     
@@ -34,13 +36,16 @@ public class MainView extends VBox {
         
         this.update = new Button("Modify");
         
+        this.put = new Button("Put");
+        this.get = new Button("Get");
+        
         this.getChildren().addAll(b);
     }
     
     public void addRootItem(OfficeTreeItem rootItem) {
         this.groupOverview = new TreeView<>(rootItem);
         VBox.setVgrow(this.groupOverview, Priority.ALWAYS);
-        this.getChildren().addAll(this.groupOverview, update);
+        this.getChildren().addAll(this.groupOverview, this.update, this.get, this.put);
     }
 
     public TextField getProfName() {
@@ -57,5 +62,13 @@ public class MainView extends VBox {
 
     public Button getUpdate() {
         return this.update;
+    }
+
+    public Button getPut() {
+        return put;
+    }
+
+    public Button getGet() {
+        return get;
     }
 }

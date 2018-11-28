@@ -3,7 +3,6 @@ package uniks.accounting.view.studentOffice;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import uniks.accounting.StudentOfficeService;
 import uniks.accounting.studentOffice.Course;
 import uniks.accounting.studentOffice.Examination;
 import uniks.accounting.studentOffice.StudentOffice;
@@ -22,7 +21,6 @@ import static uniks.accounting.view.studentOffice.StudentOfficeApplication.ob;
 public class MainController {
     
     private MainView view;
-    private StudentOfficeService officeService;
     
     public MainController(MainView view) {
         this.view = view;

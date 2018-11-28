@@ -17,6 +17,8 @@ public class TAPoolBuilder
    public static final String NAME = "name";
    public static final String TEACHING_ASSISTANT_FOR = "teachingAssistantFor";
 
+   public static final String DATABASE_TA_POOL_EVENTS_YAML = "database/TAPoolEvents.yaml";
+   
    private TAPool taPool;
 
    public TAPool getTaPool()
@@ -24,11 +26,21 @@ public class TAPoolBuilder
       return taPool;
    }
 
-   private EventSource eventSource = new EventSource();
+   private EventSource eventSource;
+   private EventFiler eventFiler;
+   
+   public TAPoolBuilder() {
+      this.eventSource = new EventSource();
+      this.eventFiler = new EventFiler(eventSource).setHistoryFileName(DATABASE_TA_POOL_EVENTS_YAML);
+   }
 
    public EventSource getEventSource()
    {
       return eventSource;
+   }
+
+   public EventFiler getEventFiler() {
+      return eventFiler;
    }
 
    public void applyEvents(String yaml)

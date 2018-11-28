@@ -22,13 +22,13 @@ dependencies {
     testCompile 'org.fulib:fulibTools:1.0.+'
 
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.+'
-    // https://mvnrepository.com/artifact/io.moquette/moquette-broker
-    // compile group: 'io.moquette', name: 'moquette-broker', version: '0.11'
     compile 'io.moquette:moquette-broker:0.+'
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.1'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
 
     compile 'com.sparkjava:spark-core:2.7.2'
+    
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
 
 }

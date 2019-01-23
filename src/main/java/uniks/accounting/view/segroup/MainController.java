@@ -7,14 +7,13 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.fulib.yaml.Yamler;
 import uniks.accounting.EventSource;
 import uniks.accounting.SEGroupBuilder;
 import uniks.accounting.segroup.*;
 import uniks.accounting.view.segroup.subController.SEGroupController;
+import uniks.accounting.view.segroup.subView.*;
 import uniks.accounting.view.shared.OfficeTreeItem;
 import uniks.accounting.view.shared.SubController;
-import uniks.accounting.view.segroup.subView.*;
 
 import java.util.LinkedHashMap;
 import java.util.SortedMap;
@@ -83,10 +82,10 @@ public class MainController {
             String yaml = EventSource.encodeYaml(events);
             HttpResponse<String> res = Unirest.post(STUDENT_OFFICE_URL + "/put")
                     .queryString("caller", gb.getSeGroup().getHead())
-                    .body(yaml)
+                    .body(yaml) // Body ist wahrscheinlich null noch mal debuggen!!!
                     .asString();
             if (res.getStatus() != 200) {
-                logger.error("Put request for " + STUDENT_OFFICE_URL + "/put failed with " + res.getStatus() + " " + res.getStatusText());
+                logger.error("Put request for " + STUDENT_OFFICE_URL + "/put failed with " + res.getStatus() + " " + res.getStatusText() + " " + res.getBody());
             }
             
             events = gb.getEventSource().pull(lastPutRequestTimestamp, SEGroupBuilder.STUDENT_HIRED_AS_TA);
@@ -96,7 +95,7 @@ public class MainController {
                     .body(yaml)
                     .asString();
             if (res.getStatus() != 200) {
-                logger.error("Put request for " + STUDENT_OFFICE_URL + "/put failed with " + res.getStatus() + " " + res.getStatusText());
+                logger.error("Put request for " + STUDENT_OFFICE_URL + "/put failed with " + res.getStatus() + " " + res.getStatusText() + " " + res.getBody());
             }
             
             lastPutRequestTimestamp = System.currentTimeMillis();

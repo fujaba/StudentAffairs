@@ -43,8 +43,10 @@ public class MainController {
         modelView.put(rootItem.getId(), poolCon);
         
         String yaml = tb.getEventFiler().loadHistory();
-        tb.applyEvents(yaml);
-        tb.getEventFiler().startEventLogging();
+        if (yaml != null) {
+            tb.applyEvents(yaml);
+            tb.getEventFiler().startEventLogging();
+        }
         
         this.view.addRootItem(rootItem);
         

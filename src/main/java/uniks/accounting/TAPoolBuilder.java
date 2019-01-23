@@ -1,7 +1,6 @@
 package uniks.accounting;
 
 import org.fulib.yaml.Yamler;
-import uniks.accounting.segroup.SEStudent;
 import uniks.accounting.tapool.TAPool;
 import uniks.accounting.tapool.TAStudent;
 

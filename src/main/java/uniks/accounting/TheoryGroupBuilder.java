@@ -1,7 +1,6 @@
 package uniks.accounting;
 
 import org.fulib.yaml.Yamler;
-import uniks.accounting.segroup.*;
 import uniks.accounting.theorygroup.Presentation;
 import uniks.accounting.theorygroup.Seminar;
 import uniks.accounting.theorygroup.TheoryGroup;

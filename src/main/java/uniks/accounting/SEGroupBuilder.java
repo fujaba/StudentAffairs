@@ -2,7 +2,6 @@ package uniks.accounting;
 
 import org.fulib.yaml.Yamler;
 import uniks.accounting.segroup.*;
-import uniks.accounting.theorygroup.TheoryStudent;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

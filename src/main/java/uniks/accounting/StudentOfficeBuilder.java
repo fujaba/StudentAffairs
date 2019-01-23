@@ -2,7 +2,8 @@ package uniks.accounting;
 
 import org.fulib.yaml.Yamler;
 import uniks.accounting.studentOffice.*;
-import uniks.accounting.studentOffice.tables.*;
+import uniks.accounting.studentOffice.tables.CourseTable;
+import uniks.accounting.studentOffice.tables.StudentOfficeTable;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -208,6 +209,7 @@ public class StudentOfficeBuilder
       {
          stud = new UniStudent()
                .setStudentId(studentId)
+               .setName(name)
                .setDepartment(studentOffice);
       }
 

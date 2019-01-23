@@ -157,7 +157,7 @@
          text-decoration="underline"
          font-size="10.00"
          id="text43"
-         style="font-size:9.99999988px;font-family:Calibri;text-decoration:underline;text-decoration-line:underline;text-anchor:start;fill:#000000;-inkscape-font-specification:'Calibri, Normal';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">s3 :SEStudent</text>
+         style="font-size:9.99999988px;font-family:Calibri;text-decoration:underline;text-decoration-line:underline;text-anchor:start;fill:#000000;-inkscape-font-specification:'Calibri, Normal';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">s3 :SeStudent</text>
       <polygon
          points="348,-212 348,-194 254,-194 254,-212 "
          id="polygon45"
@@ -209,7 +209,7 @@
          text-decoration="underline"
          font-size="10.00"
          id="text63"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;font-family:Calibri;-inkscape-font-specification:'Calibri, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;text-decoration: underline;text-decoration-line: underline;writing-mode:lr-tb;text-anchor:start;fill:#000000">s4 :SEStudent</text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;font-family:Calibri;-inkscape-font-specification:'Calibri, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;text-decoration: underline;text-decoration-line: underline;writing-mode:lr-tb;text-anchor:start;fill:#000000">s4 :SeStudent</text>
       <polygon
          points="476,-194 382,-194 382,-212 476,-212 "
          id="polygon65"

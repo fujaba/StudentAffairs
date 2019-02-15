@@ -1,13 +1,14 @@
+import Yamler from "@fujaba/fulib-yaml-ts";
+
 export class EventSource {
   EVENT_KEY = '.eventKey';
   EVENT_TIMESTAMP = '.eventTimestamp';
   EVENT_TYPE = 'eventType';
+  private yamler: Yamler = new Yamler();
   
-  // TODO: Yaml bib finden
-
+  private lastEventTime: number = -1;
   private keyNumMap: Map<string, number> = new Map<string, number>();
   private numEventMap: Map<number, Map<string, string>> = new Map<number, Map<string, string>>();
-  private lastEventTime: number = -1;
   
   public pull(since: number, relevantEventTypes?: string[]): Map<number, Map<string, string>> {
     const tailMap: Map<number, Map<string, string>> = new Map<number, Map<string, string>>();
@@ -27,7 +28,17 @@ export class EventSource {
     return tailMap;  
   }
   
-  public append(event: Map<string, string>): EventSource {
+  public appendEvents(events: string): EventSource {
+    const list: Array<Map<string, string>> = this.yamler.decodeList(events);  
+    
+    for (const event of list) {
+      this.appendEvent(event);
+    }
+    
+    return this;
+  }
+  
+  public appendEvent(event: Map<string, string>): EventSource {
     this.lastEventTime = Date.now();
     const timestampString: string = '' + this.lastEventTime;
     
@@ -47,6 +58,40 @@ export class EventSource {
     return this;    
   }
   
-  // TODO: Eventuell diese string builder append scheiße noch machen und die encode dinger
+  public encodeYaml(): string {
+    return EventSource.encodeSortedEvents(this.numEventMap);
+  }
   
+  public static encodeSortedEvents(events: Map<number, Map<string, string>>): string {
+    let result: string = '';
+    
+    events.forEach((value: Map<string, string>, key: number) => {
+      result += this.encodeEvent(value);
+    });
+    
+    return result;
+  }
+  
+  public static encodeEvents(events: Array<Map<string, string>>): string {
+    let result: string = '';
+    
+    for(const event of events) {
+      result += this.encodeEvent(event);
+    }
+    
+    return result;
+  }
+  
+  public static encodeEvent(event: Map<string, string>): string {
+    let result: string = '';
+    let prefix: string = '- ';
+    
+    event.forEach((value: string, key: string) => {
+      result += `${prefix}${key}: ${Yamler.encapsulate(value)}\n`;
+      prefix = ' ';
+    });
+    result += '\n';
+    
+    return result;
+  }
 }

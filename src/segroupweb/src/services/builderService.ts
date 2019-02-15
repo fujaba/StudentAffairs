@@ -1,5 +1,6 @@
 import { SEGroup } from "@/model";
 import { EventSource } from "@/services/eventSource";
+import Yamler from "@fujaba/fulib-yaml-ts";
 
 export class SEGroupBuilder {
   HEAD = 'head';
@@ -31,10 +32,48 @@ export class SEGroupBuilder {
   private eventSource: EventSource = new EventSource();
   
   public applyEvents(yaml: string) {
-      // TODO:
+    const yamler: Yamler = new Yamler();
+    const list: Array<Map<string, string>> = yamler.decodeList(yaml);
+    
+    for (const map of list) {
+      switch (map.get(this.EVENT_TYPE)) {
+        case this.BUILD_SE_GROUP:
+          this.buildSEGroup(map.get(this.HEAD));
+          break;
+        case this.STUDENT_CREATED:
+          break;
+        case this.STUDENT_HIRED_AS_TA:
+          break;
+        case this.BUILD_SE_CLASS:
+          break;
+        case this.BUILD_ASSIGNMENT:
+          break;
+        case this.BUILD_ACHIEVEMENT:
+          break;
+        case this.STUDENT_ENROLLED:
+          break;
+        case this.BUILD_SOLUTION:
+          break;
+        case this.GRADE_SOLUTION:
+          break;
+        case this.EXAMINATION_GRADED:
+          break;
+        default:
+          console.log(`Unsupported event type ${map.get(this.EVENT_TYPE)}`);
+          break;  
+      }
+    }
   }
   
-  
+  public buildSEGroup(head?: string): SEGroup {
+    if (!head) throw new Error('Missing variable head in last event');
+    
+    if (this.seGroup && this.seGroup.head === head) return this.seGroup;
+    
+    if (!this.seGroup) {
+      this.seGroup
+    }
+  }
   
   
   public getSeGroup(): SEGroup {

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>10</zoom_level>
+  <zoom_level>20</zoom_level>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>390</x>
-      <y>80</y>
-      <w>120</w>
-      <h>80</h>
+      <x>720</x>
+      <y>120</y>
+      <w>240</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>symbol=component
 Student's
@@ -18,10 +18,10 @@ GUI</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>390</x>
-      <y>220</y>
-      <w>120</w>
-      <h>80</h>
+      <x>720</x>
+      <y>400</y>
+      <w>240</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>symbol=component
 Student's
@@ -32,10 +32,10 @@ Microservice</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>400</x>
-      <y>360</y>
-      <w>100</w>
-      <h>90</h>
+      <x>740</x>
+      <y>680</y>
+      <w>200</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>
 Student's
@@ -56,10 +56,10 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>440</x>
-      <y>150</y>
-      <w>30</w>
-      <h>90</h>
+      <x>820</x>
+      <y>260</y>
+      <w>60</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.&gt;
 </panel_attributes>
@@ -68,10 +68,10 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>440</x>
-      <y>290</y>
-      <w>30</w>
-      <h>90</h>
+      <x>820</x>
+      <y>540</y>
+      <w>60</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.&gt;
 </panel_attributes>
@@ -80,10 +80,10 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>660</x>
-      <y>150</y>
-      <w>30</w>
-      <h>90</h>
+      <x>1260</x>
+      <y>260</y>
+      <w>60</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.&gt;
 </panel_attributes>
@@ -92,10 +92,10 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>610</x>
-      <y>80</y>
-      <w>120</w>
-      <h>80</h>
+      <x>1160</x>
+      <y>120</y>
+      <w>240</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>symbol=component
 SE
@@ -106,10 +106,10 @@ GUI</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>610</x>
-      <y>220</y>
-      <w>120</w>
-      <h>80</h>
+      <x>1160</x>
+      <y>400</y>
+      <w>240</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>symbol=component
 SE
@@ -120,10 +120,10 @@ Microservice</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>660</x>
-      <y>290</y>
-      <w>30</w>
-      <h>90</h>
+      <x>1260</x>
+      <y>540</y>
+      <w>60</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.&gt;
 </panel_attributes>
@@ -132,10 +132,10 @@ Microservice</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>620</x>
-      <y>360</y>
-      <w>100</w>
-      <h>90</h>
+      <x>1180</x>
+      <y>680</y>
+      <w>200</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>
 SE
@@ -156,10 +156,10 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>240</y>
-      <w>130</w>
-      <h>50</h>
+      <x>940</x>
+      <y>440</y>
+      <w>260</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>getEvents
 lt=-&gt;
@@ -169,10 +169,10 @@ putEvents</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>380</x>
-      <y>480</y>
-      <w>120</w>
-      <h>80</h>
+      <x>1160</x>
+      <y>960</y>
+      <w>240</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>symbol=component
 TA
@@ -183,10 +183,10 @@ GUI</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>380</x>
-      <y>620</y>
-      <w>120</w>
-      <h>80</h>
+      <x>1160</x>
+      <y>1240</y>
+      <w>240</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>symbol=component
 TA
@@ -197,10 +197,10 @@ Microservice</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>390</x>
-      <y>760</y>
-      <w>100</w>
-      <h>90</h>
+      <x>1180</x>
+      <y>1520</y>
+      <w>200</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>
 TA
@@ -221,10 +221,10 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>430</x>
-      <y>550</y>
-      <w>30</w>
-      <h>90</h>
+      <x>1260</x>
+      <y>1100</y>
+      <w>60</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.&gt;
 </panel_attributes>
@@ -233,10 +233,10 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>430</x>
-      <y>690</y>
-      <w>30</w>
-      <h>90</h>
+      <x>1260</x>
+      <y>1380</y>
+      <w>60</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.&gt;
 </panel_attributes>
@@ -245,10 +245,10 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>650</x>
-      <y>550</y>
-      <w>30</w>
-      <h>90</h>
+      <x>820</x>
+      <y>1100</y>
+      <w>60</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.&gt;
 </panel_attributes>
@@ -257,10 +257,10 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>600</x>
-      <y>480</y>
-      <w>120</w>
-      <h>80</h>
+      <x>720</x>
+      <y>960</y>
+      <w>240</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>symbol=component
 Theory
@@ -271,10 +271,10 @@ GUI</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>600</x>
-      <y>620</y>
-      <w>120</w>
-      <h>80</h>
+      <x>720</x>
+      <y>1240</y>
+      <w>240</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>symbol=component
 Theory
@@ -285,10 +285,10 @@ Microservice</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>650</x>
-      <y>690</y>
-      <w>30</w>
-      <h>90</h>
+      <x>820</x>
+      <y>1380</y>
+      <w>60</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.&gt;
 </panel_attributes>
@@ -297,10 +297,10 @@ Microservice</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>610</x>
-      <y>760</y>
-      <w>100</w>
-      <h>90</h>
+      <x>740</x>
+      <y>1520</y>
+      <w>200</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>
 Theory
@@ -321,40 +321,40 @@ drawArc(0,height*4/5,width,height*1/5,180,180,true) fg=black bg=#FFFFFF //Parame
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
-      <y>640</y>
-      <w>130</w>
-      <h>50</h>
+      <x>940</x>
+      <y>1280</y>
+      <w>260</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>getEvents
 lt=-&gt;
 putEvents</panel_attributes>
-    <additional_attributes>110.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>280</y>
-      <w>180</w>
-      <h>360</h>
+      <x>1380</x>
+      <y>540</y>
+      <w>200</w>
+      <h>740</h>
     </coordinates>
     <panel_attributes>getEvents
 lt=-&gt;
 putEvents</panel_attributes>
-    <additional_attributes>130.0;10.0;70.0;100.0;10.0;340.0</additional_attributes>
+    <additional_attributes>10.0;10.0;30.0;300.0;10.0;350.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
-      <y>290</y>
-      <w>170</w>
-      <h>350</h>
+      <x>560</x>
+      <y>480</y>
+      <w>260</w>
+      <h>800</h>
     </coordinates>
     <panel_attributes>getEvents
 lt=-&gt;
 putEvents</panel_attributes>
-    <additional_attributes>120.0;330.0;60.0;270.0;10.0;10.0</additional_attributes>
+    <additional_attributes>90.0;380.0;10.0;50.0;80.0;10.0</additional_attributes>
   </element>
 </diagram>

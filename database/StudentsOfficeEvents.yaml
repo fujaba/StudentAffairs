@@ -35,3 +35,21 @@
   date: "2018-11-29"
   .eventTimestamp: 1543336853160
 
+- eventType: studentCreated
+  studentId: 4353890
+  name: Bob
+  .eventKey: "studentCreated/4353890"
+  .eventTimestamp: 1543413926635
+
+- eventType: chooseMajorSubject
+  studentId: 4353890
+  majorSubject: CS
+  .eventTimestamp: 1543414018624
+
+- eventType: studentEnrolled
+  studentId: 4353890
+  courseName: PM
+  lecturerName: Albert
+  date: "2018-11-29"
+  .eventTimestamp: 1543414026168
+

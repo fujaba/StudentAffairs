@@ -1,0 +1,10 @@
+
+The Theory Group of Kassel University runs e.g. a seminar on automata at 2019.03.23, cf. Figure~\ref{fig.TheoryGroup}.
+Our student Alice has given a \textit(Presentation} in this seminar and scored 9 points for the \textit{content}, 
+the \textit{scholarship}, and the \textit{slides}, each. \textit{}Martin, the head of the Theory Group has 
+hired \textit{Alice} as Teaching Assistant for his group, cf. attribute \textit{ta_4} of object \textit{alice3}.
+
+Finally, Figure~\ref{???} shows the object model of the TA Pool microservice used by the research groups
+in order to exchange data on Teaching Assistances. 
+
+  

@@ -51,8 +51,10 @@ public class MainController {
             modelView.put(rootItem.getId(), officeCon);
 
             String yaml = ob.getEventFiler().loadHistory();
-            ob.applyEvents(yaml);
-            ob.getEventFiler().startEventLogging();
+            if (yaml != null) {
+                ob.applyEvents(yaml);
+                ob.getEventFiler().startEventLogging();
+            }
             
             this.view.addRootTreeItem(rootItem);
 

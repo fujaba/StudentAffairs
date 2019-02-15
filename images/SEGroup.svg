@@ -167,7 +167,7 @@
          font-size="10.00"
          text-decoration="underline"
          y="-225"
-         x="279.30399">s3 :SEStudent</text>
+         x="279.30399">s3 :SeStudent</text>
       <polygon
          style="fill:none;stroke:#000000"
          id="polygon45"
@@ -225,7 +225,7 @@
          font-size="10.00"
          text-decoration="underline"
          y="-225"
-         x="434.30399">s4 :SEStudent</text>
+         x="434.30399">s4 :SeStudent</text>
       <polygon
          style="fill:none;stroke:#000000"
          id="polygon67"

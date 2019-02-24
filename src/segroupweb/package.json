@@ -5,10 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "dependencies": {
     "@fujaba/fulib-yaml-ts": "^1.0.1",
+    "chai": "^4.2.0",
+    "express": "^4.16.4",
+    "mocha": "^6.0.1",
+    "request": "^2.88.0",
     "vue": "^2.5.21",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",

@@ -60,5 +60,5 @@ export default class SEClass {
   }
   
   // HIer gehts weiter
-  public withAssignments
+  // public withAssignments
 }

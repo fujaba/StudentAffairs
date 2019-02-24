@@ -37,7 +37,8 @@ export default class Home extends Vue {
   
   onCreateGroup(event: Event) {
     if (this.profName) {
-      
+      // gb.buildSEGroup(this.profName);
+      console.log(this.profName);
     }
   }
 }

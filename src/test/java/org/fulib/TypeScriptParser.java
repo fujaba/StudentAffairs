@@ -16,6 +16,7 @@ import static org.fulib.Parser.PACKAGE;
 public class TypeScriptParser
 {
    public static final char EOF = Character.MIN_VALUE;
+   public static final String CLASS = "class";
    public static char NEW_LINE = '\n';
    public static final char COMMENT_START = 'c';
    public static final char LONG_COMMENT_END = 'd';
@@ -213,7 +214,7 @@ public class TypeScriptParser
       String className = currentRealWord();
       nextRealToken();
 
-      addCodeFragment("class", startPos, previousRealToken.endPos);
+      addCodeFragment(CLASS, startPos, currentRealToken.endPos);
 
       parseClassBody();
    }
@@ -275,7 +276,7 @@ public class TypeScriptParser
 
          parseUntilMatching("{", "}");
 
-         addCodeFragment("function:" + memberName + paramSignature, startPos, previousRealToken.endPos);
+         addCodeFragment(Parser.METHOD + ":" + memberName + paramSignature, startPos, previousRealToken.endPos);
       }
 
    }

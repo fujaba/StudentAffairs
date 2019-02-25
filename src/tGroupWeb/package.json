@@ -1,0 +1,29 @@
+{
+  "name": "tGroupWeb",
+  "version": "1.0.0",
+  "description": "Web App for the Theory Group of Kassel University",
+  "main": "index.js",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon -L",
+    "start": "node ./dist/server.js",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts"
+  },
+  "dependencies": {
+    "@fujaba/fulib-yaml-ts": "^1.0.1",
+    "@types/chai": "^4.1.7",
+    "@types/express": "^4.16.1",
+    "@types/mocha": "^5.2.6",
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "express": "^4.16.4",
+    "mocha": "^6.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.3333"
+  }
+}

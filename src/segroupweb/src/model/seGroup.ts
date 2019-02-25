@@ -2,25 +2,16 @@ import SEClass from "@/model/seClass";
 import SEStudent from "@/model/seStudent";
 
 export default class SEGroup {
-  private _head: string;
+  public head: string;
   private readonly _classes: SEClass[];
   private readonly _students: SEStudent[];
   
   constructor() {
-    this._head = '';
+    this.head = '';
     this._classes = [];
     this._students = [];
   }
-  
-  get head(): string {
-    return this._head;
-  }
-  
-  set head(value: string) {
-    if (!value ? this.head !== '' : value !== this.head) {
-      this._head = value;
-    }
-  }
+
   
   get classes(): SEClass[] {
     return this._classes;

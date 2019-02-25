@@ -1,0 +1,65 @@
+- c1: 	ClassModel
+  classes: 	tGroup2 	tStudent3 	
+  defaultPropertyStyle: 	POJO
+  defaultRoleType: 	"java.util.ArrayList<%s>"
+  mainJavaDir: 	"src/tGroupWeb/src"
+  packageName: 	tGroupModel
+  packageSrcFolder: 	"src/tGroupWeb/src/tGroupModel"
+
+- tGroup2: 	Clazz
+  attributes: 	name4 	
+  model: 	c1
+  modified: 	false
+  name: 	TGroup
+  propertyStyle: 	POJO
+  roles: 	students5 	
+
+- tStudent3: 	Clazz
+  attributes: 	studentId6 	name7 	
+  model: 	c1
+  modified: 	false
+  name: 	TStudent
+  propertyStyle: 	POJO
+  roles: 	tGroup8 	
+
+- name4: 	Attribute
+  clazz: 	tGroup2
+  modified: 	false
+  name: 	name
+  propertyStyle: 	POJO
+  type: 	String
+
+- students5: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	tGroup2
+  modified: 	false
+  name: 	students
+  other: 	tGroup8
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- studentId6: 	Attribute
+  clazz: 	tStudent3
+  modified: 	false
+  name: 	studentId
+  propertyStyle: 	POJO
+  type: 	String
+
+- name7: 	Attribute
+  clazz: 	tStudent3
+  modified: 	false
+  name: 	name
+  propertyStyle: 	POJO
+  type: 	String
+
+- tGroup8: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	tStudent3
+  modified: 	false
+  name: 	tGroup
+  other: 	students5
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+

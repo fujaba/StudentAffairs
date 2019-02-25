@@ -3,26 +3,16 @@ import Achievement from "@/model/achievement";
 import SEClass from "@/model/seClass";
 
 export default class SEStudent {
-  private _studentId: string;
+  public studentId: string;
   private _teachingAssistantFor: string;
   private _group: SEGroup;
   private readonly _achievements: Achievement[];
     
   constructor() {
-    this._studentId = '';
+    this.studentId = '';
     this._teachingAssistantFor = '';
     this._group = {} as SEGroup;
     this._achievements = [];
-  }
-  
-  get studentId(): string {
-    return this._studentId;
-  }
-  
-  set studentId(value: string) {
-    if (!value ? this._studentId !== '' : value !== this._studentId) {
-      this._studentId = value;
-    }
   }
   
   get teachingAssistantFor(): string {

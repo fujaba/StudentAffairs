@@ -43,6 +43,8 @@ public class Generator4TypeScriptClassFile
 
       generateRoles(clazz, fragmentMap);
 
+      generateRemoveYou(clazz, fragmentMap);
+
       fragmentMap.add(Parser.CLASS_END, "}", 1);
 
       if (clazz.getModified() == true && fragmentMap.classBodyIsEmpty(fragmentMap)) {
@@ -199,6 +201,33 @@ public class Generator4TypeScriptClassFile
             fragmentMap.add(Parser.METHOD + ":without" + StrUtil.cap(role.getName()) + "(any[])", result, 3, role.getModified());
          }
       }
+   }
+
+
+
+   private void generateRemoveYou(Clazz clazz, FileFragmentMap fragmentMap) {
+      STGroup group = createSTGroup("templates/typescript/tsClassDecl.stg");
+
+      StringBuilder buf = new StringBuilder();
+
+      for (AssocRole role : clazz.getRoles())
+      {
+         if (role.getCardinality() == ClassModelBuilder.ONE)
+         {
+            buf.append("this.").append(role.getName()).append(" = null;\n");
+         }
+         else
+         {
+            buf.append("this.without").append(StrUtil.cap(role.getName()))
+                  .append("(Object.assign(this._").append(role.getName()).append("));\n");
+         }
+      }
+
+
+      ST st = group.getInstanceOf("removeYou");
+      st.add("body", buf.toString());
+      String result = st.render();
+      fragmentMap.add(Parser.METHOD + ":removeYou()", result, 2);
    }
 
 

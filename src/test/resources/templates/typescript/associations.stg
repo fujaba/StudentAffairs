@@ -32,9 +32,7 @@ setMethod(roleName,toMany,myClassName,otherClassName,otherRoleName,otherToMany,r
     for (const item of value) {
       if (!item) continue;
       if (item instanceof Array) {
-        for (const i of item) {
-          this.with<cap(roleName)>(...i);
-        }
+        this.with<cap(roleName)>(item);
       } else if (item instanceof <otherClassName>) {
         if (!this._<roleName>.includes(item)) {
           this._<roleName>.push(item);
@@ -77,9 +75,7 @@ withoutMethod(roleName,toMany,myClassName,otherClassName,otherRoleName,otherToMa
     for (const item of value) {
       if (!item) continue;
       if (item instanceof Array) {
-        for( const i of item) {
-          this.without<cap(roleName)>(...i);
-        }
+        this.without<cap(roleName)>(...item);
       } else if (item instanceof <otherClassName>) {
         if (this._<roleName>.includes(item)) {
           this._<roleName>.splice(this._<roleName>.indexOf(item, 0), 1);

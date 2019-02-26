@@ -30,7 +30,23 @@ describe('TGroup model', () => {
       alice.tGroup = null;
 
       expect(tGroup.students).not.contains(alice);
+      expect(tGroup.students.length).equals(1);
 
+      // add it again
+      alice.tGroup = tGroup;
+      expect(tGroup.students.length).equals(2);
+
+      // add bob
+      const bob = new TStudent();
+      bob.name = "Bob";
+      bob.studentId = "m84";
+
+      tGroup.withStudents(alice, bob);
+      expect(tGroup.students.length).equals(3);
+
+      tGroup.removeYou();
+
+      expect(alice.tGroup).equals(null);
 
       // let text : string = JSON.stringify(tGroup);
       // console.log(text);

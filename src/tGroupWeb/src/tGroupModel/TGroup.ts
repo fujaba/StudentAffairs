@@ -22,9 +22,7 @@ export default class TGroup
     for (const item of value) {
       if (!item) continue;
       if (item instanceof Array) {
-        for (const i of item) {
-          this.withStudents(...i);
-        }
+        this.withStudents(item);
       } else if (item instanceof TStudent) {
         if (!this._students.includes(item)) {
           this._students.push(item);
@@ -44,9 +42,7 @@ export default class TGroup
     for (const item of value) {
       if (!item) continue;
       if (item instanceof Array) {
-        for( const i of item) {
-          this.withoutStudents(...i);
-        }
+        this.withoutStudents(...item);
       } else if (item instanceof TStudent) {
         if (this._students.includes(item)) {
           this._students.splice(this._students.indexOf(item, 0), 1);
@@ -58,6 +54,11 @@ export default class TGroup
     return this;
   }
 
+
+  public removeYou() {
+    this.withoutStudents(Object.assign(this._students));
+
+  }
 
 
 }

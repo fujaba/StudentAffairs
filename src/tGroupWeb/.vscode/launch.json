@@ -19,7 +19,7 @@
             ],
             "console": "integratedTerminal",
             "protocol": "inspector",
-            "internalConsoleOptions": "openOnSessionStart"
+            // "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "node",

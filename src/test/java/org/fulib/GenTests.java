@@ -40,6 +40,8 @@ public class GenTests
 
       tGroup.buildAssociation(tStudent, "students", mb.MANY, "tGroup", mb.ONE);
 
+      // FulibTools.objectDiagrams().dumpPng(mb);
+
       // clear target directory
       Tools.removeDirAndFiles("src/tGroupWeb/src/tGroupModel");
 

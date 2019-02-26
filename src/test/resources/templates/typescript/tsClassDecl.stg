@@ -4,9 +4,18 @@ classDecl(name) ::=
 export default class <name> {
 >>
 
+
 constructor(body) ::=
 <<
   constructor() {
+    <body>
+  }
+>>
+
+
+removeYou(body) ::=
+<<
+  public removeYou() {
     <body>
   }
 >>

@@ -35,5 +35,10 @@ export default class TStudent
 
 
 
+  public removeYou() {
+    this.tGroup = null;
+
+  }
+
 
 }

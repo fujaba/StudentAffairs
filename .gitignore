@@ -3,3 +3,7 @@
 gradle/
 out/
 tmp/
+src/tGroupWeb/yarn.lock
+src/tGroupWeb/yarn-error.log
+src/tGroupWeb/dist/
+src/tGroupWeb/node_modules/

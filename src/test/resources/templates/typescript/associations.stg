@@ -1,93 +1,83 @@
 
 
-emptySetDecl(roleName,otherClassName,roleType) ::=
-<<
-   public static final <roleType> EMPTY_<roleName> = new <roleType>()
-   { @Override public boolean add(<otherClassName> value){ throw new UnsupportedOperationException("No direct add! Use xy.with<cap(roleName)>(obj)"); }};
->>
-
-
 roleAttrDecl(roleName,roleType) ::=
 <<
-  private _<roleName>: <roleType>;
+    private _<roleName>: <roleType>;
 >>
 
-propertyDecl(roleName) ::=
-<<   public static final String PROPERTY_<roleName> = "<roleName>";>>
 
 getMethod(roleName,roleType) ::=
 <<
-  get <roleName>(): <roleType> {
-    return this._<roleName>;
-  }
+    get <roleName>(): <roleType> {
+      return this._<roleName>;
+    }
 >>
 
 
 setMethod(roleName,toMany,myClassName,otherClassName,otherRoleName,otherToMany,roleType) ::=
 <<
 <if(toMany)>
-  public with<cap(roleName)>(...value: any[]): <myClassName> {
-    if (!value) return this;
+    public with<cap(roleName)>(...value: any[]): <myClassName> {
+      if (!value) return this;
 
-    for (const item of value) {
-      if (!item) continue;
-      if (item instanceof Array) {
-        this.with<cap(roleName)>(item);
-      } else if (item instanceof <otherClassName>) {
-        if (!this._<roleName>.includes(item)) {
-          this._<roleName>.push(item);
+      for (const item of value) {
+        if (!item) continue;
+        if (item instanceof Array) {
+          this.with<cap(roleName)>(item);
+        } else if (item instanceof <otherClassName>) {
+          if (!this._<roleName>.includes(item)) {
+            this._<roleName>.push(item);
 <if(otherRoleName)>
-          (item as <otherClassName>).<withThis(otherToMany,otherRoleName)>;
+            (item as <otherClassName>).<withThis(otherToMany,otherRoleName)>;
 <endif>
+          }
         }
       }
-    }
 
-    return this;
-  }
-<else>
-  set <roleName>(value: <otherClassName>) {
-    if (this._<roleName> !== value) {
-<if(otherRoleName)>
-      const oldValue: <otherClassName> = this._<roleName>;
-      if (this._<roleName>) {
-        this._<roleName> = null;
-        oldValue.<withoutThis(otherToMany,otherRoleName,otherClassName)>;
-      }
-<endif>
-      this._<roleName> = value;
-<if(otherRoleName)>
-      if (value) {
-        value.<withThis(otherToMany,otherRoleName)>;
-      }
-<endif>
+      return this;
     }
-  }
+<else>
+    set <roleName>(value: <otherClassName>) {
+      if (this._<roleName> !== value) {
+<if(otherRoleName)>
+        const oldValue: <otherClassName> = this._<roleName>;
+        if (this._<roleName>) {
+          this._<roleName> = null;
+          oldValue.<withoutThis(otherToMany,otherRoleName,otherClassName)>;
+        }
+<endif>
+        this._<roleName> = value;
+<if(otherRoleName)>
+        if (value) {
+          value.<withThis(otherToMany,otherRoleName)>;
+        }
+<endif>
+      }
+    }
 <endif>
 >>
 
 
 withoutMethod(roleName,toMany,myClassName,otherClassName,otherRoleName,otherToMany,roleType) ::=
 <<
-  public without<cap(roleName)>(...value: any[]): <myClassName> {
-    if (this._<roleName> === [] || !value) return this;
+    public without<cap(roleName)>(...value: any[]): <myClassName> {
+      if (this._<roleName> === [] || !value) return this;
 
-    for (const item of value) {
-      if (!item) continue;
-      if (item instanceof Array) {
-        this.without<cap(roleName)>(...item);
-      } else if (item instanceof <otherClassName>) {
-        if (this._<roleName>.includes(item)) {
-          this._<roleName>.splice(this._<roleName>.indexOf(item, 0), 1);
+      for (const item of value) {
+        if (!item) continue;
+        if (item instanceof Array) {
+          this.without<cap(roleName)>(...item);
+        } else if (item instanceof <otherClassName>) {
+          if (this._<roleName>.includes(item)) {
+            this._<roleName>.splice(this._<roleName>.indexOf(item, 0), 1);
 <if(otherRoleName)>
-          (item as <otherClassName>).<withoutThis(otherToMany,otherRoleName,myClassName)>;
+            (item as <otherClassName>).<withoutThis(otherToMany,otherRoleName,myClassName)>;
 <endif>
+          }
         }
       }
+      return this;
     }
-
-    return this;
-  }
 >>
 
 

@@ -1,6 +1,8 @@
+
 import TGroup from './tGroupModel/TGroup';
 import TStudent from './tGroupModel/TStudent';
-// import Yamler from "@fujaba/fulib-yaml-ts";
+
+import Yamler from "@fujaba/fulib-yaml-ts";
 import { expect } from 'chai';
 import 'mocha';
 

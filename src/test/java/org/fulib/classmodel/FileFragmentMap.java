@@ -159,7 +159,7 @@ public class FileFragmentMap
             // newtext contains annotations, thus it overrides annotations in the code
             // do not modify newtext
          }
-         else if (key.equals(Parser.CLASS))
+         else if (key.equals(Parser.CLASS) && ! newText.startsWith("namespace"))
          {
             // keep annotations and implements clause "\\s*public\\s+class\\s+(\\w+)(\\.+)\\{"
             Pattern pattern = Pattern.compile("class\\s+(\\w+)\\s*(extends\\s+[^\\s]+)?");

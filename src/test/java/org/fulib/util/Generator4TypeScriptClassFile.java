@@ -219,7 +219,7 @@ public class Generator4TypeScriptClassFile
          else
          {
             buf.append("this.without").append(StrUtil.cap(role.getName()))
-                  .append("(Object.assign(this._").append(role.getName()).append("));\n");
+                  .append("(this._").append(role.getName()).append(");\n");
          }
       }
 

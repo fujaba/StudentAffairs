@@ -1,6 +1,7 @@
 import SEClass from "@/model/seClass";
 import SEStudent from "@/model/seStudent";
 
+namespace SEGroupModel {
 export default class SEGroup {
   public head: string;
   private readonly _classes: SEClass[];
@@ -136,4 +137,5 @@ export default class SEGroup {
     
     return firstFit;
   }
+}
 }

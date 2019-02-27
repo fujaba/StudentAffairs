@@ -1,21 +1,27 @@
 
+namespaceDecl(name) ::=
+<<
+namespace <name> {
+>>
+
+
 classDecl(name) ::=
 <<
-export default class <name> {
+  export default class <name> {
 >>
 
 
 constructor(body) ::=
 <<
-  constructor() {
-    <body>
-  }
+    constructor() {
+      <body>
+    }
 >>
 
 
 removeYou(body) ::=
 <<
-  public removeYou() {
-    <body>
-  }
+    public removeYou() {
+      <body>
+    }
 >>

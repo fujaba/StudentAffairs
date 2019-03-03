@@ -1,0 +1,20 @@
+
+
+
+  <h2>{{currentClass.topic}} Start: {{currentClass.term}} </h2>
+
+  <div>
+    <label>name:
+        <input [(ngModel)]="currentClass.topic" placeholder="topic">
+    </label>
+  </div>
+
+  <div>
+    <label>term:
+      <input [(ngModel)]="currentClass.term" placeholder="term">
+    </label>
+  </div>
+
+  <button (click)="save()">save</button>
+
+  <button (click)="goBack()">go back</button> 

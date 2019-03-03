@@ -1,5 +1,5 @@
-import SEGroup  from "@/model/SEGroup";
-import { EventSource } from "@/services/eventSource";
+import SEGroup  from "./SEGroup";
+import { EventSource } from "./eventSource";
 import Yamler from "@fujaba/fulib-yaml-ts";
 
 export class SEGroupBuilder {

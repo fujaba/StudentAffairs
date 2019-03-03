@@ -506,7 +506,6 @@ public class TypeScriptParser
       }
       else if (currentToken.kind == '9')
       {
-         // TODO IS IT RIGHT
          lookAheadRealToken.kind = currentToken.kind;
          lookAheadRealToken.text.append((int) currentToken.value);
          lookAheadRealToken.startPos = currentToken.startPos;

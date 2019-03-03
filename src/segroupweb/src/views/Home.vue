@@ -29,16 +29,16 @@ import { SEGroupBuilder } from "@/services/builderService";
   }
 })
 export default class Home extends Vue {
-  groupSEGroup: SEGroup = {};
+  groupSEGroup: SEGroup = null;
   profName: string = '';
   
-  @Inject('SEGroupBuilder')
-  private gb!: SEGroupBuilder;
+  // @Inject('SEGroupBuilder')
+  private gb: SEGroupBuilder = new SEGroupBuilder();
   
   onCreateGroup(event: Event) {
     if (this.profName) {
-      // gb.buildSEGroup(this.profName);
       console.log(this.profName);
+      this.gb.buildSEGroup(this.profName);
     }
   }
 }

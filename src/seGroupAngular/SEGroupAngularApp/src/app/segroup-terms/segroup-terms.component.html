@@ -1,0 +1,25 @@
+
+
+<h2>List of Classes</h2>
+
+<ul class="seClassList">
+  <li *ngFor="let elem of seClassList">
+    <a routerLink="/detail/{{elem.topic}}">
+      <span class="badge">{{elem.topic}}</span> {{elem.term}}
+    </a>
+    <button class="delete" title="delete seclass"
+  (click)="delete(elem)">x</button>
+  </li>
+
+</ul>
+
+<div>
+    <label>New SEClass name:
+      <input #seClassName />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(seClassName.value); seClassName.value=''">
+      add
+    </button>
+</div>
+

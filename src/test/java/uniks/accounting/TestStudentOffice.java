@@ -3,8 +3,10 @@ package uniks.accounting;
 
 import org.fulib.Fulib;
 import org.fulib.FulibTools;
+import org.fulib.TypeScriptGenerator;
 import org.fulib.builder.ClassBuilder;
 import org.fulib.builder.ClassModelBuilder;
+import org.fulib.classmodel.ClassModel;
 import org.fulib.yaml.YamlIdMap;
 import org.fulib.yaml.YamlObject;
 import org.junit.Test;
@@ -87,6 +89,8 @@ public class TestStudentOffice
       ClassBuilder seStudent = mb.buildClass("SEStudent")
             .buildAttribute("studentId", STRING)
             .buildAttribute("teachingAssistantFor", STRING);
+//      ClassBuilder seTerm = mb.buildClass("SETerm")
+//            .buildAttribute("termStart", mb.STRING);
       ClassBuilder seClass = mb.buildClass("SEClass")
             .buildAttribute("topic", STRING)
             .buildAttribute("term", STRING);
@@ -108,11 +112,18 @@ public class TestStudentOffice
       achievement.buildAssociation(solution, "solutions", MANY, "achievement", ONE);
       solution.buildAssociation(assignment, "assignment", ONE, "solutions", MANY);
 
-      String fileName = FulibTools.classDiagrams().dumpSVG(mb.getClassModel(), "tmp/SEGroupModel.svg");
+      ClassModel classModel = mb.getClassModel();
+      String fileName = FulibTools.classDiagrams().dumpSVG(classModel, "tmp/SEGroupModel.svg");
       System.out.println(fileName);
 
-      Fulib.generator().generate(mb.getClassModel());
-      Fulib.tablesGenerator().generate(mb.getClassModel());
+      Fulib.generator().generate(classModel);
+      Fulib.tablesGenerator().generate(classModel);
+
+      classModel.setMainJavaDir("src/segroupweb/src").setPackageName("model");
+      new TypeScriptGenerator().generate(classModel);
+
+      classModel.setMainJavaDir("src/seGroupAngular/SEGroupAngularApp/src/app").setPackageName("SEGroupModel");
+      new TypeScriptGenerator().generate(classModel);
    }
 
    @Test

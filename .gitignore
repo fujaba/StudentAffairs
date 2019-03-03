@@ -7,3 +7,8 @@ src/tGroupWeb/yarn.lock
 src/tGroupWeb/yarn-error.log
 src/tGroupWeb/dist/
 src/tGroupWeb/node_modules/
+src/seGroupAngular/node_modules/
+src/seGroupAngular/yarn.lock
+src/seGroupAngular/SEGroupAngularApp/yarn.lock
+src/seGroupAngular/SEGroupAngularApp/.vscode/
+src/seGroupAngular/SEGroupAngularApp/e2e/

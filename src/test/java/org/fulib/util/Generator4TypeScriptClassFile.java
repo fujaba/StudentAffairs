@@ -120,6 +120,11 @@ public class Generator4TypeScriptClassFile
 
          attrType = StrUtil.downFirstChar(attrType);
 
+         if ( " double int ".indexOf(attrType) >= 0)
+         {
+            attrType = "number";
+         }
+
          attrTemplate = group.getInstanceOf("attrDecl");
          attrTemplate.add("type", attrType);
          attrTemplate.add("name", attr.getName());

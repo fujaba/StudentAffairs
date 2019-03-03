@@ -77,7 +77,7 @@ public class TypeScriptGenerator
    private ClassModel loadOldClassModel(String modelFolder)
    {
       // store new model
-      String fileName = modelFolder + "/tablesClassModel.yaml";
+      String fileName = modelFolder + "/typeScriptClassModel.yaml";
       try
       {
          Path path = Paths.get(fileName);

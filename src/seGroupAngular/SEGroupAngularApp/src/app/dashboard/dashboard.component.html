@@ -1,0 +1,13 @@
+
+<h3>Current Classes</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let seclass of classList" 
+      class="col-1-4"
+      routerLink='/detail/{{seclass.topic}}'>
+    <div class="module seclass">
+      <h4>{{seclass.topic}}</h4>
+    </div>
+  </a>
+</div>
+
+<app-seclass-search></app-seclass-search>

@@ -12,7 +12,7 @@
     "test": "mocha -r ts-node/register src/**/*.spec.ts"
   },
   "dependencies": {
-    "@fujaba/fulib-yaml-ts": "^1.0.1",
+    "@fujaba/fulib-yaml-ts": "^1.0.3",
     "@types/chai": "^4.1.7",
     "@types/express": "^4.16.1",
     "@types/mocha": "^5.2.6",

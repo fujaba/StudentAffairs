@@ -2,7 +2,8 @@
 import TGroup from './tGroupModel/TGroup';
 import TStudent from './tGroupModel/TStudent';
 
-import Yamler from "@fujaba/fulib-yaml-ts";
+import { Yamler, YamlIdMap } from '@fujaba/fulib-yaml-ts';
+
 import { expect } from 'chai';
 import 'mocha';
 
@@ -50,8 +51,10 @@ describe('TGroup model', () => {
 
       expect(alice.tGroup).equals(null);
 
-      // let text : string = JSON.stringify(tGroup);
-      // console.log(text);
+      const idMap: YamlIdMap = new YamlIdMap();
+      const yaml: string = idMap.encode([tGroup]);
+      
+      console.log(yaml);
     });
 
 

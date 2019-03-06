@@ -47,15 +47,21 @@ describe('TGroup model', () => {
       tGroup.withStudents(alice, bob);
       expect(tGroup.students.length).equals(3);
 
-      tGroup.removeYou();
-
-      expect(alice.tGroup).equals(null);
-
-      const idMap: YamlIdMap = new YamlIdMap();
+      let idMap: YamlIdMap = new YamlIdMap();
       const yaml: string = idMap.encode([tGroup]);
       
-      console.log(yaml);
+      console.log(yaml );
+
+      tGroup.removeYou();
+  
+      expect(alice.tGroup).equals(null);
+
+      const readMap = new YamlIdMap();
+      const newGroup = readMap.decode(yaml);
+
+
     });
+
 
 
   });

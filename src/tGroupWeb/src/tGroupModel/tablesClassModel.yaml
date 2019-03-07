@@ -1,65 +1,204 @@
 - c1: 	ClassModel
-  classes: 	tGroup2 	tStudent3 	
+  classes: 	theoryGroup2 	theoryStudent3 	seminar4 	presentation5 	
   defaultPropertyStyle: 	POJO
   defaultRoleType: 	"java.util.ArrayList<%s>"
   mainJavaDir: 	"src/tGroupWeb/src"
   packageName: 	tGroupModel
   packageSrcFolder: 	"src/tGroupWeb/src/tGroupModel"
 
-- tGroup2: 	Clazz
-  attributes: 	name4 	
+- theoryGroup2: 	Clazz
+  attributes: 	head6 	
   model: 	c1
   modified: 	false
-  name: 	TGroup
+  name: 	TheoryGroup
   propertyStyle: 	POJO
-  roles: 	students5 	
+  roles: 	seminars7 	students8 	
 
-- tStudent3: 	Clazz
-  attributes: 	studentId6 	name7 	
+- theoryStudent3: 	Clazz
+  attributes: 	studentId9 	name10 	ta_411 	
   model: 	c1
   modified: 	false
-  name: 	TStudent
+  name: 	TheoryStudent
   propertyStyle: 	POJO
-  roles: 	tGroup8 	
+  roles: 	group12 	presentations13 	
 
-- name4: 	Attribute
-  clazz: 	tGroup2
+- seminar4: 	Clazz
+  attributes: 	topic14 	term15 	
+  model: 	c1
   modified: 	false
-  name: 	name
+  name: 	Seminar
+  propertyStyle: 	POJO
+  roles: 	group16 	presentations17 	
+
+- presentation5: 	Clazz
+  attributes: 	slides18 	scholarship19 	content20 	total21 	grade22 	officeStatus23 	
+  model: 	c1
+  modified: 	false
+  name: 	Presentation
+  propertyStyle: 	POJO
+  roles: 	student24 	seminar25 	
+
+- head6: 	Attribute
+  clazz: 	theoryGroup2
+  modified: 	false
+  name: 	head
   propertyStyle: 	POJO
   type: 	String
 
-- students5: 	AssocRole
+- seminars7: 	AssocRole
   aggregation: 	false
   cardinality: 	42
-  clazz: 	tGroup2
+  clazz: 	theoryGroup2
   modified: 	false
-  name: 	students
-  other: 	tGroup8
+  name: 	seminars
+  other: 	group16
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- studentId6: 	Attribute
-  clazz: 	tStudent3
+- students8: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	theoryGroup2
+  modified: 	false
+  name: 	students
+  other: 	group12
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- studentId9: 	Attribute
+  clazz: 	theoryStudent3
   modified: 	false
   name: 	studentId
   propertyStyle: 	POJO
   type: 	String
 
-- name7: 	Attribute
-  clazz: 	tStudent3
+- name10: 	Attribute
+  clazz: 	theoryStudent3
   modified: 	false
   name: 	name
   propertyStyle: 	POJO
   type: 	String
 
-- tGroup8: 	AssocRole
+- ta_411: 	Attribute
+  clazz: 	theoryStudent3
+  modified: 	false
+  name: 	ta_4
+  propertyStyle: 	POJO
+  type: 	String
+
+- group12: 	AssocRole
   aggregation: 	false
   cardinality: 	1
-  clazz: 	tStudent3
+  clazz: 	theoryStudent3
   modified: 	false
-  name: 	tGroup
-  other: 	students5
+  name: 	group
+  other: 	students8
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- presentations13: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	theoryStudent3
+  modified: 	false
+  name: 	presentations
+  other: 	student24
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- topic14: 	Attribute
+  clazz: 	seminar4
+  modified: 	false
+  name: 	topic
+  propertyStyle: 	POJO
+  type: 	String
+
+- term15: 	Attribute
+  clazz: 	seminar4
+  modified: 	false
+  name: 	term
+  propertyStyle: 	POJO
+  type: 	String
+
+- group16: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	seminar4
+  modified: 	false
+  name: 	group
+  other: 	seminars7
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- presentations17: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	seminar4
+  modified: 	false
+  name: 	presentations
+  other: 	seminar25
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- slides18: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	slides
+  propertyStyle: 	POJO
+  type: 	int
+
+- scholarship19: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	scholarship
+  propertyStyle: 	POJO
+  type: 	int
+
+- content20: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	content
+  propertyStyle: 	POJO
+  type: 	String
+
+- total21: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	total
+  propertyStyle: 	POJO
+  type: 	int
+
+- grade22: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	grade
+  propertyStyle: 	POJO
+  type: 	String
+
+- officeStatus23: 	Attribute
+  clazz: 	presentation5
+  modified: 	false
+  name: 	officeStatus
+  propertyStyle: 	POJO
+  type: 	String
+
+- student24: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	presentation5
+  modified: 	false
+  name: 	student
+  other: 	presentations13
+  propertyStyle: 	POJO
+  roleType: 	"java.util.ArrayList<%s>"
+
+- seminar25: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	presentation5
+  modified: 	false
+  name: 	seminar
+  other: 	presentations17
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 

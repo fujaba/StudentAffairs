@@ -159,7 +159,7 @@
   modified: 	false
   name: 	content
   propertyStyle: 	POJO
-  type: 	int
+  type: 	String
 
 - total21: 	Attribute
   clazz: 	presentation5

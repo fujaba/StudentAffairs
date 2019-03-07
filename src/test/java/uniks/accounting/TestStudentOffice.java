@@ -143,7 +143,7 @@ public class TestStudentOffice
       ClassBuilder presentation = mb.buildClass("Presentation")
             .buildAttribute("slides", INT)
             .buildAttribute("scholarship", INT)
-            .buildAttribute("content", INT)
+            .buildAttribute("content", STRING)
             .buildAttribute("total", INT)
             .buildAttribute("grade", STRING)
             .buildAttribute("officeStatus", STRING);
@@ -158,6 +158,10 @@ public class TestStudentOffice
 
       Fulib.generator().generate(mb.getClassModel());
       Fulib.tablesGenerator().generate(mb.getClassModel());
+
+      ClassModel classModel = mb.getClassModel();
+      classModel.setMainJavaDir("src/tGroupWeb/src").setPackageName("tGroupModel");
+      new TypeScriptGenerator().generate(classModel);
    }
 
 

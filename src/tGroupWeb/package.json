@@ -9,20 +9,26 @@
     "build": "tsc",
     "dev": "nodemon -L",
     "start": "node ./dist/server.js",
-    "test": "mocha -r ts-node/register src/**/*.spec.ts"
+    "test": "jest"
   },
   "dependencies": {
-    "@fujaba/fulib-yaml-ts": "^1.0.3",
+    "@fujaba/fulib-yaml-ts": "^1.0.6",
     "@types/chai": "^4.1.7",
     "@types/express": "^4.16.1",
+    "@types/jest": "^24.0.9",
     "@types/mocha": "^5.2.6",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "express": "^4.16.4",
-    "mocha": "^6.0.1"
+    "jest": "^24.1.0",
+    "mocha": "^6.0.1",
+    "ts-jest": "^24.0.0",
+    "viz.js": "^2.1.2"
   },
   "devDependencies": {
+    "@types/node": "^11.10.4",
     "nodemon": "^1.18.10",
+    "tiny-worker": "^2.1.2",
     "ts-node": "^8.0.2",
     "typescript": "^3.3.3333"
   }

@@ -1,67 +1,94 @@
 
-import TGroup from './tGroupModel/TGroup';
-import TStudent from './tGroupModel/TStudent';
+import TheoryGroup from './tGroupModel/TheoryGroup';
+import TheoryStudent from './tGroupModel/TheoryStudent';
+
 
 import { Yamler, YamlIdMap } from '@fujaba/fulib-yaml-ts';
+import Seminar from './tGroupModel/Seminar';
+import Presentation from './tGroupModel/Presentation';
+import ObjectDiagrams from './Fulib/ObjectDiagrams';
 
-import { expect } from 'chai';
-import 'mocha';
+import * as Viz from 'viz.js';
+import { fstat } from 'fs';
+import * as fs from 'fs';
 
-describe('TGroup model', () => {
+const path = require('path');
+const Worker = require('tiny-worker');
 
-    it('should have class TGroup and TStudent', () => {
-      const tGroup = new TGroup();
-      expect(tGroup).to.be.not.undefined;
+test('tGroupmodel', async () => {
+      const tGroup = new TheoryGroup();
+      expect(tGroup).not.toBe(null);
 
-      tGroup.name = "Martin";
-      expect(tGroup.name).equals("Martin");
+      tGroup.head = "Martin";
+      expect(tGroup.head).toBe("Martin");
 
-      const alice = new TStudent();
-      expect(alice).to.be.not.undefined;
+      const alice = new TheoryStudent();
+      expect(alice).toBeTruthy();
       alice.name = "Alice";
       alice.studentId = "m42";
 
-      const carli = new TStudent();
+      const carli = new TheoryStudent();
       carli.name = "Carli";
       carli.studentId = "m23";
 
       tGroup.withStudents(alice, carli);
-      expect(tGroup.students).contains(alice);
-      expect(alice.tGroup).equals(tGroup);
-      expect(carli.tGroup).equals(tGroup);
+      expect(tGroup.students).toContain(alice);
+      expect(alice.group).toBe(tGroup);
+      expect(carli.group).toBe(tGroup);
 
-      alice.tGroup = null;
+      alice.group = null;
 
-      expect(tGroup.students).not.contains(alice);
-      expect(tGroup.students.length).equals(1);
+      expect(tGroup.students).not.toContain(alice);
+      expect(tGroup.students.length).toBe(1);
 
       // add it again
-      alice.tGroup = tGroup;
-      expect(tGroup.students.length).equals(2);
+      alice.group = tGroup;
+      expect(tGroup.students.length).toBe(2);
 
       // add bob
-      const bob = new TStudent();
+      const bob = new TheoryStudent();
       bob.name = "Bob";
       bob.studentId = "m84";
 
       tGroup.withStudents(alice, bob);
-      expect(tGroup.students.length).equals(3);
+      expect(tGroup.students.length).toBe(3);
+
+      // add seminar
+      const modelChecking = new Seminar();
+      modelChecking.topic = "Model Checking";
+      tGroup.withSeminars(modelChecking);
+
+      const present1 = new Presentation();
+      present1.content = "cool stuff";
+      modelChecking.withPresentations(present1);
+      alice.withPresentations(present1);
 
       let idMap: YamlIdMap = new YamlIdMap();
       const yaml: string = idMap.encode([tGroup]);
       
-      console.log(yaml );
+      // console.log(yaml );
+
+      const od = new ObjectDiagrams();
+      const dot = od.dump(tGroup);
+      console.log(dot);
+
+      const worker =  new Worker(path.resolve(__dirname, '../node_modules/viz.js/full.render.js'));
+      const viz = new Viz({ worker });
+      const result = await viz.renderString(dot);
+      worker.terminate();
+      console.log(result); 
+      if ( ! fs.existsSync('tmp'))
+      {
+        fs.mkdirSync('tmp');
+      } 
+      
+      await fs.writeFile('tmp/objDiag.svg', result, err => { console.log(err); });
+      
 
       tGroup.removeYou();
   
-      expect(alice.tGroup).equals(null);
+      expect(alice.group).toBe(null);
 
       const readMap = new YamlIdMap();
-      const newGroup = readMap.decode(yaml);
-
-
-    });
-
-
-
+      // const newGroup = readMap.decode(yaml);
   });

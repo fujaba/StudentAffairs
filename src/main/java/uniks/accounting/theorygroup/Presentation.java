@@ -28,27 +28,6 @@ public class Presentation
    }
 
 
-   public static final String PROPERTY_content = "content";
-
-   private int content;
-
-   public int getContent()
-   {
-      return content;
-   }
-
-   public Presentation setContent(int value)
-   {
-      if (value != this.content)
-      {
-         int oldValue = this.content;
-         this.content = value;
-         firePropertyChange("content", oldValue, value);
-      }
-      return this;
-   }
-
-
    public static final String PROPERTY_total = "total";
 
    private int total;
@@ -252,12 +231,33 @@ public class Presentation
       return this;
    }
 
+   public static final String PROPERTY_content = "content";
+
+   private String content;
+
+   public String getContent()
+   {
+      return content;
+   }
+
+   public Presentation setContent(String value)
+   {
+      if (value == null ? this.content != null : ! value.equals(this.content))
+      {
+         String oldValue = this.content;
+         this.content = value;
+         firePropertyChange("content", oldValue, value);
+      }
+      return this;
+   }
+
 
    @Override
    public String toString()
    {
       StringBuilder result = new StringBuilder();
 
+      result.append(" ").append(this.getContent());
       result.append(" ").append(this.getGrade());
       result.append(" ").append(this.getOfficeStatus());
 

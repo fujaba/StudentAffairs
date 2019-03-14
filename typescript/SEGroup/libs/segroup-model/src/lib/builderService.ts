@@ -33,11 +33,23 @@ export class SEGroupBuilder {
   constructor() {
     this.seGroup = new SEGroup();
     this.eventSource = new EventSource();
+    this.loadEventStorage();
     this.eventSource.eventListener = new LocalStorageListener(this.eventSource);
   }
 
   private seGroup: SEGroup;
   private eventSource: EventSource;
+
+  private loadEventStorage() {
+    console.log(`loading ${localStorage.length} events from localStorage...`);
+    for (let i = 0; i < localStorage.length; i++){
+      let key = localStorage.key(i);
+      let value = localStorage.getItem(key);
+      // console.log(key, value);
+      this.applyEvents(value);
+    }
+    console.log('      ...done');
+  }
 
   public applyEvents(yaml: string) {
     const yamler: Yamler = new Yamler();
@@ -53,6 +65,9 @@ export class SEGroupBuilder {
         case this.STUDENT_HIRED_AS_TA:
           break;
         case this.BUILD_SE_CLASS:
+          const topic = map.get(this.TOPIC);
+          const term = map.get(this.TERM);
+          this.buildSEClass(topic, term);
           break;
         case this.BUILD_ASSIGNMENT:
           break;

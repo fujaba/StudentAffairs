@@ -14,7 +14,7 @@ export class SeClassesComponent implements OnInit {
   public classes: SEClass[];
 
   constructor(private seGroupservice: SegroupService) { 
-    console.log("init SeClassesComponent");
+    // console.log("init SeClassesComponent");
     this.gb = this.seGroupservice.gb;
     this.classes = this.seGroupservice.gb.getSeGroup().classes;
   }

@@ -10,7 +10,7 @@ export class SegroupService {
   private _currentSEClass: SEClass  = undefined;
   
   constructor() {
-    console.log("segroup service init " + new Date().getTime());
+    // console.log("segroup service init " + new Date().getTime());
    }
 
    get gb() {

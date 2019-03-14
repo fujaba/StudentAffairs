@@ -12,3 +12,5 @@ src/seGroupAngular/yarn.lock
 src/seGroupAngular/SEGroupAngularApp/yarn.lock
 src/seGroupAngular/SEGroupAngularApp/.vscode/
 src/seGroupAngular/SEGroupAngularApp/e2e/
+typescript/.vscode/launch.json
+typescript/SEGroup/.editorconfig

@@ -1,0 +1,24 @@
+{
+  "npmScope": "SEGroup",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "segroup-app": {
+      "tags": []
+    },
+    "segroup-app-e2e": {
+      "tags": []
+    },
+    "segroup-server": {
+      "tags": []
+    },
+    "segroup-model": {
+      "tags": []
+    }
+  }
+}

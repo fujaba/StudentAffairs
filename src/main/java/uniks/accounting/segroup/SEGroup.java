@@ -170,6 +170,9 @@ public class SEGroup
       this.withoutClasses(this.getClasses().clone());
 
 
+      this.withoutClassFolder(this.getClassFolder().clone());
+
+
       this.withoutStudents(this.getStudents().clone());
 
 
@@ -295,5 +298,83 @@ public class SEGroup
    public static final String PROPERTY_classes = "classes";
 
    public static final String PROPERTY_students = "students";
+
+   public static final java.util.ArrayList<SEClassFolder> EMPTY_classFolder = new java.util.ArrayList<SEClassFolder>()
+   { @Override public boolean add(SEClassFolder value){ throw new UnsupportedOperationException("No direct add! Use xy.withClassFolder(obj)"); }};
+
+
+   public static final String PROPERTY_classFolder = "classFolder";
+
+   private java.util.ArrayList<SEClassFolder> classFolder = null;
+
+   public java.util.ArrayList<SEClassFolder> getClassFolder()
+   {
+      if (this.classFolder == null)
+      {
+         return EMPTY_classFolder;
+      }
+
+      return this.classFolder;
+   }
+
+   public SEGroup withClassFolder(Object... value)
+   {
+      if(value==null) return this;
+      for (Object item : value)
+      {
+         if (item == null) continue;
+         if (item instanceof java.util.Collection)
+         {
+            for (Object i : (java.util.Collection) item)
+            {
+               this.withClassFolder(i);
+            }
+         }
+         else if (item instanceof SEClassFolder)
+         {
+            if (this.classFolder == null)
+            {
+               this.classFolder = new java.util.ArrayList<SEClassFolder>();
+            }
+            if ( ! this.classFolder.contains(item))
+            {
+               this.classFolder.add((SEClassFolder)item);
+               ((SEClassFolder)item).setGroup(this);
+               firePropertyChange("classFolder", null, item);
+            }
+         }
+         else throw new IllegalArgumentException();
+      }
+      return this;
+   }
+
+
+
+   public SEGroup withoutClassFolder(Object... value)
+   {
+      if (this.classFolder == null || value==null) return this;
+      for (Object item : value)
+      {
+         if (item == null) continue;
+         if (item instanceof java.util.Collection)
+         {
+            for (Object i : (java.util.Collection) item)
+            {
+               this.withoutClassFolder(i);
+            }
+         }
+         else if (item instanceof SEClassFolder)
+         {
+            if (this.classFolder.contains(item))
+            {
+               this.classFolder.remove((SEClassFolder)item);
+               ((SEClassFolder)item).setGroup(null);
+               firePropertyChange("classFolder", item, null);
+            }
+         }
+      }
+      return this;
+   }
+
 
 }

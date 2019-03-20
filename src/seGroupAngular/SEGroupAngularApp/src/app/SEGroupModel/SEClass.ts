@@ -2,7 +2,9 @@ import Assignment from "./Assignment";
 
 import Achievement from "./Achievement";
 
-import SEGroup from "./SEGroup";
+import SEGroup from "./SEGroup";import SEClassFolder from "./SEClassFolder";
+
+
 
   export default class SEClass  
 {
@@ -13,7 +15,8 @@ import SEGroup from "./SEGroup";
     constructor() {
       this.topic = '';
       this.term = '';
-      // this._group = null;
+      this._group = null;
+      this._folder = null;
       this._assignments = [];
       this._participations = [];
 
@@ -57,7 +60,7 @@ import SEGroup from "./SEGroup";
         } else if (item instanceof Assignment) {
           if (!this._assignments.includes(item)) {
             this._assignments.push(item);
-            (item as Assignment).seClass = this as SEClass;
+            (item as Assignment).seClass = this;
           }
         }
       }
@@ -131,10 +134,33 @@ import SEGroup from "./SEGroup";
 
     public removeYou() {
       this.group = null;
+      this.folder = null;
       this.withoutAssignments(this._assignments);
       this.withoutParticipations(this._participations);
 
     }
+
+
+    private _folder: SEClassFolder;
+
+    get folder(): SEClassFolder {
+      return this._folder;
+    }
+
+    set folder(value: SEClassFolder) {
+      if (this._folder !== value) {
+        const oldValue: SEClassFolder = this._folder;
+        if (this._folder) {
+          this._folder = null;
+          oldValue.withoutClasses(this);
+        }
+        this._folder = value;
+        if (value) {
+          value.withClasses(this);
+        }
+      }
+    }
+
 
 
 }

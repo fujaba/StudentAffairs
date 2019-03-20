@@ -159,7 +159,7 @@ public class TheoryGroupBuilder
 
       if (presentation.getSlides() == slidesPoints
       && presentation.getScholarship() == scholarshipPoints
-      && presentation.getContent() == contentPoints)
+      && presentation.getContent().equals(content))
       {
          return;
       }
@@ -167,7 +167,7 @@ public class TheoryGroupBuilder
       presentation
             .setSlides(slidesPoints)
             .setScholarship(scholarshipPoints)
-            .setContent(contentPoints)
+            .setContent(content)
             .setTotal(slidesPoints + scholarshipPoints + contentPoints);
 
       StringBuilder buf = new StringBuilder()
@@ -215,8 +215,7 @@ public class TheoryGroupBuilder
    public void gradePresentation(Presentation presentation)
    {
       double totalPoints = presentation.getSlides()
-            + presentation.getScholarship()
-            + presentation.getContent();
+            + presentation.getScholarship();
 
 
       double missed = 30.0 - totalPoints;

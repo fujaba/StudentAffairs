@@ -274,6 +274,7 @@ public class SEClass
    public void removeYou()
    {
       this.setGroup(null);
+      this.setFolder(null);
 
       this.withoutAssignments(this.getAssignments().clone());
 
@@ -321,5 +322,36 @@ public class SEClass
    public static final String PROPERTY_assignments = "assignments";
 
    public static final String PROPERTY_participations = "participations";
+
+   public static final String PROPERTY_folder = "folder";
+
+   private SEClassFolder folder = null;
+
+   public SEClassFolder getFolder()
+   {
+      return this.folder;
+   }
+
+   public SEClass setFolder(SEClassFolder value)
+   {
+      if (this.folder != value)
+      {
+         SEClassFolder oldValue = this.folder;
+         if (this.folder != null)
+         {
+            this.folder = null;
+            oldValue.withoutClasses(this);
+         }
+         this.folder = value;
+         if (value != null)
+         {
+            value.withClasses(this);
+         }
+         firePropertyChange("folder", oldValue, value);
+      }
+      return this;
+   }
+
+
 
 }

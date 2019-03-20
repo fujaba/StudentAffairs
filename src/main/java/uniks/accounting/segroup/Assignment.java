@@ -188,6 +188,7 @@ public class Assignment
    public void removeYou()
    {
       this.setSeClass(null);
+      this.setSolutionFolder(null);
 
       this.withoutSolutions(this.getSolutions().clone());
 
@@ -240,5 +241,36 @@ public class Assignment
    public static final String PROPERTY_seClass = "seClass";
 
    public static final String PROPERTY_solutions = "solutions";
+
+   public static final String PROPERTY_solutionFolder = "solutionFolder";
+
+   private SolutionFolder solutionFolder = null;
+
+   public SolutionFolder getSolutionFolder()
+   {
+      return this.solutionFolder;
+   }
+
+   public Assignment setSolutionFolder(SolutionFolder value)
+   {
+      if (this.solutionFolder != value)
+      {
+         SolutionFolder oldValue = this.solutionFolder;
+         if (this.solutionFolder != null)
+         {
+            this.solutionFolder = null;
+            oldValue.setAssignment(null);
+         }
+         this.solutionFolder = value;
+         if (value != null)
+         {
+            value.setAssignment(this);
+         }
+         firePropertyChange("solutionFolder", oldValue, value);
+      }
+      return this;
+   }
+
+
 
 }

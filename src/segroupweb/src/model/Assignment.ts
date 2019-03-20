@@ -1,6 +1,8 @@
 import Solution from "./Solution";
 
-import SEClass from "./SEClass";
+import SEClass from "./SEClass";import SolutionFolder from "./SolutionFolder";
+
+
 
   export default class Assignment  
 {
@@ -13,6 +15,7 @@ import SEClass from "./SEClass";
       this.points = 0;
       this._seClass = null;
       this._solutions = [];
+      this._solutionFolder = null;
 
     }
 
@@ -85,8 +88,31 @@ import SEClass from "./SEClass";
     public removeYou() {
       this.seClass = null;
       this.withoutSolutions(this._solutions);
+      this.solutionFolder = null;
 
     }
+
+
+    private _solutionFolder: SolutionFolder;
+
+    get solutionFolder(): SolutionFolder {
+      return this._solutionFolder;
+    }
+
+    set solutionFolder(value: SolutionFolder) {
+      if (this._solutionFolder !== value) {
+        const oldValue: SolutionFolder = this._solutionFolder;
+        if (this._solutionFolder) {
+          this._solutionFolder = null;
+          oldValue.assignment = null;
+        }
+        this._solutionFolder = value;
+        if (value) {
+          value.assignment = this;
+        }
+      }
+    }
+
 
 
 }

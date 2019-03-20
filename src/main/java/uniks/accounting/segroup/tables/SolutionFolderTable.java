@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import java.util.LinkedHashMap;
 
-import uniks.accounting.segroup.SEGroup;
+import uniks.accounting.segroup.SolutionFolder;
 
-import uniks.accounting.segroup.SEClass;
+import uniks.accounting.segroup.Solution;
 
-import uniks.accounting.segroup.SEStudent;
+import uniks.accounting.segroup.Assignment;
 
 import java.util.Arrays;
 
@@ -16,16 +16,14 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
-import uniks.accounting.segroup.SEClassFolder;
-
-public class SEGroupTable  
+public class SolutionFolderTable 
 {
 
-   public SEGroupTable(SEGroup... start)
+   public SolutionFolderTable(SolutionFolder... start)
    {
-      this.setColumnName("SEGroup");
+      this.setColumnName("SolutionFolder");
       columnMap.put(this.getColumnName(), 0);
-      for (SEGroup current : start)
+      for (SolutionFolder current : start)
       {
          ArrayList<Object> row = new ArrayList<>();
          row.add(current);
@@ -40,7 +38,7 @@ public class SEGroupTable
       return table;
    }
 
-   public SEGroupTable setTable(ArrayList<ArrayList<Object>> value)
+   public SolutionFolderTable setTable(ArrayList<ArrayList<Object>> value)
    {
       this.table = value;
       return this;
@@ -54,7 +52,7 @@ public class SEGroupTable
       return columnName;
    }
 
-   public SEGroupTable setColumnName(String value)
+   public SolutionFolderTable setColumnName(String value)
    {
       this.columnName = value;
       return this;
@@ -68,14 +66,14 @@ public class SEGroupTable
       return columnMap;
    }
 
-   public SEGroupTable setColumnMap(LinkedHashMap<String, Integer> value)
+   public SolutionFolderTable setColumnMap(LinkedHashMap<String, Integer> value)
    {
       this.columnMap = value;
       return this;
    }
 
 
-   public StringTable expandHead(String... rowName)
+   public StringTable expandName(String... rowName)
    {
       StringTable result = new StringTable();
       result.setColumnMap(this.columnMap);
@@ -89,17 +87,17 @@ public class SEGroupTable
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
+         SolutionFolder start = (SolutionFolder) row.get(columnMap.get(this.getColumnName()));
          ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
-         newRow.add(start.getHead());
+         newRow.add(start.getName());
          this.table.add(newRow);
       }
       return result;
    }
 
-   public SEClassTable expandClasses(String... rowName)
+   public SolutionTable expandSolutions(String... rowName)
    {
-      SEClassTable result = new SEClassTable();
+      SolutionTable result = new SolutionTable();
       result.setColumnMap(this.columnMap);
       result.setTable(table);
       int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
@@ -112,8 +110,8 @@ public class SEGroupTable
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
-         for (SEClass current : start.getClasses())
+         SolutionFolder start = (SolutionFolder) row.get(columnMap.get(this.getColumnName()));
+         for (Solution current : start.getSolutions())
          {
             ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
             newRow.add(current);
@@ -123,15 +121,15 @@ public class SEGroupTable
       return result;
    }
 
-   public SEGroupTable hasClasses(SEClassTable rowName)
+   public SolutionFolderTable hasSolutions(SolutionTable rowName)
    {
       ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
-         SEClass other = (SEClass) row.get(columnMap.get(rowName.getColumnName()));
-         if (start.getClasses().contains(other))
+         SolutionFolder start = (SolutionFolder) row.get(columnMap.get(this.getColumnName()));
+         Solution other = (Solution) row.get(columnMap.get(rowName.getColumnName()));
+         if (start.getSolutions().contains(other))
          {
             this.table.add(row);
          }
@@ -139,9 +137,9 @@ public class SEGroupTable
       return this;
    }
 
-   public SEStudentTable expandStudents(String... rowName)
+   public SolutionFolderTable expandSubFolders(String... rowName)
    {
-      SEStudentTable result = new SEStudentTable();
+      SolutionFolderTable result = new SolutionFolderTable();
       result.setColumnMap(this.columnMap);
       result.setTable(table);
       int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
@@ -154,8 +152,8 @@ public class SEGroupTable
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
-         for (SEStudent current : start.getStudents())
+         SolutionFolder start = (SolutionFolder) row.get(columnMap.get(this.getColumnName()));
+         for (SolutionFolder current : start.getSubFolders())
          {
             ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
             newRow.add(current);
@@ -165,15 +163,15 @@ public class SEGroupTable
       return result;
    }
 
-   public SEGroupTable hasStudents(SEStudentTable rowName)
+   public SolutionFolderTable hasSubFolders(SolutionFolderTable rowName)
    {
       ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
-         SEStudent other = (SEStudent) row.get(columnMap.get(rowName.getColumnName()));
-         if (start.getStudents().contains(other))
+         SolutionFolder start = (SolutionFolder) row.get(columnMap.get(this.getColumnName()));
+         SolutionFolder other = (SolutionFolder) row.get(columnMap.get(rowName.getColumnName()));
+         if (start.getSubFolders().contains(other))
          {
             this.table.add(row);
          }
@@ -181,7 +179,85 @@ public class SEGroupTable
       return this;
    }
 
-   public SEGroupTable selectColumns(String... columnNames)
+   public SolutionFolderTable expandParent(String... rowName)
+   {
+      SolutionFolderTable result = new SolutionFolderTable();
+      result.setColumnMap(this.columnMap);
+      result.setTable(table);
+      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
+
+      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
+      result.setColumnName(newColumnName);
+      columnMap.put(newColumnName, newColumnNumber);
+
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SolutionFolder start = (SolutionFolder) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getParent());
+         this.table.add(newRow);
+      }
+      return result;
+   }
+
+   public SolutionFolderTable hasParent(SolutionFolderTable rowName)
+   {
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SolutionFolder start = (SolutionFolder) row.get(columnMap.get(this.getColumnName()));
+         SolutionFolder other = (SolutionFolder) row.get(columnMap.get(rowName.getColumnName()));
+         if (start.getParent() == other)
+         {
+            this.table.add(row);
+         }
+      }
+      return this;
+   }
+
+   public AssignmentTable expandAssignment(String... rowName)
+   {
+      AssignmentTable result = new AssignmentTable();
+      result.setColumnMap(this.columnMap);
+      result.setTable(table);
+      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
+
+      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
+      result.setColumnName(newColumnName);
+      columnMap.put(newColumnName, newColumnNumber);
+
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SolutionFolder start = (SolutionFolder) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getAssignment());
+         this.table.add(newRow);
+      }
+      return result;
+   }
+
+   public SolutionFolderTable hasAssignment(AssignmentTable rowName)
+   {
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SolutionFolder start = (SolutionFolder) row.get(columnMap.get(this.getColumnName()));
+         Assignment other = (Assignment) row.get(columnMap.get(rowName.getColumnName()));
+         if (start.getAssignment() == other)
+         {
+            this.table.add(row);
+         }
+      }
+      return this;
+   }
+
+   public SolutionFolderTable selectColumns(String... columnNames)
    {
       LinkedHashMap<String, Integer> oldColumnMap = (LinkedHashMap<String, Integer>) this.columnMap.clone();
       this.columnMap.clear();
@@ -214,7 +290,7 @@ public class SEGroupTable
       return this;
    }
 
-   public SEGroupTable dropColumns(String... columnNames)
+   public SolutionFolderTable dropColumns(String... columnNames)
    {
       LinkedHashMap<String, Integer> oldColumnMap = (LinkedHashMap<String, Integer>) this.columnMap.clone();
       this.columnMap.clear();
@@ -266,13 +342,13 @@ public class SEGroupTable
       this.columnMap.put(columnName, newColumnNumber);
    }
 
-   public SEGroupTable filter(Predicate< SEGroup > predicate)
+   public SolutionFolderTable filter(Predicate< SolutionFolder > predicate)
    {
       ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
       this.table.clear();
       for (ArrayList<Object> row : oldTable)
       {
-         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
+         SolutionFolder start = (SolutionFolder) row.get(columnMap.get(this.getColumnName()));
          if (predicate.test(start))
          {
             this.table.add(row);
@@ -281,7 +357,7 @@ public class SEGroupTable
       return this;
    }
 
-   public SEGroupTable filterRow(Predicate<LinkedHashMap<String,Object> > predicate)
+   public SolutionFolderTable filterRow(Predicate<LinkedHashMap<String,Object> > predicate)
    {
       ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
       this.table.clear();
@@ -300,12 +376,12 @@ public class SEGroupTable
       return this;
    }
 
-   public LinkedHashSet< SEGroup > toSet()
+   public LinkedHashSet< SolutionFolder > toSet()
    {
-      LinkedHashSet< SEGroup > result = new LinkedHashSet<>();
+      LinkedHashSet< SolutionFolder > result = new LinkedHashSet<>();
       for (ArrayList row : this.table)
       {
-         SEGroup value = (SEGroup) row.get(columnMap.get(columnName));
+         SolutionFolder value = (SolutionFolder) row.get(columnMap.get(columnName));
          result.add(value);
       }
       return result;
@@ -331,47 +407,5 @@ public class SEGroupTable
       return buf.toString();
    }
 
-
-   public SEClassFolderTable expandClassFolder(String... rowName)
-   {
-      SEClassFolderTable result = new SEClassFolderTable();
-      result.setColumnMap(this.columnMap);
-      result.setTable(table);
-      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
-
-      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
-      result.setColumnName(newColumnName);
-      columnMap.put(newColumnName, newColumnNumber);
-
-      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
-      this.table.clear();
-      for (ArrayList<Object> row : oldTable)
-      {
-         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
-         for (SEClassFolder current : start.getClassFolder())
-         {
-            ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
-            newRow.add(current);
-            this.table.add(newRow);
-         }
-      }
-      return result;
-   }
-
-   public SEGroupTable hasClassFolder(SEClassFolderTable rowName)
-   {
-      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
-      this.table.clear();
-      for (ArrayList<Object> row : oldTable)
-      {
-         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
-         SEClassFolder other = (SEClassFolder) row.get(columnMap.get(rowName.getColumnName()));
-         if (start.getClassFolder().contains(other))
-         {
-            this.table.add(row);
-         }
-      }
-      return this;
-   }
 
 }

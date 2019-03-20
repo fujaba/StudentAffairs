@@ -16,6 +16,8 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
+import uniks.accounting.segroup.SolutionFolder;
+
 public class AssignmentTable  
 {
 
@@ -347,6 +349,45 @@ public class AssignmentTable
          this.table.add(newRow);
       }
       return result;
+   }
+
+   public SolutionFolderTable expandSolutionFolder(String... rowName)
+   {
+      SolutionFolderTable result = new SolutionFolderTable();
+      result.setColumnMap(this.columnMap);
+      result.setTable(table);
+      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
+
+      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
+      result.setColumnName(newColumnName);
+      columnMap.put(newColumnName, newColumnNumber);
+
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         Assignment start = (Assignment) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getSolutionFolder());
+         this.table.add(newRow);
+      }
+      return result;
+   }
+
+   public AssignmentTable hasSolutionFolder(SolutionFolderTable rowName)
+   {
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         Assignment start = (Assignment) row.get(columnMap.get(this.getColumnName()));
+         SolutionFolder other = (SolutionFolder) row.get(columnMap.get(rowName.getColumnName()));
+         if (start.getSolutionFolder() == other)
+         {
+            this.table.add(row);
+         }
+      }
+      return this;
    }
 
 }

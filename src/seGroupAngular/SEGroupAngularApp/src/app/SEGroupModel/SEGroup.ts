@@ -1,6 +1,8 @@
 import SEStudent from "./SEStudent";
 
-import SEClass from "./SEClass";
+import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";
+
+
 
   export default class SEGroup  
 {
@@ -9,6 +11,7 @@ import SEClass from "./SEClass";
     constructor() {
       this.head = '';
       this._classes = [];
+      this._classFolder = [];
       this._students = [];
 
     }
@@ -103,8 +106,53 @@ import SEClass from "./SEClass";
 
     public removeYou() {
       this.withoutClasses(this._classes);
+      this.withoutClassFolder(this._classFolder);
       this.withoutStudents(this._students);
 
+    }
+
+
+    private _classFolder: SEClassFolder[];
+
+    get classFolder(): SEClassFolder[] {
+      return this._classFolder;
+    }
+
+    public withClassFolder(...value: any[]): SEGroup {
+      if (!value) return this;
+
+      for (const item of value) {
+        if (!item) continue;
+        if (item instanceof Array) {
+          this.withClassFolder(item);
+        } else if (item instanceof SEClassFolder) {
+          if (!this._classFolder.includes(item)) {
+            this._classFolder.push(item);
+            (item as SEClassFolder).group = this;
+          }
+        }
+      }
+
+      return this;
+    }
+
+
+
+    public withoutClassFolder(...value: any[]): SEGroup {
+      if (this._classFolder === [] || !value) return this;
+
+      for (const item of value) {
+        if (!item) continue;
+        if (item instanceof Array) {
+          this.withoutClassFolder(...item);
+        } else if (item instanceof SEClassFolder) {
+          if (this._classFolder.includes(item)) {
+            this._classFolder.splice(this._classFolder.indexOf(item, 0), 1);
+            (item as SEClassFolder).group = null;
+          }
+        }
+      }
+      return this;
     }
 
 

@@ -172,6 +172,7 @@ public class Solution
    {
       this.setAchievement(null);
       this.setAssignment(null);
+      this.setFolder(null);
 
    }
 
@@ -179,5 +180,36 @@ public class Solution
    public static final String PROPERTY_achievement = "achievement";
 
    public static final String PROPERTY_assignment = "assignment";
+
+   public static final String PROPERTY_folder = "folder";
+
+   private SolutionFolder folder = null;
+
+   public SolutionFolder getFolder()
+   {
+      return this.folder;
+   }
+
+   public Solution setFolder(SolutionFolder value)
+   {
+      if (this.folder != value)
+      {
+         SolutionFolder oldValue = this.folder;
+         if (this.folder != null)
+         {
+            this.folder = null;
+            oldValue.withoutSolutions(this);
+         }
+         this.folder = value;
+         if (value != null)
+         {
+            value.withSolutions(this);
+         }
+         firePropertyChange("folder", oldValue, value);
+      }
+      return this;
+   }
+
+
 
 }

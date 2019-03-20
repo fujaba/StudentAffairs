@@ -94,23 +94,33 @@ public class TestStudentOffice
       ClassBuilder seClass = mb.buildClass("SEClass")
             .buildAttribute("topic", STRING)
             .buildAttribute("term", STRING);
+      ClassBuilder seClassFolder = mb.buildClass("SEClassFolder")
+            .buildAttribute("name", STRING);
       ClassBuilder achievement = mb.buildClass("Achievement")
             .buildAttribute("grade", STRING)
             .buildAttribute("officeStatus", STRING);
       ClassBuilder solution = mb.buildClass("Solution")
             .buildAttribute("gitUrl", STRING)
             .buildAttribute("points", DOUBLE);
+      ClassBuilder solutionFolder = mb.buildClass("SolutionFolder")
+            .buildAttribute("name", STRING);
       ClassBuilder assignment = mb.buildClass("Assignment")
             .buildAttribute("task", STRING)
             .buildAttribute("points", DOUBLE);
 
       seGroup.buildAssociation(seClass, "classes", MANY, "group", ONE);
+      seGroup.buildAssociation(seClassFolder, "classFolder", MANY, "group", ONE);
+      seClassFolder.buildAssociation(seClassFolder, "subFolders", MANY, "parent", ONE);
+      seClassFolder.buildAssociation(seClass, "classes", MANY, "folder", ONE);
       seGroup.buildAssociation(seStudent, "students", MANY, "group", ONE);
       seClass.buildAssociation(assignment, "assignments", MANY, "seClass", ONE);
       seClass.buildAssociation(achievement, "participations", MANY, "seClass", ONE);
       seStudent.buildAssociation(achievement, "achievements", MANY, "student", ONE);
       achievement.buildAssociation(solution, "solutions", MANY, "achievement", ONE);
       solution.buildAssociation(assignment, "assignment", ONE, "solutions", MANY);
+      solution.buildAssociation(solutionFolder, "folder", ONE, "solutions", MANY);
+      solutionFolder.buildAssociation(solutionFolder, "subFolders", MANY, "parent", ONE);
+      assignment.buildAssociation(solutionFolder, "solutionFolder", ONE, "assignment", ONE);
 
       ClassModel classModel = mb.getClassModel();
       String fileName = FulibTools.classDiagrams().dumpSVG(classModel, "tmp/SEGroupModel.svg");

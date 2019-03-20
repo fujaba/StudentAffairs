@@ -8,7 +8,7 @@ export const EventSchema = new mongoose.Schema({
     yaml: String
 });
 
-EventSchema.index({eventKey: 1});
+EventSchema.index({eventKey: 1}, {unique: true});
 EventSchema.index({parentKey: 1});
 EventSchema.index({eventTimestamp: 1});
 EventSchema.index({eventType: 1});

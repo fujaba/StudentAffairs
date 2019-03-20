@@ -18,6 +18,8 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
+import uniks.accounting.segroup.SEClassFolder;
+
 public class SEClassTable  
 {
 
@@ -391,6 +393,45 @@ public class SEClassTable
          this.table.add(newRow);
       }
       return result;
+   }
+
+   public SEClassFolderTable expandFolder(String... rowName)
+   {
+      SEClassFolderTable result = new SEClassFolderTable();
+      result.setColumnMap(this.columnMap);
+      result.setTable(table);
+      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
+
+      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
+      result.setColumnName(newColumnName);
+      columnMap.put(newColumnName, newColumnNumber);
+
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SEClass start = (SEClass) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getFolder());
+         this.table.add(newRow);
+      }
+      return result;
+   }
+
+   public SEClassTable hasFolder(SEClassFolderTable rowName)
+   {
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SEClass start = (SEClass) row.get(columnMap.get(this.getColumnName()));
+         SEClassFolder other = (SEClassFolder) row.get(columnMap.get(rowName.getColumnName()));
+         if (start.getFolder() == other)
+         {
+            this.table.add(row);
+         }
+      }
+      return this;
    }
 
 }

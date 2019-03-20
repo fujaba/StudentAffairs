@@ -134,6 +134,9 @@ public class TestStudentOffice
 
       classModel.setMainJavaDir("src/seGroupAngular/SEGroupAngularApp/src/app").setPackageName("SEGroupModel");
       new TypeScriptGenerator().generate(classModel);
+
+      classModel.setMainJavaDir("typescript/SEGroup/libs/segroup-model/src").setPackageName("lib");
+      new TypeScriptGenerator().generate(classModel);
    }
 
    @Test

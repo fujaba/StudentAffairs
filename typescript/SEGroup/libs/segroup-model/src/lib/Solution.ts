@@ -1,6 +1,8 @@
 import Assignment from "./Assignment";
 
-import Achievement from "./Achievement";
+import Achievement from "./Achievement";import SolutionFolder from "./SolutionFolder";
+
+
 
   export default class Solution  
 {
@@ -13,6 +15,7 @@ import Achievement from "./Achievement";
       this.points = 0;
       this._achievement = null;
       this._assignment = null;
+      this._folder = null;
 
     }
 
@@ -63,8 +66,31 @@ import Achievement from "./Achievement";
     public removeYou() {
       this.achievement = null;
       this.assignment = null;
+      this.folder = null;
 
     }
+
+
+    private _folder: SolutionFolder;
+
+    get folder(): SolutionFolder {
+      return this._folder;
+    }
+
+    set folder(value: SolutionFolder) {
+      if (this._folder !== value) {
+        const oldValue: SolutionFolder = this._folder;
+        if (this._folder) {
+          this._folder = null;
+          oldValue.withoutSolutions(this);
+        }
+        this._folder = value;
+        if (value) {
+          value.withSolutions(this);
+        }
+      }
+    }
+
 
 
 }

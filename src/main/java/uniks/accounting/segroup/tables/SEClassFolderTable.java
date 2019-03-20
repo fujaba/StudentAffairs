@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 
 import java.util.LinkedHashSet;
 
-public class SEClassFolderTable 
+public class SEClassFolderTable  
 {
 
    public SEClassFolderTable(SEClassFolder... start)

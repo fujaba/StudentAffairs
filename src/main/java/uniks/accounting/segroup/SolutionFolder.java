@@ -4,7 +4,7 @@ import java.beans.PropertyChangeSupport;
 
 import java.beans.PropertyChangeListener;
 
-public class SolutionFolder 
+public class SolutionFolder  
 {
 
    public static final String PROPERTY_name = "name";

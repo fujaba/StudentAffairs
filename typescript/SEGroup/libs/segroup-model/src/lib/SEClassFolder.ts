@@ -2,8 +2,7 @@ import SEClassFolder from "./SEClassFolder";import SEClass from "./SEClass";
 
 import SEGroup from "./SEGroup";
 
-  export default class SEClassFolder  
-{
+  export default class SEClassFolder {
     public name: string ;
 
     constructor() {

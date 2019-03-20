@@ -1,24 +1,21 @@
-<h2>
+<h3>
   SE Classes:
-</h2>
-
-<a class="ui button" routerLink="/se-class-edit">
-  Add new SEClass
-</a>
+</h3>
+<p style="text-align:center">
+  <a class="ui button" routerLink="/se-class-edit" >
+    Add new SEClass
+  </a>
+</p>
+<h3> </h3>
 <div>
-  <table class="ui sortable celled table">
-    <thead>
-      <tr>
-        <th>Topic</th>
-        <th>Term</th>
-        <th></th>
-      </tr>
-    </thead>
+  <table class="ui sortable unstackable celled table" colspan="10" >
     <tbody>
       <tr *ngFor="let seClass of classes">
-        <td data-label="Topic">{{seClass.topic}}</td>
-        <td data-label="Term">{{seClass.term}}</td>
-        <td class="right aligned collapsing" data-label="Del"><button class="ui button">X</button></td>
+        <td class="eight wide" data-label="Topic">{{seClass.topic}}</td>
+        <td class="one wide" data-label="Term">{{seClass.term}}</td>
+        <td class="one wide center aligned" data-label="Del">
+          <button class="ui button" (click)="removeSEClass(seClass)">X</button>
+        </td>
       </tr>
     </tbody>
   </table>

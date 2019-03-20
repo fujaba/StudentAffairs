@@ -12,6 +12,7 @@ export class SEGroupBuilder {
   STUDENT_ID = 'studentId';
   NAME = 'name';
   BUILD_SE_CLASS = 'buildSEClass';
+  public static REMOVE_SE_CLASS = 'removeSEClass';
   TOPIC = 'topic';
   TERM = 'term';
   TASK = 'task';
@@ -42,10 +43,10 @@ export class SEGroupBuilder {
 
   private loadEventStorage() {
     console.log(`loading ${localStorage.length} events from localStorage...`);
-    for (let i = 0; i < localStorage.length; i++){
+    for (let i = 0; i < localStorage.length; i++) {
       let key = localStorage.key(i);
       let value = localStorage.getItem(key);
-      // console.log(key, value);
+      console.log(key, value);
       this.applyEvents(value);
     }
     console.log('      ...done');
@@ -56,6 +57,8 @@ export class SEGroupBuilder {
     const list: Array<Map<string, string>> = yamler.decodeList(yaml);
 
     for (const map of list) {
+      if (this.eventSource.isOverwritten(map)) continue;
+
       switch (map.get(EventSource.EVENT_TYPE)) {
         case this.BUILD_SE_GROUP:
           this.buildSEGroup(map.get(this.HEAD));
@@ -65,10 +68,19 @@ export class SEGroupBuilder {
         case this.STUDENT_HIRED_AS_TA:
           break;
         case this.BUILD_SE_CLASS:
-          const topic = map.get(this.TOPIC);
-          const term = map.get(this.TERM);
-          this.buildSEClass(topic, term);
-          break;
+          {
+            const topic = map.get(this.TOPIC);
+            const term = map.get(this.TERM);
+            this.buildSEClass(topic, term);
+            break;
+          }
+        case SEGroupBuilder.REMOVE_SE_CLASS:
+          {
+            const topic = map.get(this.TOPIC);
+            const term = map.get(this.TERM);
+            this.removeSEClassByTopicTerm(topic, term);
+            break;
+          }
         case this.BUILD_ASSIGNMENT:
           break;
         case this.BUILD_ACHIEVEMENT:
@@ -87,6 +99,8 @@ export class SEGroupBuilder {
       }
     }
   }
+
+  
 
   public buildSEGroup(head?: string): SEGroup {
     if (!head) throw new Error('Missing variable head in last event');
@@ -128,6 +142,35 @@ export class SEGroupBuilder {
 
     return myClass;
   }
+
+  public removeSEClassByTopicTerm(topic: string, term: string): void {
+    for (const seClass of this.seGroup.classes) {
+      if (seClass.topic === topic && seClass.term === term)
+      {
+        this.removeSEClass(seClass);
+      }
+    }
+  }
+  
+  public removeSEClass(seClass: SEClass): void {
+    const pos = this.getSeGroup().classes.indexOf(seClass);
+    if (pos < 0) {
+      // we don't have it
+      return;
+    }
+
+    this.getSeGroup().withoutClasses(seClass);
+
+    // log event
+    const event = new Map<string, string>();
+    event.set(EventSource.EVENT_TYPE, SEGroupBuilder.REMOVE_SE_CLASS);
+    event.set(EventSource.EVENT_KEY, seClass.topic + seClass.term);
+    event.set(this.TOPIC, seClass.topic);
+    event.set(this.TERM, seClass.term);
+
+    this.getEventSource().appendEvent(event);
+  }
+
 
   public getSeGroup(): SEGroup {
     return this.seGroup;

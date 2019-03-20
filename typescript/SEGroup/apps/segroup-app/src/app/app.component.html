@@ -25,15 +25,19 @@
         </div>
       </div>
       <div class="ui basic segment">
-          <div style="text-align:center">
-            <h1>Welcome to SEGroup App</h1>
-          </div>
-        
-          <router-outlet></router-outlet>
-
-          
+        <div style="text-align:center">
+          <h2>Welcome to SEGroup App</h2>
+          <p>
+            <button class="ui button" (click)="uploadAction()">Upload</button>
+            <button class="ui button" (click)="downloadAction()">Download</button>
+            <button class="ui button" (click)="syncAction()">Sync</button>
+          </p>
+          <p></p>
         </div>
+
+        <router-outlet></router-outlet>
+
       </div>
+    </div>
   </sui-sidebar-sibling>
 </sui-sidebar-container>
-

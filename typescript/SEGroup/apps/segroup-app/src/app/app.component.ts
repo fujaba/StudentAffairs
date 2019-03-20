@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { SegroupService } from './segroup.service';
 
 @Component({
@@ -13,10 +12,19 @@ export class AppComponent implements OnInit {
   serverResult = {'yaml': '- text: loading ...'};
 
   constructor(
-    private http: HttpClient,
+    // private http: HttpClient,
     private seGroupservice: SegroupService) { }
 
   public ngOnInit() { }
 
+  uploadAction() {
+    this.seGroupservice.uploadAction();
+  }
 
+  downloadAction() {
+    this.seGroupservice.downloadAction();
+  }
+  syncAction() {
+    this.seGroupservice.syncAction();
+  }
 }

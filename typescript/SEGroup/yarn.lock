@@ -278,10 +278,10 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@fujaba/fulib-yaml-ts@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@fujaba/fulib-yaml-ts/-/fulib-yaml-ts-1.0.6.tgz#ef5571bb6ea52185f039d71aba9eb6401357d007"
-  integrity sha512-Q+B1wBy8Yc1EBjnDgop4/o7T++AyqxwL6xK/yY1g5JDicbIjlRtTOwV+LkfI0jJRdtUKPBjnAKa14dm6XvY4RA==
+"@fujaba/fulib-yaml-ts@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@fujaba/fulib-yaml-ts/-/fulib-yaml-ts-1.0.9.tgz#ae25a48dfa37bf874145942eba86ebc658236297"
+  integrity sha512-Dzw/B6busdKMG2dYvi3b3lxxsSDlsflZspYUXS/sfviZ5q88HmaITceBvoQaN5F1t82wXZ3Ic8C2BbeIwxCSUw==
   dependencies:
     "@types/node" "^11.9.5"
 

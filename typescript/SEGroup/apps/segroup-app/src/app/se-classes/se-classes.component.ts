@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SegroupService } from '../segroup.service';
 import { SEGroupBuilder } from '@SEGroup/segroup-model';
-import { SuiModalService } from 'ng2-semantic-ui';
 import SEClass from 'libs/segroup-model/src/lib/SEClass';
 
 @Component({
@@ -22,6 +21,7 @@ export class SeClassesComponent implements OnInit {
   ngOnInit() {
   }
 
-
-
+  public removeSEClass(seClass: SEClass): void {
+    this.gb.removeSEClass(seClass);
+  }
 }

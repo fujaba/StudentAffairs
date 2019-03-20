@@ -15,11 +15,13 @@ export class LocalStorageListener implements ESEventListener {
             const key = event.get(EventSource.EVENT_KEY);
             localStorage.setItem(key, yaml);
 
-            for (let i = 0; i < localStorage.length; i++) {
-                let key = localStorage.key(i);
-                let value = localStorage.getItem(key);
-                // console.log(key, value);
-            }
+            // for (let i = 0; i < localStorage.length; i++) {
+            //     let key = localStorage.key(i);
+            //     let value = localStorage.getItem(key);
+            //     console.log(key, value);
+            // }
         }
+
+        
     }
 }

@@ -15,8 +15,10 @@ export class SeClassEditComponent implements OnInit {
 
   public gb: SEGroupBuilder;
   
-  constructor(private seGroupservice: SegroupService, 
-    private router: Router) { 
+  constructor(
+    private seGroupservice: SegroupService, 
+    private router: Router
+    ) { 
     this.gb = this.seGroupservice.gb;
   }
 

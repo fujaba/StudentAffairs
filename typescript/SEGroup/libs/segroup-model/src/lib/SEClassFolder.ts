@@ -1,4 +1,4 @@
-import SEClassFolder from "./SEClassFolder";import SEClass from "./SEClass";
+import SEClass from "./SEClass";
 
 import SEGroup from "./SEGroup";
 

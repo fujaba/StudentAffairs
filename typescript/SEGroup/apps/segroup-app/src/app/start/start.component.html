@@ -1,0 +1,22 @@
+<div class="ui centered padded grid container">
+    <div class="ui row">
+      <div class="ui input" style="text-align: center">
+        <input [(ngModel)]="groupName" type="text" placeholder="Group Name..." autofocus>
+      </div>
+    </div>
+    <div class="ui row">
+      <div class="ui input">
+        <input class="ui input" [(ngModel)]="head" type="text" placeholder="Group Head...">
+      </div>
+    </div>
+    <div class="ui row">
+        <div class="ui input">
+          <input class="ui input" [(ngModel)]="currentTerm" type="text" placeholder="Current term...">
+        </div>
+      </div>
+      <div class="ui row">
+      <button class="ui button" (click)="okAction()">
+        >
+      </button>
+    </div>
+  </div>

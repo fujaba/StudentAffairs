@@ -1,4 +1,4 @@
-import SolutionFolder from "./SolutionFolder";import Assignment from "./Assignment";
+import Assignment from "./Assignment";
 
 import Solution from "./Solution";
 

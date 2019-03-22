@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SegroupService } from './segroup.service';
+import { SEGroupBuilder } from '@SEGroup/segroup-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'SEGroup-root',
@@ -7,15 +9,28 @@ import { SegroupService } from './segroup.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'segroup-app';
-
+  title = 'research-group-app';
+  public gb: SEGroupBuilder;
+  
   serverResult = {'yaml': '- text: loading ...'};
 
   constructor(
-    // private http: HttpClient,
-    private seGroupservice: SegroupService) { }
+    private seGroupservice: SegroupService,
+    private router: Router
+     ) { 
+      this.gb = this.seGroupservice.gb;
+      console.log('constructor on root');
+     }
 
-  public ngOnInit() { }
+  public ngOnInit() { 
+    console.log('onInit on root');
+    if ( ! this.seGroupservice.currentTerm) {
+      this.router.navigate(['/start']);
+    } else {
+      this.router.navigate(['/se-classes']);
+    } 
+    
+  }
 
   uploadAction() {
     this.seGroupservice.uploadAction();

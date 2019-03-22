@@ -13,12 +13,13 @@ export class SeClassesComponent implements OnInit {
   public classes: SEClass[];
 
   constructor(private seGroupservice: SegroupService) { 
-    // console.log("init SeClassesComponent");
+    console.log("constructor SeClassesComponent");
     this.gb = this.seGroupservice.gb;
     this.classes = this.seGroupservice.gb.getSeGroup().classes;
   }
 
   ngOnInit() {
+    console.log('nginit on SEClassComponent');
   }
 
   public removeSEClass(seClass: SEClass): void {

@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 export class SegroupService {
   private _gb: SEGroupBuilder = new SEGroupBuilder();
   private _currentSEClass: SEClass = undefined;
+  public currentTerm: string;
+  
   private static httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -25,8 +27,8 @@ export class SegroupService {
   }
 
   async uploadAction () {
-    console.log('uploading...\n' + yaml);
     const yaml = this.gb.getEventSource().encodeYaml();
+    console.log('uploading...\n');
     const body: any = { yaml: `${yaml}` };
     try {
       await this.http.post('http://localhost:3333/api/put?caller=Albert', body, {headers: {'Content-Type': 'application/json'}}).toPromise();

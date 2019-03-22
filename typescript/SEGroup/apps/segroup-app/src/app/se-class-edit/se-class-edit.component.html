@@ -1,24 +1,20 @@
-<div class="ui two column centered grid">
-  <div class="row">
-  </div>
-  <div class="row">
+<div class="ui centered padded grid container">
+  <div class="ui row">
     <div class="ui input" style="text-align: center">
-      <input [(ngModel)]="topic"  type="text" placeholder="Topic..."  autofocus>
+      <input [(ngModel)]="topic" type="text" placeholder="Topic..." autofocus>
     </div>
   </div>
-  <div class="row">
-    <div class="ui input" style="text-align: center">
-      <input [(ngModel)]="term" type="text" placeholder="Term...">
+  <div class="ui row">
+    <div class="ui input">
+      <input class="ui input" [(ngModel)]="term" type="text" placeholder="Term...">
     </div>
   </div>
-  <div class="row">
-    <div class="six wide column" style="text-align: right">
-      <button class="ui button" (click)="okAction()">
-        OK
-      </button>
-      <button class="ui button">
-        Cancel
-      </button>
-    </div>
+  <div class="ui row">
+    <button class="ui button" (click)="okAction()">
+      OK
+    </button>
+    <button class="ui button" (click)="cancelAction()">
+      Cancel
+    </button>
   </div>
 </div>

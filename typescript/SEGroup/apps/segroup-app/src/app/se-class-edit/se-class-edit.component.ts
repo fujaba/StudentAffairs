@@ -26,9 +26,7 @@ export class SeClassEditComponent implements OnInit {
   }
 
   public okAction() {
-    
-    if (this.seGroupservice.currentSEClass === undefined)
-    {
+    if (this.seGroupservice.currentSEClass === undefined) {
       console.log(` got ${this.topic} ${this.term}` );
       this.gb.buildSEClass(this.topic, this.term);
       
@@ -38,4 +36,7 @@ export class SeClassEditComponent implements OnInit {
     this.router.navigate(['/se-classes']);
   }
 
+  public cancelAction() {
+    this.router.navigate(['/se-classes']);
+  }
 }

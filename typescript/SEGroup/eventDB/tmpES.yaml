@@ -1,0 +1,64 @@
+- eventType: buildClassFolder
+  .eventKey: "2019-04"
+  .eventTimestamp: "2019-03-24T18:16:52.553Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2019-04"
+  .eventTimestamp: "2019-03-24T18:16:52.555Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2019-04"
+  .eventTimestamp: "2019-03-25T12:18:37.352Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2019-04"
+  .eventTimestamp: "2019-03-25T12:23:28.962Z"
+
+- eventType: buildClassFolder
+  .eventKey: "2019-04"
+  .eventTimestamp: "2019-03-25T12:34:36.677Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2019-04"
+  .eventTimestamp: "2019-03-25T12:34:38.880Z"
+
+- eventType: buildSEClass
+  .eventKey: "2019-04/PM"
+  topic: PM
+  .eventTimestamp: "2019-03-25T13:23:09.335Z"
+
+- eventType: buildClassFolder
+  .eventKey: "2019-10"
+  .eventTimestamp: "2019-03-25T13:52:51.392Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2019-10"
+  .eventTimestamp: "2019-03-25T13:52:51.431Z"
+
+- eventType: buildSEClass
+  .eventKey: "2019-10/SE1"
+  topic: SE1
+  .eventTimestamp: "2019-03-25T13:53:00.653Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2019-04"
+  .eventTimestamp: "2019-03-25T13:53:30.481Z"
+

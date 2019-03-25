@@ -1,6 +1,6 @@
-<div class="ui centered padded grid">
+<div class="ui centered padded grid container">
   <h4 class="ui row">
-    SE Classes:
+    SE Classes of {{currentTerm.name}}:
   </h4>
   <p class="ui row">
     <a class="ui button" routerLink="/se-class-edit">
@@ -10,13 +10,13 @@
       New Folder
     </a>
   </p>
-  <div class="ui container">
-    <table class="ui sortable unstackable celled table" colspan="10">
+  <div class="ui row">
+    <table class="ui single line sortable unstackable celled collapsing table">
       <tbody>
         <tr *ngFor="let seClass of classes">
-          <td class="four wide" data-label="Topic">{{seClass.topic}}</td>
-          <td class="one wide center aligned" data-label="Term">{{seClass.term}}</td>
-          <td class="one wide center aligned" data-label="Del">
+          <td data-label="Topic">{{seClass.topic}}</td>
+          <td class="center aligned" data-label="Term">{{seClass.term}}</td>
+          <td class="center aligned" data-label="Del">
             <button class="ui button" (click)="removeSEClass(seClass)">X</button>
           </td>
         </tr>

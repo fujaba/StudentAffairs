@@ -4,6 +4,7 @@ import SEClass from 'libs/segroup-model/src/lib/SEClass';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { LocalStorageListener } from './LocalStorageListener';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,15 @@ export class SegroupService {
     private http: HttpClient,
     private router: Router
   ) {
-    console.log("segroup service init " + new Date().getTime());
+    this.gb.setEventListener(new LocalStorageListener(this, this.gb.getEventSource()));
   }
 
-  async uploadAction () {
+  uploadAction () {
     const yaml = this.gb.getEventSource().encodeYaml();
+    this.uploadYaml(yaml);
+  }
+  
+  async uploadYaml(yaml: string) {
     console.log('uploading...\n');
     const body: any = { yaml: `${yaml}` };
     try {

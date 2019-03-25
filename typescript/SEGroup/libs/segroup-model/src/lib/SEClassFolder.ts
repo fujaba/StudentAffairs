@@ -2,12 +2,14 @@ import SEClass from "./SEClass";
 
 import SEGroup from "./SEGroup";
 
-  export default class SEClassFolder {
+  export default class SEClassFolder  
+{
     public name: string ;
 
     constructor() {
       this.name = '';
       this._group = null;
+      this._currentGroup = null;
       this._subFolders = [];
       this._parent = null;
       this._classes = [];
@@ -148,11 +150,34 @@ import SEGroup from "./SEGroup";
 
     public removeYou() {
       this.group = null;
+      this.currentGroup = null;
       this.withoutSubFolders(this._subFolders);
       this.parent = null;
       this.withoutClasses(this._classes);
 
     }
+
+
+    private _currentGroup: SEGroup;
+
+    get currentGroup(): SEGroup {
+      return this._currentGroup;
+    }
+
+    set currentGroup(value: SEGroup) {
+      if (this._currentGroup !== value) {
+        const oldValue: SEGroup = this._currentGroup;
+        if (this._currentGroup) {
+          this._currentGroup = null;
+          oldValue.currentTerm = null;
+        }
+        this._currentGroup = value;
+        if (value) {
+          value.currentTerm = this;
+        }
+      }
+    }
+
 
 
 }

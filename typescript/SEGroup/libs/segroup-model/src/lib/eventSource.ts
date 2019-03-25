@@ -7,6 +7,7 @@ export class EventSource {
   public static EVENT_TYPE = 'eventType';
   private yamler: Yamler = new Yamler();
   private _eventListener: ESEventListener;
+  public keepOriginalTimeStamp: boolean
 
   private lastEventTime: number = -1;
   private keyNumMap: Map<string, number> = new Map<string, number>();
@@ -35,14 +36,14 @@ export class EventSource {
     const eventType = event.get('eventType');
 
     if (!timeString) return false; //<==========================
-    
+
     const date = new Date(timeString);
     const timeStamp = date.getTime();
     const key = event.get('.eventKey');
     const num: any = this.keyNumMap.get(key);
-    
+
     if (num && num >= timeStamp) return true; //<=============== 
-    
+
     return false;
   }
 
@@ -57,10 +58,25 @@ export class EventSource {
   }
 
   public appendEvent(event: Map<string, string>): EventSource {
-    this.lastEventTime = Date.now();
-    const timestampString = new Date(this.lastEventTime).toISOString();
+    if (this.keepOriginalTimeStamp) {
+      const origTimeString = event.get(EventSource.EVENT_TIMESTAMP);
+      this.lastEventTime = new Date(origTimeString).getTime();
+    }
+    else 
+    {
+      const now = Date.now();
+      if (now <= this.lastEventTime)
+      {
+        this.lastEventTime++;
+      }
+      else
+      {
+        this.lastEventTime = now;
+      }
+      const timestampString = new Date(this.lastEventTime).toISOString();
 
-    event.set(EventSource.EVENT_TIMESTAMP, timestampString);
+      event.set(EventSource.EVENT_TIMESTAMP, timestampString);
+    }
 
     const key: string = event.get(EventSource.EVENT_KEY) || '';
     if (key != '') {

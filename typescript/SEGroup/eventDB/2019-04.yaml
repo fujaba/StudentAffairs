@@ -1,0 +1,5 @@
+- eventType: buildSEClass
+  .eventKey: "2019-04/PM"
+  topic: PM
+  .eventTimestamp: "2019-03-25T13:23:09.336Z"
+

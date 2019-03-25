@@ -152,8 +152,11 @@ public class Generator4TypeScriptClassFile
 
          String roleType = role.getOther().getClazz().getName();
 
-         String importText = String.format("import %s from \"./%s\";\n\n", roleType, roleType);
-         fragmentMap.add(Parser.IMPORT + ":" + roleType, importText, 0);
+         if ( ! roleType.equals(clazz.getName()))
+         {
+            String importText = String.format("import %s from \"./%s\";\n\n", roleType, roleType);
+            fragmentMap.add(Parser.IMPORT + ":" + roleType, importText, 0);
+         }
 
          if (role.getCardinality() != ClassModelBuilder.ONE) roleType += "[]";
 

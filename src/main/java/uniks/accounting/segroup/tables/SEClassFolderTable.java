@@ -408,4 +408,43 @@ public class SEClassFolderTable
    }
 
 
+   public SEGroupTable expandCurrentGroup(String... rowName)
+   {
+      SEGroupTable result = new SEGroupTable();
+      result.setColumnMap(this.columnMap);
+      result.setTable(table);
+      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
+
+      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
+      result.setColumnName(newColumnName);
+      columnMap.put(newColumnName, newColumnNumber);
+
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SEClassFolder start = (SEClassFolder) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getCurrentGroup());
+         this.table.add(newRow);
+      }
+      return result;
+   }
+
+   public SEClassFolderTable hasCurrentGroup(SEGroupTable rowName)
+   {
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SEClassFolder start = (SEClassFolder) row.get(columnMap.get(this.getColumnName()));
+         SEGroup other = (SEGroup) row.get(columnMap.get(rowName.getColumnName()));
+         if (start.getCurrentGroup() == other)
+         {
+            this.table.add(row);
+         }
+      }
+      return this;
+   }
+
 }

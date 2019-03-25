@@ -9,9 +9,11 @@ import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";
     public head: string ;
 
     constructor() {
+      this.name = '';
       this.head = '';
       this._classes = [];
       this._classFolder = [];
+      this._currentTerm = null;
       this._students = [];
 
     }
@@ -107,6 +109,7 @@ import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";
     public removeYou() {
       this.withoutClasses(this._classes);
       this.withoutClassFolder(this._classFolder);
+      this.currentTerm = null;
       this.withoutStudents(this._students);
 
     }
@@ -116,6 +119,14 @@ import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";
 
     get classFolder(): SEClassFolder[] {
       return this._classFolder;
+    }
+
+    getClassFolder(name: string): SEClassFolder {
+      for (let f of this._classFolder) {
+        if (f.name === name)
+          return f;
+      }
+      return null;
     }
 
     public withClassFolder(...value: any[]): SEGroup {
@@ -154,6 +165,30 @@ import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";
       }
       return this;
     }
+
+
+    public name: string ;
+
+    private _currentTerm: SEClassFolder;
+
+    get currentTerm(): SEClassFolder {
+      return this._currentTerm;
+    }
+
+    set currentTerm(value: SEClassFolder) {
+      if (this._currentTerm !== value) {
+        const oldValue: SEClassFolder = this._currentTerm;
+        if (this._currentTerm) {
+          this._currentTerm = null;
+          oldValue.currentGroup = null;
+        }
+        this._currentTerm = value;
+        if (value) {
+          value.currentGroup = this;
+        }
+      }
+    }
+
 
 
 }

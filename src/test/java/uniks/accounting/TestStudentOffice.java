@@ -85,6 +85,7 @@ public class TestStudentOffice
       ClassModelBuilder mb = Fulib.classModelBuilder("uniks.accounting.segroup");
 
       ClassBuilder seGroup = mb.buildClass("SEGroup")
+            .buildAttribute("name", STRING)
             .buildAttribute("head", STRING);
       ClassBuilder seStudent = mb.buildClass("SEStudent")
             .buildAttribute("studentId", STRING)
@@ -110,6 +111,7 @@ public class TestStudentOffice
 
       seGroup.buildAssociation(seClass, "classes", MANY, "group", ONE);
       seGroup.buildAssociation(seClassFolder, "classFolder", MANY, "group", ONE);
+      seGroup.buildAssociation(seClassFolder, "currentTerm", ONE, "currentGroup", ONE);
       seClassFolder.buildAssociation(seClassFolder, "subFolders", MANY, "parent", ONE);
       seClassFolder.buildAssociation(seClass, "classes", MANY, "folder", ONE);
       seGroup.buildAssociation(seStudent, "students", MANY, "group", ONE);

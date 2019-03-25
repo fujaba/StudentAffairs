@@ -3,6 +3,7 @@ import { Router }          from '@angular/router';
 import { SEGroupBuilder } from '@SEGroup/segroup-model';
 import { SegroupService } from '../segroup.service';
 import { getBindingRoot } from '@angular/core/src/render3/state';
+import SEClassFolder from 'libs/segroup-model/src/lib/SEClassFolder';
 
 @Component({
   selector: 'SEGroup-se-class-edit',
@@ -11,6 +12,7 @@ import { getBindingRoot } from '@angular/core/src/render3/state';
 })
 export class SeClassEditComponent implements OnInit {
   public topic: string = "";
+  public currentTerm: SEClassFolder;
   public term: string = "";
 
   public gb: SEGroupBuilder;
@@ -20,6 +22,8 @@ export class SeClassEditComponent implements OnInit {
     private router: Router
     ) { 
     this.gb = this.seGroupservice.gb;
+    this.currentTerm = this.seGroupservice.gb.getSeGroup().currentTerm;
+    this.term = this.currentTerm.name;
   }
 
   ngOnInit() {
@@ -28,7 +32,7 @@ export class SeClassEditComponent implements OnInit {
   public okAction() {
     if (this.seGroupservice.currentSEClass === undefined) {
       console.log(` got ${this.topic} ${this.term}` );
-      this.gb.buildSEClass(this.topic, this.term);
+      this.gb.buildSEClass(this.topic, this.currentTerm);
       
       // this.seGroupservice.currentSEClass = this.gb.buildSEClass(this.topic, this.term);
     }

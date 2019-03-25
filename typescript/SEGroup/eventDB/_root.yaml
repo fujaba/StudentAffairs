@@ -1,0 +1,31 @@
+
+
+- eventType: buildClassFolder
+  .eventKey: "2019-04"
+  .eventTimestamp: "2019-03-25T12:37:06.839Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2019-04"
+  .eventTimestamp: "2019-03-25T12:37:12.922Z"
+
+- eventType: buildClassFolder
+  .eventKey: "2019-10"
+  .eventTimestamp: "2019-03-25T13:52:51.429Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2019-10"
+  .eventTimestamp: "2019-03-25T13:52:51.431Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2019-04"
+  .eventTimestamp: "2019-03-25T13:53:30.482Z"
+

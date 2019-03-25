@@ -1,8 +1,8 @@
 import Assignment from "./Assignment";
 
 import Solution from "./Solution";
-
-  export default class SolutionFolder {
+  export default class SolutionFolder  
+{
     public name: string ;
 
     constructor() {

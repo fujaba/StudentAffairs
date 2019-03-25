@@ -310,6 +310,7 @@ public class SEClassFolder
    public void removeYou()
    {
       this.setGroup(null);
+      this.setCurrentGroup(null);
       this.setParent(null);
 
       this.withoutSubFolders(this.getSubFolders().clone());
@@ -319,6 +320,37 @@ public class SEClassFolder
 
 
    }
+
+
+   public static final String PROPERTY_currentGroup = "currentGroup";
+
+   private SEGroup currentGroup = null;
+
+   public SEGroup getCurrentGroup()
+   {
+      return this.currentGroup;
+   }
+
+   public SEClassFolder setCurrentGroup(SEGroup value)
+   {
+      if (this.currentGroup != value)
+      {
+         SEGroup oldValue = this.currentGroup;
+         if (this.currentGroup != null)
+         {
+            this.currentGroup = null;
+            oldValue.setCurrentTerm(null);
+         }
+         this.currentGroup = value;
+         if (value != null)
+         {
+            value.setCurrentTerm(this);
+         }
+         firePropertyChange("currentGroup", oldValue, value);
+      }
+      return this;
+   }
+
 
 
 }

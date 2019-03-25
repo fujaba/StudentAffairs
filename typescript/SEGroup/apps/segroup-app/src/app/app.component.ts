@@ -24,9 +24,10 @@ export class AppComponent implements OnInit {
 
   public ngOnInit() { 
     console.log('onInit on root');
-    if ( ! this.seGroupservice.currentTerm) {
+    if ( ! this.seGroupservice.gb.getSeGroup().currentTerm) {
       this.router.navigate(['/start']);
     } else {
+      this.seGroupservice.currentTerm = this.seGroupservice.gb.getSeGroup().currentTerm.name;
       this.router.navigate(['/se-classes']);
     } 
     

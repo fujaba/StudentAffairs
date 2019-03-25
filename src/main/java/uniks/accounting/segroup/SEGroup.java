@@ -159,6 +159,7 @@ public class SEGroup
    {
       StringBuilder result = new StringBuilder();
 
+      result.append(" ").append(this.getName());
       result.append(" ").append(this.getHead());
 
 
@@ -167,6 +168,8 @@ public class SEGroup
 
    public void removeYou()
    {
+      this.setCurrentTerm(null);
+
       this.withoutClasses(this.getClasses().clone());
 
 
@@ -375,6 +378,58 @@ public class SEGroup
       }
       return this;
    }
+
+
+   public static final String PROPERTY_name = "name";
+
+   private String name;
+
+   public String getName()
+   {
+      return name;
+   }
+
+   public SEGroup setName(String value)
+   {
+      if (value == null ? this.name != null : ! value.equals(this.name))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         firePropertyChange("name", oldValue, value);
+      }
+      return this;
+   }
+
+
+   public static final String PROPERTY_currentTerm = "currentTerm";
+
+   private SEClassFolder currentTerm = null;
+
+   public SEClassFolder getCurrentTerm()
+   {
+      return this.currentTerm;
+   }
+
+   public SEGroup setCurrentTerm(SEClassFolder value)
+   {
+      if (this.currentTerm != value)
+      {
+         SEClassFolder oldValue = this.currentTerm;
+         if (this.currentTerm != null)
+         {
+            this.currentTerm = null;
+            oldValue.setCurrentGroup(null);
+         }
+         this.currentTerm = value;
+         if (value != null)
+         {
+            value.setCurrentGroup(this);
+         }
+         firePropertyChange("currentTerm", oldValue, value);
+      }
+      return this;
+   }
+
 
 
 }

@@ -2,8 +2,8 @@ import { Injectable, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
 import { EventSource, SEGroupBuilder, EventSourceRegistry } from '@SEGroup/segroup-model';
 import { Yamler } from '@fujaba/fulib-yaml-ts';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+// import { InjectModel } from '@nestjs/mongoose';
+// import { Model } from 'mongoose';
 import { Event, ESEvent } from './event.interface';
 import * as loki from "lokijs";
 import { LookupOptions } from 'dns';
@@ -17,7 +17,7 @@ export class AppService {
   private lokiDB: loki.Loki;
   private lokiCollection: loki.Collection;
 
-  constructor(@InjectModel('Event') private readonly eventModel: Model<Event>) {
+  constructor() {
     this.yamler = new Yamler();
     this.eventSourceRegistry = new EventSourceRegistry(new FileSystemListener(null, null));
     this.tmpES = new EventSource();
@@ -42,18 +42,9 @@ export class AppService {
   // }
 
   async getSharedEvents(since: string, caller: string, res: Response) {
-    const events: Event[] = await this.eventModel.find({});
+    // this.eventSourceRegistry;
 
-    let yaml = "";
-    for (const elem of events) {
-      const tmp = elem.yaml;
-      yaml = yaml + tmp + '\n';
-    }
-
-    const json = { yaml: `${yaml}` };
-    const text = JSON.stringify(json);
-
-    res.status(200).send(text);
+    res.status(200).send('Hello World');
   }
 
   async putSharedEvents(caller: string, body: any, res: Response) {

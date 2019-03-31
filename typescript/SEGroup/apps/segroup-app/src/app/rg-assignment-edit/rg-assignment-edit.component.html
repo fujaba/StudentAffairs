@@ -1,0 +1,16 @@
+<div class="ui centered padded grid container">
+  <h3 class="ui row">Add new Assignment to {{currentClass.topic}} {{currentTerm.name}}</h3>
+  <div class="ui row">
+    <div class="ui input" style="text-align: center">
+      <input [(ngModel)]="task" type="text" placeholder="Topic..." autofocus>
+    </div>
+  </div>
+  <div class="ui row">
+    <button class="ui button" (click)="okAction()">
+      OK
+    </button>
+    <button class="ui button" (click)="cancelAction()">
+      Cancel
+    </button>
+  </div>
+</div>

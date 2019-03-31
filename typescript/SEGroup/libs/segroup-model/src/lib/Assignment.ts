@@ -1,6 +1,8 @@
 import Solution from "./Solution";
 
-import SEClass from "./SEClass";import SolutionFolder from "./SolutionFolder";
+import SEClass from "./SEClass";import SolutionFolder from "./SolutionFolder";import SEGroup from "./SEGroup";
+
+
 
 
 
@@ -13,6 +15,7 @@ import SEClass from "./SEClass";import SolutionFolder from "./SolutionFolder";
     constructor() {
       this.task = '';
       this.points = 0;
+      this._currentGroup = null;
       this._seClass = null;
       this._solutions = [];
       this._solutionFolder = null;
@@ -86,6 +89,7 @@ import SEClass from "./SEClass";import SolutionFolder from "./SolutionFolder";
 
 
     public removeYou() {
+      this.currentGroup = null;
       this.seClass = null;
       this.withoutSolutions(this._solutions);
       this.solutionFolder = null;
@@ -109,6 +113,28 @@ import SEClass from "./SEClass";import SolutionFolder from "./SolutionFolder";
         this._solutionFolder = value;
         if (value) {
           value.assignment = this;
+        }
+      }
+    }
+
+
+
+    private _currentGroup: SEGroup;
+
+    get currentGroup(): SEGroup {
+      return this._currentGroup;
+    }
+
+    set currentGroup(value: SEGroup) {
+      if (this._currentGroup !== value) {
+        const oldValue: SEGroup = this._currentGroup;
+        if (this._currentGroup) {
+          this._currentGroup = null;
+          oldValue.currentAssignment = null;
+        }
+        this._currentGroup = value;
+        if (value) {
+          value.currentAssignment = this;
         }
       }
     }

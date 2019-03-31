@@ -5,6 +5,7 @@ import SEClass from './SEClass';
 import { ESEventListener } from './eventListener';
 import { stringify } from 'querystring';
 import SEClassFolder from './SEClassFolder';
+import Assignment from './Assignment';
 
 export class SEGroupBuilder {
   static BUILD_GROUP = 'buildGroup';
@@ -113,6 +114,14 @@ export class SEGroupBuilder {
             break;
           }
         case SEGroupBuilder.BUILD_ASSIGNMENT:
+          {
+            const task = map.get(SEGroupBuilder.TASK);
+            const topic = map.get(SEGroupBuilder.TOPIC);
+            const term = map.get(SEGroupBuilder.TERM);
+            const seTerm = this.buildClassFolder(term);
+            const seClass = this.buildSEClass(topic, seTerm);
+            this.buildAssignment(task, seClass);
+          }
           break;
         case SEGroupBuilder.BUILD_ACHIEVEMENT:
           break;
@@ -188,6 +197,36 @@ export class SEGroupBuilder {
   }
 
 
+  public buildAssignment(task: string, seClass: SEClass) {
+    let myAssignment: Assignment = undefined;
+
+    for (const a of seClass.assignments) {
+      if (a.task === task) {
+        myAssignment = a;
+        return myAssignment;
+      }
+    }
+
+    myAssignment = new Assignment();
+    myAssignment.task = task;
+    myAssignment.seClass = seClass;
+
+    // log event
+    const seTerm = seClass.folder;
+
+    const event = new Map<string, string>();
+    event.set(EventSource.EVENT_TYPE, SEGroupBuilder.BUILD_ASSIGNMENT);
+    event.set(EventSource.EVENT_KEY, seTerm.name + '/' + seClass.topic + '_' + task);
+    event.set(SEGroupBuilder.TASK, task);
+    event.set(SEGroupBuilder.TOPIC, seClass.topic);
+    event.set(SEGroupBuilder.TERM, seTerm.name);
+    
+    this.getEventSource().appendEvent(event); 
+
+    return myAssignment;
+  }
+
+
   public buildSEClass(topic: string, currentTerm: SEClassFolder): SEClass {
     let myClass: SEClass = undefined;
 
@@ -240,6 +279,9 @@ export class SEGroupBuilder {
 
     this.getEventSource().appendEvent(event);
   }
+
+
+
 
 
   public getSeGroup(): SEGroup {

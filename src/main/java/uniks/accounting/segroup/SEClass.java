@@ -274,6 +274,7 @@ public class SEClass
    public void removeYou()
    {
       this.setGroup(null);
+      this.setCurrentGroup(null);
       this.setFolder(null);
 
       this.withoutAssignments(this.getAssignments().clone());
@@ -348,6 +349,37 @@ public class SEClass
             value.withClasses(this);
          }
          firePropertyChange("folder", oldValue, value);
+      }
+      return this;
+   }
+
+
+
+   public static final String PROPERTY_currentGroup = "currentGroup";
+
+   private SEGroup currentGroup = null;
+
+   public SEGroup getCurrentGroup()
+   {
+      return this.currentGroup;
+   }
+
+   public SEClass setCurrentGroup(SEGroup value)
+   {
+      if (this.currentGroup != value)
+      {
+         SEGroup oldValue = this.currentGroup;
+         if (this.currentGroup != null)
+         {
+            this.currentGroup = null;
+            oldValue.setCurrentClass(null);
+         }
+         this.currentGroup = value;
+         if (value != null)
+         {
+            value.setCurrentClass(this);
+         }
+         firePropertyChange("currentGroup", oldValue, value);
       }
       return this;
    }

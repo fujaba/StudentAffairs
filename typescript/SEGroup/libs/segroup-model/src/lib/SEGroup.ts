@@ -1,6 +1,8 @@
 import SEStudent from "./SEStudent";
 
-import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";
+import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";import Assignment from "./Assignment";
+
+
 
 
 
@@ -14,6 +16,8 @@ import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";
       this._classes = [];
       this._classFolder = [];
       this._currentTerm = null;
+      this._currentClass = null;
+      this._currentAssignment = null;
       this._students = [];
 
     }
@@ -110,6 +114,8 @@ import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";
       this.withoutClasses(this._classes);
       this.withoutClassFolder(this._classFolder);
       this.currentTerm = null;
+      this.currentClass = null;
+      this.currentAssignment = null;
       this.withoutStudents(this._students);
 
     }
@@ -183,6 +189,50 @@ import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";
           oldValue.currentGroup = null;
         }
         this._currentTerm = value;
+        if (value) {
+          value.currentGroup = this;
+        }
+      }
+    }
+
+
+
+    private _currentClass: SEClass;
+
+    get currentClass(): SEClass {
+      return this._currentClass;
+    }
+
+    set currentClass(value: SEClass) {
+      if (this._currentClass !== value) {
+        const oldValue: SEClass = this._currentClass;
+        if (this._currentClass) {
+          this._currentClass = null;
+          oldValue.currentGroup = null;
+        }
+        this._currentClass = value;
+        if (value) {
+          value.currentGroup = this;
+        }
+      }
+    }
+
+
+
+    private _currentAssignment: Assignment;
+
+    get currentAssignment(): Assignment {
+      return this._currentAssignment;
+    }
+
+    set currentAssignment(value: Assignment) {
+      if (this._currentAssignment !== value) {
+        const oldValue: Assignment = this._currentAssignment;
+        if (this._currentAssignment) {
+          this._currentAssignment = null;
+          oldValue.currentGroup = null;
+        }
+        this._currentAssignment = value;
         if (value) {
           value.currentGroup = this;
         }

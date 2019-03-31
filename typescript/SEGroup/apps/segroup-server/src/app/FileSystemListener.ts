@@ -1,5 +1,6 @@
 import { ESEventListener } from '../../../../libs/segroup-model/src/lib/eventListener';
 import { EventSource } from '../../../../libs/segroup-model/src/lib/eventSource';
+// const fs: any = {}; // require('fs');
 import * as fs from 'fs';
 
 export class FileSystemListener implements ESEventListener {

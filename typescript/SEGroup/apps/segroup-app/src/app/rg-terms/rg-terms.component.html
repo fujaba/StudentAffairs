@@ -1,0 +1,22 @@
+<div class="ui centered padded grid container">
+  <h4 class="ui row">
+    Terms:
+  </h4>
+  <p class="ui row">
+    <a class="ui button" routerLink="/start">
+      New Term
+    </a>
+  </p>
+  <div class="ui row">
+    <table class="ui single line sortable unstackable celled collapsing table">
+      <tbody>
+        <tr *ngFor="let aTerm of terms">
+          <td data-label="Name" (click)="gotoTerm(aTerm)">{{aTerm.name}}</td>
+          <td class="center aligned" data-label="Del">
+            <button class="ui button" (click)="removeTerm(aTerm)">X</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

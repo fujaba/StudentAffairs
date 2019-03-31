@@ -169,6 +169,8 @@ public class SEGroup
    public void removeYou()
    {
       this.setCurrentTerm(null);
+      this.setCurrentClass(null);
+      this.setCurrentAssignment(null);
 
       this.withoutClasses(this.getClasses().clone());
 
@@ -426,6 +428,68 @@ public class SEGroup
             value.setCurrentGroup(this);
          }
          firePropertyChange("currentTerm", oldValue, value);
+      }
+      return this;
+   }
+
+
+
+   public static final String PROPERTY_currentClass = "currentClass";
+
+   private SEClass currentClass = null;
+
+   public SEClass getCurrentClass()
+   {
+      return this.currentClass;
+   }
+
+   public SEGroup setCurrentClass(SEClass value)
+   {
+      if (this.currentClass != value)
+      {
+         SEClass oldValue = this.currentClass;
+         if (this.currentClass != null)
+         {
+            this.currentClass = null;
+            oldValue.setCurrentGroup(null);
+         }
+         this.currentClass = value;
+         if (value != null)
+         {
+            value.setCurrentGroup(this);
+         }
+         firePropertyChange("currentClass", oldValue, value);
+      }
+      return this;
+   }
+
+
+
+   public static final String PROPERTY_currentAssignment = "currentAssignment";
+
+   private Assignment currentAssignment = null;
+
+   public Assignment getCurrentAssignment()
+   {
+      return this.currentAssignment;
+   }
+
+   public SEGroup setCurrentAssignment(Assignment value)
+   {
+      if (this.currentAssignment != value)
+      {
+         Assignment oldValue = this.currentAssignment;
+         if (this.currentAssignment != null)
+         {
+            this.currentAssignment = null;
+            oldValue.setCurrentGroup(null);
+         }
+         this.currentAssignment = value;
+         if (value != null)
+         {
+            value.setCurrentGroup(this);
+         }
+         firePropertyChange("currentAssignment", oldValue, value);
       }
       return this;
    }

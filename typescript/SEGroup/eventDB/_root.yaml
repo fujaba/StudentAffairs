@@ -29,3 +29,25 @@
   currentTerm: "2019-04"
   .eventTimestamp: "2019-03-25T13:53:30.482Z"
 
+- eventType: buildClassFolder
+  .eventKey: "2018-10"
+  .eventTimestamp: "2019-03-30T20:56:29.128Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2018-10"
+  .eventTimestamp: "2019-03-30T20:56:29.132Z"
+
+- eventType: buildClassFolder
+  .eventKey: "2019-04"
+  .eventTimestamp: "2019-03-30T20:59:33.488Z"
+
+- eventType: buildGroup
+  .eventKey: theGroup
+  name: SE
+  head: Albert
+  currentTerm: "2019-04"
+  .eventTimestamp: "2019-03-30T20:59:33.489Z"
+

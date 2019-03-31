@@ -1,0 +1,27 @@
+- eventType: buildSEClass
+  .eventKey: "2018-10/SE1"
+  topic: SE1
+  .eventTimestamp: "2019-03-30T12:45:17.423Z"
+
+- eventType: buildSEClass
+  .eventKey: "2018-10/IoT"
+  topic: IoT
+  .eventTimestamp: "2019-03-30T12:45:47.158Z"
+
+- eventType: buildSEClass
+  .eventKey: "2018-10/PM"
+  topic: PM
+  .eventTimestamp: "2019-03-30T20:56:40.415Z"
+
+- eventType: buildSEClass
+  .eventKey: "2018-10/CC"
+  topic: CC
+  .eventTimestamp: "2019-03-30T20:56:49.008Z"
+
+- eventType: buildAssignment
+  .eventKey: "2018-10/IoT_Photon"
+  task: Photon
+  topic: IoT
+  term: "2018-10"
+  .eventTimestamp: "2019-03-31T13:38:30.733Z"
+

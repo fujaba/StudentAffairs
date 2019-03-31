@@ -18,6 +18,8 @@ import java.util.LinkedHashSet;
 
 import uniks.accounting.segroup.SEClassFolder;
 
+import uniks.accounting.segroup.Assignment;
+
 public class SEGroupTable  
 {
 
@@ -428,6 +430,84 @@ public class SEGroupTable
          SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
          SEClassFolder other = (SEClassFolder) row.get(columnMap.get(rowName.getColumnName()));
          if (start.getCurrentTerm() == other)
+         {
+            this.table.add(row);
+         }
+      }
+      return this;
+   }
+
+   public SEClassTable expandCurrentClass(String... rowName)
+   {
+      SEClassTable result = new SEClassTable();
+      result.setColumnMap(this.columnMap);
+      result.setTable(table);
+      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
+
+      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
+      result.setColumnName(newColumnName);
+      columnMap.put(newColumnName, newColumnNumber);
+
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getCurrentClass());
+         this.table.add(newRow);
+      }
+      return result;
+   }
+
+   public SEGroupTable hasCurrentClass(SEClassTable rowName)
+   {
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
+         SEClass other = (SEClass) row.get(columnMap.get(rowName.getColumnName()));
+         if (start.getCurrentClass() == other)
+         {
+            this.table.add(row);
+         }
+      }
+      return this;
+   }
+
+   public AssignmentTable expandCurrentAssignment(String... rowName)
+   {
+      AssignmentTable result = new AssignmentTable();
+      result.setColumnMap(this.columnMap);
+      result.setTable(table);
+      int newColumnNumber = this.table.size() > 0 ? this.table.get(0).size() : 0;
+
+      String newColumnName = rowName != null && rowName.length > 0 ? rowName[0] : "" + ((char)('A' + newColumnNumber));
+      result.setColumnName(newColumnName);
+      columnMap.put(newColumnName, newColumnNumber);
+
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
+         ArrayList<Object> newRow = (ArrayList<Object>) row.clone();
+         newRow.add(start.getCurrentAssignment());
+         this.table.add(newRow);
+      }
+      return result;
+   }
+
+   public SEGroupTable hasCurrentAssignment(AssignmentTable rowName)
+   {
+      ArrayList<ArrayList<Object> > oldTable = (ArrayList<ArrayList<Object> >) this.table.clone();
+      this.table.clear();
+      for (ArrayList<Object> row : oldTable)
+      {
+         SEGroup start = (SEGroup) row.get(columnMap.get(this.getColumnName()));
+         Assignment other = (Assignment) row.get(columnMap.get(rowName.getColumnName()));
+         if (start.getCurrentAssignment() == other)
          {
             this.table.add(row);
          }

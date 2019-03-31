@@ -187,6 +187,7 @@ public class Assignment
 
    public void removeYou()
    {
+      this.setCurrentGroup(null);
       this.setSeClass(null);
       this.setSolutionFolder(null);
 
@@ -267,6 +268,37 @@ public class Assignment
             value.setAssignment(this);
          }
          firePropertyChange("solutionFolder", oldValue, value);
+      }
+      return this;
+   }
+
+
+
+   public static final String PROPERTY_currentGroup = "currentGroup";
+
+   private SEGroup currentGroup = null;
+
+   public SEGroup getCurrentGroup()
+   {
+      return this.currentGroup;
+   }
+
+   public Assignment setCurrentGroup(SEGroup value)
+   {
+      if (this.currentGroup != value)
+      {
+         SEGroup oldValue = this.currentGroup;
+         if (this.currentGroup != null)
+         {
+            this.currentGroup = null;
+            oldValue.setCurrentAssignment(null);
+         }
+         this.currentGroup = value;
+         if (value != null)
+         {
+            value.setCurrentAssignment(this);
+         }
+         firePropertyChange("currentGroup", oldValue, value);
       }
       return this;
    }

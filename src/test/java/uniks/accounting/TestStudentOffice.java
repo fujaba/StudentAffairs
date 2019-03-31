@@ -112,6 +112,8 @@ public class TestStudentOffice
       seGroup.buildAssociation(seClass, "classes", MANY, "group", ONE);
       seGroup.buildAssociation(seClassFolder, "classFolder", MANY, "group", ONE);
       seGroup.buildAssociation(seClassFolder, "currentTerm", ONE, "currentGroup", ONE);
+      seGroup.buildAssociation(seClass, "currentClass", ONE, "currentGroup", ONE);
+      seGroup.buildAssociation(assignment, "currentAssignment", ONE, "currentGroup", ONE);
       seClassFolder.buildAssociation(seClassFolder, "subFolders", MANY, "parent", ONE);
       seClassFolder.buildAssociation(seClass, "classes", MANY, "folder", ONE);
       seGroup.buildAssociation(seStudent, "students", MANY, "group", ONE);

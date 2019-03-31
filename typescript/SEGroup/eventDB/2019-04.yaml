@@ -3,3 +3,48 @@
   topic: PM
   .eventTimestamp: "2019-03-25T13:23:09.336Z"
 
+- eventType: buildSEClass
+  .eventKey: "2019-04/SE1"
+  topic: SE1
+  .eventTimestamp: "2019-03-30T21:03:47.110Z"
+
+- eventType: buildSEClass
+  .eventKey: "2019-04/Scenario"
+  topic: Scenario
+  .eventTimestamp: "2019-03-31T12:40:37.497Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-04/SE1_od"
+  task: od
+  topic: SE1
+  term: "2019-04"
+  .eventTimestamp: "2019-03-31T13:41:54.209Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-04/SE1_cd"
+  task: cd
+  topic: SE1
+  term: "2019-04"
+  .eventTimestamp: "2019-03-31T13:50:52.841Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-04/SE1_Algos"
+  task: Algos
+  topic: SE1
+  term: "2019-04"
+  .eventTimestamp: "2019-03-31T14:27:49.628Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-04/SE1_Tests"
+  task: Tests
+  topic: SE1
+  term: "2019-04"
+  .eventTimestamp: "2019-03-31T14:34:08.353Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-04/Scenario_Examples"
+  task: Examples
+  topic: Scenario
+  term: "2019-04"
+  .eventTimestamp: "2019-03-31T14:39:19.559Z"
+

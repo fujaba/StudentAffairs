@@ -16,6 +16,7 @@ import SEGroup from "./SEGroup";import SEClassFolder from "./SEClassFolder";
       this.topic = '';
       this.term = '';
       this._group = null;
+      this._currentGroup = null;
       this._folder = null;
       this._assignments = [];
       this._participations = [];
@@ -134,6 +135,7 @@ import SEGroup from "./SEGroup";import SEClassFolder from "./SEClassFolder";
 
     public removeYou() {
       this.group = null;
+      this.currentGroup = null;
       this.folder = null;
       this.withoutAssignments(this._assignments);
       this.withoutParticipations(this._participations);
@@ -157,6 +159,28 @@ import SEGroup from "./SEGroup";import SEClassFolder from "./SEClassFolder";
         this._folder = value;
         if (value) {
           value.withClasses(this);
+        }
+      }
+    }
+
+
+
+    private _currentGroup: SEGroup;
+
+    get currentGroup(): SEGroup {
+      return this._currentGroup;
+    }
+
+    set currentGroup(value: SEGroup) {
+      if (this._currentGroup !== value) {
+        const oldValue: SEGroup = this._currentGroup;
+        if (this._currentGroup) {
+          this._currentGroup = null;
+          oldValue.currentClass = null;
+        }
+        this._currentGroup = value;
+        if (value) {
+          value.currentClass = this;
         }
       }
     }

@@ -3,3 +3,425 @@
   topic: SE1
   .eventTimestamp: "2019-03-25T13:53:00.653Z"
 
+- eventType: buildSEClass
+  .eventKey: "2019-10/PM"
+  topic: PM
+  .eventTimestamp: "2019-04-04T08:09:49.102Z"
+
+- eventType: buildSEClass
+  .eventKey: "2019-10/Web Apps"
+  topic: "Web Apps"
+  .eventTimestamp: "2019-04-04T08:10:17.124Z"
+
+- eventType: buildSEClass
+  .eventKey: "2019-10/Graph Engineering"
+  topic: "Graph Engineering"
+  .eventTimestamp: "2019-04-04T08:10:42.366Z"
+
+- eventType: buildAchievement
+  .eventKey: "2019-10/PM-m42"
+  name: Alice
+  studentId: m42
+  topic: PM
+  term: "2019-10"
+  .eventTimestamp: "2019-04-04T08:11:53.512Z"
+
+- eventType: buildAchievement
+  .eventKey: "2019-10/PM-m23"
+  name: Bob
+  studentId: m23
+  topic: PM
+  term: "2019-10"
+  .eventTimestamp: "2019-04-04T08:11:53.515Z"
+
+- eventType: buildAchievement
+  .eventKey: "2019-10/PM-m1337"
+  name: Lennert
+  studentId: m1337
+  topic: PM
+  term: "2019-10"
+  .eventTimestamp: "2019-04-04T08:11:53.518Z"
+
+- eventType: buildAchievement
+  .eventKey: "2019-10/PM-m4242"
+  name: Clemens
+  studentId: m4242
+  topic: PM
+  term: "2019-10"
+  .eventTimestamp: "2019-04-04T08:11:53.519Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-10/PM_Scenarios"
+  task: Scenarios
+  topic: PM
+  term: "2019-10"
+  .eventTimestamp: "2019-04-04T08:13:05.158Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-10/PM_Object Diagramme"
+  task: "Object Diagramme"
+  topic: PM
+  term: "2019-10"
+  .eventTimestamp: "2019-04-04T08:13:13.263Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T08:13:18.052Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T08:13:18.058Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T08:13:18.062Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T08:13:18.060Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T09:13:00.220Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T09:13:00.221Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T09:13:00.223Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T09:13:00.227Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T10:27:02.247Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T10:27:02.251Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T10:27:02.253Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T10:27:02.255Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T10:53:10.164Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T10:53:10.168Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T10:53:10.171Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T10:53:10.172Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T11:05:45.606Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T11:05:45.609Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T11:05:45.611Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T11:05:45.612Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T11:06:32.974Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T11:06:32.977Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T11:06:32.978Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T11:06:32.981Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T11:07:44.147Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T11:07:44.149Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T11:07:44.153Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T11:07:44.163Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T11:12:47.500Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T11:12:47.502Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T11:12:47.509Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T11:12:47.512Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T11:14:18.005Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T11:14:18.012Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T11:14:18.013Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T11:14:18.015Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T11:15:02.013Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T11:15:02.016Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T11:15:02.019Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T11:15:02.021Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  .eventTimestamp: "2019-04-04T11:15:45.202Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m23"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m23
+  .eventTimestamp: "2019-04-04T11:15:45.206Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m42"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m42
+  .eventTimestamp: "2019-04-04T11:15:45.209Z"
+
+- eventType: buildSolution
+  .eventKey: "2019-10/PM-Scenarios-m4242"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m4242
+  .eventTimestamp: "2019-04-04T11:15:45.210Z"
+
+- eventType: gradeSolution
+  .eventKey: "2019-10/PM-Scenarios-m1337-10"
+  term: "2019-10"
+  topic: PM
+  task: Scenarios
+  studentId: m1337
+  points: 10
+  .eventTimestamp: "2019-04-04T11:49:07.293Z"
+

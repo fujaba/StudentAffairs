@@ -1,0 +1,22 @@
+<div class="ui centered padded grid container">
+    <h4 class="ui row">
+      Students of {{currentClass.topic}} {{currentTerm.name}}:
+    </h4>
+    <p class="ui row">
+      <a class="ui button" routerLink="/student-edit">
+        New Students
+      </a>
+    </p>
+    <div class="ui row">
+      <table class="ui single line sortable unstackable celled collapsing table">
+        <tbody>
+          <tr *ngFor="let achieve of achievements">
+            <td class="center aligned" data-label="Student">{{achieve.student.name}} {{achieve.student.studentId}}</td>
+            <td class="center aligned selectable" data-label="giturl"><a>{{achieve.gitUrl}}</a></td>
+            <td class="center aligned" data-label="grade">{{achieve.grade}}</td>
+            <td class="center aligned selectable" data-label="Del"><a (click)="removeSEClass(seClass)">X</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

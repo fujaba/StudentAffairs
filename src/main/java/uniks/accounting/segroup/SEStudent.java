@@ -160,7 +160,9 @@ public class SEStudent
    {
       StringBuilder result = new StringBuilder();
 
+      result.append(" ").append(this.getName());
       result.append(" ").append(this.getStudentId());
+      result.append(" ").append(this.getEmail());
       result.append(" ").append(this.getTeachingAssistantFor());
 
 
@@ -233,6 +235,48 @@ public class SEStudent
          String oldValue = this.teachingAssistantFor;
          this.teachingAssistantFor = value;
          firePropertyChange("teachingAssistantFor", oldValue, value);
+      }
+      return this;
+   }
+
+
+   public static final String PROPERTY_name = "name";
+
+   private String name;
+
+   public String getName()
+   {
+      return name;
+   }
+
+   public SEStudent setName(String value)
+   {
+      if (value == null ? this.name != null : ! value.equals(this.name))
+      {
+         String oldValue = this.name;
+         this.name = value;
+         firePropertyChange("name", oldValue, value);
+      }
+      return this;
+   }
+
+
+   public static final String PROPERTY_email = "email";
+
+   private String email;
+
+   public String getEmail()
+   {
+      return email;
+   }
+
+   public SEStudent setEmail(String value)
+   {
+      if (value == null ? this.email != null : ! value.equals(this.email))
+      {
+         String oldValue = this.email;
+         this.email = value;
+         firePropertyChange("email", oldValue, value);
       }
       return this;
    }

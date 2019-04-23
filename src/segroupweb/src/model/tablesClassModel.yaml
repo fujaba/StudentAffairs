@@ -15,60 +15,60 @@
   roles: 	classes12 	classFolder13 	currentTerm14 	currentClass15 	currentAssignment16 	students17 	
 
 - sEStudent3: 	Clazz
-  attributes: 	studentId18 	teachingAssistantFor19 	
+  attributes: 	name18 	studentId19 	email20 	teachingAssistantFor21 	
   model: 	c1
   modified: 	false
   name: 	SEStudent
   propertyStyle: 	POJO
-  roles: 	group20 	achievements21 	
+  roles: 	group22 	achievements23 	
 
 - sEClass4: 	Clazz
-  attributes: 	topic22 	term23 	
+  attributes: 	topic24 	term25 	
   model: 	c1
   modified: 	false
   name: 	SEClass
   propertyStyle: 	POJO
-  roles: 	group24 	currentGroup25 	folder26 	assignments27 	participations28 	
+  roles: 	group26 	currentGroup27 	folder28 	assignments29 	participations30 	
 
 - sEClassFolder5: 	Clazz
-  attributes: 	name29 	
+  attributes: 	name31 	
   model: 	c1
   modified: 	false
   name: 	SEClassFolder
   propertyStyle: 	POJO
-  roles: 	group30 	currentGroup31 	subFolders32 	parent33 	classes34 	
+  roles: 	group32 	currentGroup33 	subFolders34 	parent35 	classes36 	
 
 - achievement6: 	Clazz
-  attributes: 	grade35 	officeStatus36 	
+  attributes: 	grade37 	gitUrl38 	officeStatus39 	
   model: 	c1
   modified: 	false
   name: 	Achievement
   propertyStyle: 	POJO
-  roles: 	seClass37 	student38 	solutions39 	
+  roles: 	seClass40 	student41 	solutions42 	
 
 - solution7: 	Clazz
-  attributes: 	gitUrl40 	points41 	
+  attributes: 	gitUrl43 	points44 	
   model: 	c1
   modified: 	false
   name: 	Solution
   propertyStyle: 	POJO
-  roles: 	achievement42 	assignment43 	folder44 	
+  roles: 	achievement45 	assignment46 	folder47 	
 
 - solutionFolder8: 	Clazz
-  attributes: 	name45 	
+  attributes: 	name48 	
   model: 	c1
   modified: 	false
   name: 	SolutionFolder
   propertyStyle: 	POJO
-  roles: 	solutions46 	subFolders47 	parent48 	assignment49 	
+  roles: 	solutions49 	subFolders50 	parent51 	assignment52 	
 
 - assignment9: 	Clazz
-  attributes: 	task50 	points51 	
+  attributes: 	task53 	points54 	
   model: 	c1
   modified: 	false
   name: 	Assignment
   propertyStyle: 	POJO
-  roles: 	currentGroup52 	seClass53 	solutions54 	solutionFolder55 	
+  roles: 	currentGroup55 	seClass56 	solutions57 	solutionFolder58 	
 
 - name10: 	Attribute
   clazz: 	sEGroup2
@@ -90,7 +90,7 @@
   clazz: 	sEGroup2
   modified: 	false
   name: 	classes
-  other: 	group24
+  other: 	group26
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -100,7 +100,7 @@
   clazz: 	sEGroup2
   modified: 	false
   name: 	classFolder
-  other: 	group30
+  other: 	group32
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -110,7 +110,7 @@
   clazz: 	sEGroup2
   modified: 	false
   name: 	currentTerm
-  other: 	currentGroup31
+  other: 	currentGroup33
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -120,7 +120,7 @@
   clazz: 	sEGroup2
   modified: 	false
   name: 	currentClass
-  other: 	currentGroup25
+  other: 	currentGroup27
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -130,7 +130,7 @@
   clazz: 	sEGroup2
   modified: 	false
   name: 	currentAssignment
-  other: 	currentGroup52
+  other: 	currentGroup55
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
@@ -140,25 +140,39 @@
   clazz: 	sEGroup2
   modified: 	false
   name: 	students
-  other: 	group20
+  other: 	group22
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- studentId18: 	Attribute
+- name18: 	Attribute
+  clazz: 	sEStudent3
+  modified: 	false
+  name: 	name
+  propertyStyle: 	POJO
+  type: 	String
+
+- studentId19: 	Attribute
   clazz: 	sEStudent3
   modified: 	false
   name: 	studentId
   propertyStyle: 	POJO
   type: 	String
 
-- teachingAssistantFor19: 	Attribute
+- email20: 	Attribute
+  clazz: 	sEStudent3
+  modified: 	false
+  name: 	email
+  propertyStyle: 	POJO
+  type: 	String
+
+- teachingAssistantFor21: 	Attribute
   clazz: 	sEStudent3
   modified: 	false
   name: 	teachingAssistantFor
   propertyStyle: 	POJO
   type: 	String
 
-- group20: 	AssocRole
+- group22: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	sEStudent3
@@ -168,31 +182,31 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- achievements21: 	AssocRole
+- achievements23: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	sEStudent3
   modified: 	false
   name: 	achievements
-  other: 	student38
+  other: 	student41
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- topic22: 	Attribute
+- topic24: 	Attribute
   clazz: 	sEClass4
   modified: 	false
   name: 	topic
   propertyStyle: 	POJO
   type: 	String
 
-- term23: 	Attribute
+- term25: 	Attribute
   clazz: 	sEClass4
   modified: 	false
   name: 	term
   propertyStyle: 	POJO
   type: 	String
 
-- group24: 	AssocRole
+- group26: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	sEClass4
@@ -202,7 +216,7 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- currentGroup25: 	AssocRole
+- currentGroup27: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	sEClass4
@@ -212,44 +226,44 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- folder26: 	AssocRole
+- folder28: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	sEClass4
   modified: 	false
   name: 	folder
-  other: 	classes34
+  other: 	classes36
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- assignments27: 	AssocRole
+- assignments29: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	sEClass4
   modified: 	false
   name: 	assignments
-  other: 	seClass53
+  other: 	seClass56
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- participations28: 	AssocRole
+- participations30: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	sEClass4
   modified: 	false
   name: 	participations
-  other: 	seClass37
+  other: 	seClass40
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- name29: 	Attribute
+- name31: 	Attribute
   clazz: 	sEClassFolder5
   modified: 	false
   name: 	name
   propertyStyle: 	POJO
   type: 	String
 
-- group30: 	AssocRole
+- group32: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	sEClassFolder5
@@ -259,7 +273,7 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- currentGroup31: 	AssocRole
+- currentGroup33: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	sEClassFolder5
@@ -269,186 +283,193 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- subFolders32: 	AssocRole
+- subFolders34: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	sEClassFolder5
   modified: 	false
   name: 	subFolders
-  other: 	parent33
+  other: 	parent35
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- parent33: 	AssocRole
+- parent35: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	sEClassFolder5
   modified: 	false
   name: 	parent
-  other: 	subFolders32
+  other: 	subFolders34
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- classes34: 	AssocRole
+- classes36: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	sEClassFolder5
   modified: 	false
   name: 	classes
-  other: 	folder26
+  other: 	folder28
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- grade35: 	Attribute
+- grade37: 	Attribute
   clazz: 	achievement6
   modified: 	false
   name: 	grade
   propertyStyle: 	POJO
   type: 	String
 
-- officeStatus36: 	Attribute
+- gitUrl38: 	Attribute
+  clazz: 	achievement6
+  modified: 	false
+  name: 	gitUrl
+  propertyStyle: 	POJO
+  type: 	String
+
+- officeStatus39: 	Attribute
   clazz: 	achievement6
   modified: 	false
   name: 	officeStatus
   propertyStyle: 	POJO
   type: 	String
 
-- seClass37: 	AssocRole
+- seClass40: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	achievement6
   modified: 	false
   name: 	seClass
-  other: 	participations28
+  other: 	participations30
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- student38: 	AssocRole
+- student41: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	achievement6
   modified: 	false
   name: 	student
-  other: 	achievements21
+  other: 	achievements23
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- solutions39: 	AssocRole
+- solutions42: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	achievement6
   modified: 	false
   name: 	solutions
-  other: 	achievement42
+  other: 	achievement45
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- gitUrl40: 	Attribute
+- gitUrl43: 	Attribute
   clazz: 	solution7
   modified: 	false
   name: 	gitUrl
   propertyStyle: 	POJO
   type: 	String
 
-- points41: 	Attribute
+- points44: 	Attribute
   clazz: 	solution7
   modified: 	false
   name: 	points
   propertyStyle: 	POJO
   type: 	double
 
-- achievement42: 	AssocRole
+- achievement45: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	solution7
   modified: 	false
   name: 	achievement
-  other: 	solutions39
+  other: 	solutions42
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- assignment43: 	AssocRole
+- assignment46: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	solution7
   modified: 	false
   name: 	assignment
-  other: 	solutions54
+  other: 	solutions57
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- folder44: 	AssocRole
+- folder47: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	solution7
   modified: 	false
   name: 	folder
-  other: 	solutions46
+  other: 	solutions49
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- name45: 	Attribute
+- name48: 	Attribute
   clazz: 	solutionFolder8
   modified: 	false
   name: 	name
   propertyStyle: 	POJO
   type: 	String
 
-- solutions46: 	AssocRole
+- solutions49: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	solutionFolder8
   modified: 	false
   name: 	solutions
-  other: 	folder44
+  other: 	folder47
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- subFolders47: 	AssocRole
+- subFolders50: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	solutionFolder8
   modified: 	false
   name: 	subFolders
-  other: 	parent48
+  other: 	parent51
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- parent48: 	AssocRole
+- parent51: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	solutionFolder8
   modified: 	false
   name: 	parent
-  other: 	subFolders47
+  other: 	subFolders50
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- assignment49: 	AssocRole
+- assignment52: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	solutionFolder8
   modified: 	false
   name: 	assignment
-  other: 	solutionFolder55
+  other: 	solutionFolder58
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- task50: 	Attribute
+- task53: 	Attribute
   clazz: 	assignment9
   modified: 	false
   name: 	task
   propertyStyle: 	POJO
   type: 	String
 
-- points51: 	Attribute
+- points54: 	Attribute
   clazz: 	assignment9
   modified: 	false
   name: 	points
   propertyStyle: 	POJO
   type: 	double
 
-- currentGroup52: 	AssocRole
+- currentGroup55: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	assignment9
@@ -458,33 +479,33 @@
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- seClass53: 	AssocRole
+- seClass56: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	assignment9
   modified: 	false
   name: 	seClass
-  other: 	assignments27
+  other: 	assignments29
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- solutions54: 	AssocRole
+- solutions57: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	assignment9
   modified: 	false
   name: 	solutions
-  other: 	assignment43
+  other: 	assignment46
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 
-- solutionFolder55: 	AssocRole
+- solutionFolder58: 	AssocRole
   aggregation: 	false
   cardinality: 	1
   clazz: 	assignment9
   modified: 	false
   name: 	solutionFolder
-  other: 	assignment49
+  other: 	assignment52
   propertyStyle: 	POJO
   roleType: 	"java.util.ArrayList<%s>"
 

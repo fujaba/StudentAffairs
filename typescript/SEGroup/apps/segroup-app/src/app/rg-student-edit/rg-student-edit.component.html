@@ -1,0 +1,14 @@
+<div class="ui form container">
+  <h3 class="ui row">Add new Student to {{currentClass.topic}} {{currentTerm.name}}</h3>
+  <div class="field">
+    <textarea [(ngModel)]="studentCSV"></textarea>
+  </div>
+  <div class="ui row">
+    <button class="ui button" (click)="okAction()">
+      OK
+    </button>
+    <button class="centered ui button" (click)="cancelAction()">
+      Cancel
+    </button>
+  </div>
+</div>

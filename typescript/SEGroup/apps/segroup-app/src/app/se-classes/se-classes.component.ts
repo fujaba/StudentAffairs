@@ -40,6 +40,11 @@ export class SeClassesComponent implements OnInit {
     this.router.navigate(['/assignments']);
   }
 
+  public gotoStudents(seClass: SEClass) {
+    this.gb.getSeGroup().currentClass = seClass;
+    this.router.navigate(['/students']);
+  }
+
   public removeSEClass(seClass: SEClass): void {
     this.gb.removeSEClass(seClass);
   }

@@ -250,6 +250,7 @@ public class Achievement
       StringBuilder result = new StringBuilder();
 
       result.append(" ").append(this.getGrade());
+      result.append(" ").append(this.getGitUrl());
       result.append(" ").append(this.getOfficeStatus());
 
 
@@ -273,5 +274,26 @@ public class Achievement
    public static final String PROPERTY_student = "student";
 
    public static final String PROPERTY_solutions = "solutions";
+
+   public static final String PROPERTY_gitUrl = "gitUrl";
+
+   private String gitUrl;
+
+   public String getGitUrl()
+   {
+      return gitUrl;
+   }
+
+   public Achievement setGitUrl(String value)
+   {
+      if (value == null ? this.gitUrl != null : ! value.equals(this.gitUrl))
+      {
+         String oldValue = this.gitUrl;
+         this.gitUrl = value;
+         firePropertyChange("gitUrl", oldValue, value);
+      }
+      return this;
+   }
+
 
 }

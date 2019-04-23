@@ -48,3 +48,122 @@
   term: "2019-04"
   .eventTimestamp: "2019-03-31T14:39:19.559Z"
 
+- eventType: removeAssignment
+  .eventKey: "2019-04/Scenario_Examples"
+  task: Examples
+  topic: Scenario
+  term: "2019-04"
+  .eventTimestamp: "2019-04-01T14:13:38.953Z"
+
+- eventType: removeSEClass
+  .eventKey: "2019-04/Scenario"
+  topic: Scenario
+  .eventTimestamp: "2019-04-01T14:13:53.276Z"
+
+- eventType: removeAssignment
+  .eventKey: "2019-04/SE1_java"
+  task: java
+  topic: SE1
+  term: "2019-04"
+  .eventTimestamp: "2019-04-01T14:39:45.853Z"
+
+- eventType: removeAssignment
+  .eventKey: "2019-04/SE1_Algos"
+  task: Algos
+  topic: SE1
+  term: "2019-04"
+  .eventTimestamp: "2019-04-01T14:55:49.428Z"
+
+- eventType: buildSEClass
+  .eventKey: "2019-04/Web Engineering"
+  topic: "Web Engineering"
+  .eventTimestamp: "2019-04-01T14:59:30.858Z"
+
+- eventType: buildSEClass
+  .eventKey: "2019-04/Design Pattern"
+  topic: "Design Pattern"
+  .eventTimestamp: "2019-04-01T15:00:23.723Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-04/Web Engineering_Spring"
+  task: Spring
+  topic: "Web Engineering"
+  term: "2019-04"
+  .eventTimestamp: "2019-04-01T15:03:33.644Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-04/Web Engineering_html"
+  task: html
+  topic: "Web Engineering"
+  term: "2019-04"
+  .eventTimestamp: "2019-04-01T15:04:04.539Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-04/Web Engineering_CSS"
+  task: CSS
+  topic: "Web Engineering"
+  term: "2019-04"
+  .eventTimestamp: "2019-04-01T15:04:40.650Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-04/Web Engineering_Angular"
+  task: Angular
+  topic: "Web Engineering"
+  term: "2019-04"
+  .eventTimestamp: "2019-04-01T15:04:57.524Z"
+
+- eventType: buildAssignment
+  .eventKey: "2019-04/Design Pattern_Strategy"
+  task: Strategy
+  topic: "Design Pattern"
+  term: "2019-04"
+  .eventTimestamp: "2019-04-02T15:56:54.251Z"
+
+- eventType: buildAchievement
+  .eventKey: "2019-04/SE1-m23"
+  name: Bob
+  studentId: m23
+  topic: SE1
+  term: "2019-04"
+  .eventTimestamp: "2019-04-03T16:49:08.651Z"
+
+- eventType: buildAchievement
+  .eventKey: "2019-04/SE1-m1337"
+  name: Carli
+  studentId: m1337
+  topic: SE1
+  term: "2019-04"
+  .eventTimestamp: "2019-04-03T16:49:08.656Z"
+
+- eventType: buildAchievement
+  .eventKey: "2019-04/Design Pattern-m42"
+  name: Alice
+  studentId: m42
+  topic: "Design Pattern"
+  term: "2019-04"
+  .eventTimestamp: "2019-04-03T16:49:55.000Z"
+
+- eventType: buildAchievement
+  .eventKey: "2019-04/Design Pattern-m23"
+  name: Bob
+  studentId: m23
+  topic: "Design Pattern"
+  term: "2019-04"
+  .eventTimestamp: "2019-04-03T16:49:55.002Z"
+
+- eventType: buildAchievement
+  .eventKey: "2019-04/Design Pattern-m1337"
+  name: Carli
+  studentId: m1337
+  topic: "Design Pattern"
+  term: "2019-04"
+  .eventTimestamp: "2019-04-03T16:54:45.762Z"
+
+- eventType: buildAchievement
+  .eventKey: "2019-04/Web Engineering-m42"
+  name: Alice
+  studentId: m42
+  topic: "Web Engineering"
+  term: "2019-04"
+  .eventTimestamp: "2019-04-03T16:58:12.741Z"
+

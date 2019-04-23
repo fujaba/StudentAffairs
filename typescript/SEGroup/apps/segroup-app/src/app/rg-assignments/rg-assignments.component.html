@@ -11,10 +11,8 @@
     <table class="ui single line sortable unstackable celled collapsing table">
       <tbody>
         <tr *ngFor="let assign of assignments">
-          <td data-label="Task" (click)="gotoSolutions(assign)">{{assign.task}}</td>
-          <td class="center aligned" data-label="Del">
-            <button class="ui button" (click)="removeAssignment(assign)">X</button>
-          </td>
+          <td class="center aligned selectable" data-label="Task" (click)="gotoSolutions(assign)"><a>{{assign.task}}</a></td>
+          <td class="center aligned selectable" data-label="Del"><a (click)="removeAssignment(assign)">X</a></td>
         </tr>
       </tbody>
     </table>

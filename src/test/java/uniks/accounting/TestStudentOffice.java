@@ -88,7 +88,9 @@ public class TestStudentOffice
             .buildAttribute("name", STRING)
             .buildAttribute("head", STRING);
       ClassBuilder seStudent = mb.buildClass("SEStudent")
+            .buildAttribute("name", STRING)
             .buildAttribute("studentId", STRING)
+            .buildAttribute("email", STRING)
             .buildAttribute("teachingAssistantFor", STRING);
 //      ClassBuilder seTerm = mb.buildClass("SETerm")
 //            .buildAttribute("termStart", mb.STRING);
@@ -99,6 +101,7 @@ public class TestStudentOffice
             .buildAttribute("name", STRING);
       ClassBuilder achievement = mb.buildClass("Achievement")
             .buildAttribute("grade", STRING)
+            .buildAttribute("gitUrl", STRING)
             .buildAttribute("officeStatus", STRING);
       ClassBuilder solution = mb.buildClass("Solution")
             .buildAttribute("gitUrl", STRING)

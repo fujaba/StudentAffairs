@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { SegroupService } from '../segroup.service';
+import { Router } from '@angular/router';
 import { SEGroupBuilder } from '@SEGroup/segroup-model';
 import SEClassFolder from 'libs/segroup-model/src/lib/SEClassFolder';
-import Assignment from 'libs/segroup-model/src/lib/Assignment';
 import SEClass from 'libs/segroup-model/src/lib/SEClass';
+import Achievement from 'libs/segroup-model/src/lib/Achievement';
+import SEStudent from 'libs/segroup-model/src/lib/SEStudent';
 
 @Component({
-  selector: 'SEGroup-rg-assignments',
-  templateUrl: './rg-assignments.component.html',
-  styleUrls: ['./rg-assignments.component.css']
+  selector: 'SEGroup-rg-students',
+  templateUrl: './rg-students.component.html',
+  styleUrls: ['./rg-students.component.css']
 })
-export class RgAssignmentsComponent implements OnInit {
+export class RgStudentsComponent implements OnInit {
   public gb: SEGroupBuilder;
   public currentTerm: SEClassFolder;
   public currentClass: SEClass;
-  public assignments: Assignment[];
+  public achievements: Achievement[];
   
   constructor(
     private seGroupservice: SegroupService,
     private router: Router
   ) { 
-    console.log("constructor RgAssignmentsComponent");
+    console.log("constructor RgStudentsComponent");
     this.gb = this.seGroupservice.gb;
     this.currentTerm = this.seGroupservice.gb.getSeGroup().currentTerm;
     if (! this.currentTerm) {
@@ -31,23 +32,13 @@ export class RgAssignmentsComponent implements OnInit {
     if ( ! this.currentClass) {
       this.router.navigate(['/se-classes']);
     }
-    this.assignments = this.currentClass.assignments;
-    if (this.assignments.length == 0) {
-      this.router.navigate(['/assignment-edit']);  
+    this.achievements = this.currentClass.participations;
+    if (this.achievements.length == 0) {
+      this.router.navigate(['/student-edit']);  
     }
   }
 
   ngOnInit() {
-  }
-
-
-  gotoSolutions(assign: Assignment) {
-    this.gb.getSeGroup().currentAssignment = assign;
-    this.router.navigate(['/solutions']);  
-  }
-
-  removeAssignment(assign: Assignment) {
-    this.gb.removeAssignment(assign);
   }
 
 }

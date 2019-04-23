@@ -1,0 +1,19 @@
+<div class="ui centered padded grid container">
+  <h3 class="ui row">Grade Solution of 
+    {{currentSolution.achievement.student.name}}
+    {{currentSolution.achievement.student.studentId}}
+    {{currentAssignment.task}}
+    {{currentClass.topic}} {{currentTerm.name}}</h3>
+  <div class="ui row">Git: {{currentSolution.achievement.gitUrl}}</div>
+  <div class="ui input" style="text-align: center">
+    <input [(ngModel)]="points" type="text" placeholder="Points..." autofocus>
+  </div>
+  <div class="ui row">
+    <button class="ui button" (click)="okAction()">
+      OK
+    </button>
+    <button class="centered ui button" (click)="cancelAction()">
+      Cancel
+    </button>
+  </div>
+</div>

@@ -12,6 +12,7 @@ import SEClass from "./SEClass";
 
     constructor() {
       this.grade = '';
+      this.gitUrl = '';
       this.officeStatus = '';
       this._seClass = null;
       this._student = null;
@@ -114,5 +115,7 @@ import SEClass from "./SEClass";
 
     }
 
+
+    public gitUrl: string ;
 
 }

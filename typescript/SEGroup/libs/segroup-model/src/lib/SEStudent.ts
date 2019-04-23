@@ -9,7 +9,9 @@ import SEGroup from "./SEGroup";
     public teachingAssistantFor: string ;
 
     constructor() {
+      this.name = '';
       this.studentId = '';
+      this.email = '';
       this.teachingAssistantFor = '';
       this._group = null;
       this._achievements = [];
@@ -88,5 +90,9 @@ import SEGroup from "./SEGroup";
 
     }
 
+
+    public name: string ;
+
+    public email: string ;
 
 }

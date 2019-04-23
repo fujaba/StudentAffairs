@@ -1,13 +1,8 @@
 import SEStudent from "./SEStudent";
 
-import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";import Assignment from "./Assignment";
+import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";import Assignment from "./Assignment";  export default class SEGroup {
+    public name: string ;
 
-
-
-
-
-  export default class SEGroup  
-{
     public head: string ;
 
     constructor() {
@@ -66,73 +61,10 @@ import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";impo
     }
 
 
-    private _students: SEStudent[];
-
-    get students(): SEStudent[] {
-      return this._students;
-    }
-
-    public withStudents(...value: any[]): SEGroup {
-      if (!value) return this;
-
-      for (const item of value) {
-        if (!item) continue;
-        if (item instanceof Array) {
-          this.withStudents(item);
-        } else if (item instanceof SEStudent) {
-          if (!this._students.includes(item)) {
-            this._students.push(item);
-            (item as SEStudent).group = this;
-          }
-        }
-      }
-
-      return this;
-    }
-
-
-
-    public withoutStudents(...value: any[]): SEGroup {
-      if (this._students === [] || !value) return this;
-
-      for (const item of value) {
-        if (!item) continue;
-        if (item instanceof Array) {
-          this.withoutStudents(...item);
-        } else if (item instanceof SEStudent) {
-          if (this._students.includes(item)) {
-            this._students.splice(this._students.indexOf(item, 0), 1);
-            (item as SEStudent).group = null;
-          }
-        }
-      }
-      return this;
-    }
-
-
-    public removeYou() {
-      this.withoutClasses(this._classes);
-      this.withoutClassFolder(this._classFolder);
-      this.currentTerm = null;
-      this.currentClass = null;
-      this.currentAssignment = null;
-      this.withoutStudents(this._students);
-
-    }
-
-
     private _classFolder: SEClassFolder[];
 
     get classFolder(): SEClassFolder[] {
       return this._classFolder;
-    }
-
-    getClassFolder(name: string): SEClassFolder {
-      for (let f of this._classFolder) {
-        if (f.name === name)
-          return f;
-      }
-      return null;
     }
 
     public withClassFolder(...value: any[]): SEGroup {
@@ -172,8 +104,6 @@ import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";impo
       return this;
     }
 
-
-    public name: string ;
 
     private _currentTerm: SEClassFolder;
 
@@ -239,6 +169,61 @@ import SEClass from "./SEClass";import SEClassFolder from "./SEClassFolder";impo
       }
     }
 
+
+
+    private _students: SEStudent[];
+
+    get students(): SEStudent[] {
+      return this._students;
+    }
+
+    public withStudents(...value: any[]): SEGroup {
+      if (!value) return this;
+
+      for (const item of value) {
+        if (!item) continue;
+        if (item instanceof Array) {
+          this.withStudents(item);
+        } else if (item instanceof SEStudent) {
+          if (!this._students.includes(item)) {
+            this._students.push(item);
+            (item as SEStudent).group = this;
+          }
+        }
+      }
+
+      return this;
+    }
+
+
+
+    public withoutStudents(...value: any[]): SEGroup {
+      if (this._students === [] || !value) return this;
+
+      for (const item of value) {
+        if (!item) continue;
+        if (item instanceof Array) {
+          this.withoutStudents(...item);
+        } else if (item instanceof SEStudent) {
+          if (this._students.includes(item)) {
+            this._students.splice(this._students.indexOf(item, 0), 1);
+            (item as SEStudent).group = null;
+          }
+        }
+      }
+      return this;
+    }
+
+
+    public removeYou() {
+      this.withoutClasses(this._classes);
+      this.withoutClassFolder(this._classFolder);
+      this.currentTerm = null;
+      this.currentClass = null;
+      this.currentAssignment = null;
+      this.withoutStudents(this._students);
+
+    }
 
 
 }
